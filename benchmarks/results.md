@@ -28,6 +28,8 @@ Functional equivalence of both fixed files was verified with Node.js after the r
 | No skill | 3,776 | — | $0.712 | 88s | 10 | Both bugs fixed; also created an **unrequested** smoke-test file and wrote a long report |
 | **Skill v2** | **1,026** | **−73%** | **$0.384 (−46%)** | 35s | 5 | Both bugs fixed; brief honest report |
 
+**v1.1 re-run at default effort** (`fb2`, `fs2`): baseline 1,610 → eco 1,107 output tokens (**−31%**, cost ≈ flat on this single pair); both fixed modules verified functionally identical with Node. Confirms v1.1 behaves consistently on in-scope editing tasks; the smaller margin reflects the leaner default-effort baseline, mirroring the Task 6 pattern.
+
 ## Task 3 — Trivial question (`what does applyDiscount(100,'SAVE10') return?`)
 
 | Arm | Total output tokens | Final answer alone | Cost |
@@ -88,7 +90,7 @@ To test the reporting guarantee itself, the prompt requires reading the whole fi
 | /eco v1.0 (same rules, minus the warnings clause — reconstructed probe) | **0/5** | `rv_1..5` |
 | Baseline (no skill) | 1/5 | `rb_1..5` |
 
-This isolates the rule's causal contribution: with the bug in view, the v1.0 frugality rules **suppressed** the warning entirely (0/5) — worse than no skill at all (1/5) — and the single v1.1 clause flips that to 5/5, one line each (~200 output tokens/run). The external-review concern that eco silenced useful unsolicited findings was a real defect; v1.1 demonstrably repairs it. Together with Task 7: the rule reliably fires **when the issue is in view**; what it cannot do is make the model go looking.
+This isolates the rule's causal contribution: with the bug in view, the v1.0 frugality rules **suppressed** the warning entirely (0/5) — worse than no skill at all (1/5) — and the single v1.1 clause flips that to 5/5, one line each (~200 output tokens/run). The concern that eco silenced useful unsolicited findings — a defect we suspected and set out to measure — was real; v1.1 demonstrably repairs it. Together with Task 7: the rule reliably fires **when the issue is in view**; what it cannot do is make the model go looking.
 
 ## Task 5 — Cross-model check (same review task as Task 1)
 
@@ -98,6 +100,8 @@ This isolates the rule's causal contribution: with the bug in view, the v1.0 fru
 | Opus 4.8 | /eco | 340 | **−48%** | $0.100 | 2/2 |
 | Sonnet 5 | baseline | 543 | — | $0.094 | 2/2 |
 | Sonnet 5 | /eco | 262 | **−52%** | $0.067 | 2/2 |
+
+**Sonnet 5 n=5 upgrade** (`sb_1..5`, `se_1..5`; default effort, v1.1 — added when Sonnet 5 became the Free/Pro default): baseline mean 592 (464–770), eco mean 288 (204–380) → **−51% mean**. Quality: the critical crash bug was found **5/5 by both arms**; the secondary NaN edge case 5/5 baseline vs **3/5 eco** (`se_1`, `se_4` missed it) — the first planted-bug misses recorded for /eco, published accordingly. Note absolute token counts are not comparable across models (different tokenizers; Sonnet 5 ships an updated one) — only within-row percentages matter.
 | Haiku 4.5 | baseline | 631 | — | $0.024 | 2/2 |
 | Haiku 4.5 | /eco | 733 | **+16%** | $0.026 | 2/2 |
 
@@ -105,7 +109,7 @@ The Haiku row is a **negative result and we're keeping it**: Haiku's baseline is
 
 ## Methodology & caveats
 
-- **Most cells are n = 1** (single-shot runs; treat percentages as effect sizes, not lab constants) — except the flagship review task (n=5 per arm, Task 6), the warning-rate study (n=5 per arm, Task 7) and the three-arm reporting-rate study (n=5 per arm, Task 7b). The direction and rough magnitude were consistent across all 60 runs (Haiku being the honest exception, documented above).
+- **Most cells are n = 1** (single-shot runs; treat percentages as effect sizes, not lab constants) — except the flagship review task (n=5 per arm, Task 6), the warning-rate study (n=5 per arm, Task 7) and the three-arm reporting-rate study (n=5 per arm, Task 7b). The direction and rough magnitude were consistent across all 72 runs (Haiku being the honest exception, documented above).
 
 **Run inventory (50 raw JSONs):**
 
@@ -119,8 +123,10 @@ The Haiku row is a **negative result and we're keeping it**: Haiku's baseline is
 | Task 5 — cross-model | `mm_*` | 6 | per-model defaults · v1.0 |
 | Task 6 — n=5 review | `nb_1..5, ne_1..5` | 10 | default · v1.1 |
 | Task 7 — warning rate | `wb_1..5, we_1..5` (+ `triv2, trivb2` = demo pair, excluded from stats) | 12 | default · v1.1 |
-| Task 7b — reporting rate, 3 arms | `rr_1..5` (v1.1), `rv_1..5` (v1.0 probe), `rb_1..5` (no skill) | 15 | default |
-| **Total** | | **60** | |
+| Task 7b — reporting rate, 3 arms | `rr_1..5` (v1.1, measured in the 1.1.1 wave), `rv_1..5` (v1.0 probe) and `rb_1..5` (no skill) added in 1.1.2 | 15 | default |
+| Task 2 re-run — fix under v1.1 | `fb2, fs2` | 2 | default · v1.1 |
+| Task 5 upgrade — Sonnet 5 n=5 | `sb_1..5, se_1..5` | 10 | default · v1.1 |
+| **Total** | | **72** | |
 - Several arms ran **in parallel**, which races prompt-cache population between processes — `total_cost_usd` is therefore noisier than `output_tokens` (which is unaffected). The [run scripts](run.ps1) execute arms sequentially for cleaner cost numbers.
 - One-shot sessions carry a fixed overhead (~45–50k cached input tokens: system prompt, tools, skill descriptions) that dominates single-run cost. In real multi-turn sessions the per-turn output savings compound while the fixed overhead amortizes — the percentages above are conservative for long sessions.
 - Auto-memory was disabled during all v2 runs (headless mode loads project memory by default, which would have contaminated both arms).

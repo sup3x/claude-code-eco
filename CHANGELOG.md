@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.3 — 2026-07-02
+
+Measurement additions and future-proofing; no rule changes.
+
+- **Sonnet 5 upgraded to n=5** (it is now the Free/Pro default model): −51% mean output tokens. Honest quality note: the critical crash bug was found 5/5 by both arms, but eco missed the secondary NaN edge case in 2/5 runs — the first planted-bug misses recorded for /eco, published.
+- **Fix task re-run under v1.1** at default effort: −31% output tokens, both fixes verified functionally identical with Node — v1.1 consistent on in-scope tasks; headline range widened honestly to −31%…−73%.
+- Future-proofing: reproducibility note (Fable 5 in paid plans until July 7, 2026; Sonnet/Opus/Haiku rows reproducible on any plan), cross-model tokenizer caveat, v1.0 known-issue note in this changelog, "external review" wording owned, demo section restructured (stats moved to a Warning & reporting studies section), baseline-vs-eco reliability finding promoted (5/5 vs 1/5 with the file in view).
+
 ## 1.1.2 — 2026-07-02
 
 Measurement-hygiene release; no rule changes.
@@ -26,6 +34,8 @@ Measurement-hygiene release; no rule changes.
 ## 1.0.0 — 2026-07-02
 
 Initial public release.
+
+> **Known issue, measured later (1.1.2):** the v1.0 rules suppressed unsolicited correctness-critical warnings — 0/5 reported with the bug in view, versus 1/5 for no skill at all. Fixed by the 1.1.0 quality-floor clause (5/5 in the same rig). If you install from a v1.0 checkout, you inherit this defect.
 
 - **`/eco`** — frugality rules with a non-negotiable quality floor: answer-first replies, no paste-backs of applied diffs, grep-first targeted reads, Edit-over-Write, batched tool calls, cheap Haiku delegation for broad sweeps, no unprompted progress recaps. Persists for the whole session from one invocation. Replies in the user's language.
 - **`/eco-max`** — the same rules **plus** a low reasoning-effort override via skill frontmatter, for routine chores. Instructed to escalate honestly to `/eco` when a task turns out hard.
