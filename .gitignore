@@ -1,0 +1,7 @@
+node_modules/
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+benchmarks/tasks/bigproject-baseline/
+benchmarks/tasks/bigproject-skill/

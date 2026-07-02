@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- Social preview card generator. Open in a browser, screenshot the card at
+     1280x640, upload in GitHub -> Settings -> Social preview. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; background: #0b0e14; font-family: "Segoe UI", -apple-system, sans-serif; }
+  .card { width: 1280px; height: 640px; box-sizing: border-box; padding: 56px 64px;
+          background: linear-gradient(135deg, #0b0e14 0%, #101623 100%); color: #e6e9ef;
+          display: flex; flex-direction: column; }
+  .brand { font-size: 44px; font-weight: 700; letter-spacing: -1px; }
+  .brand .eco { color: #34d399; }
+  .tag { font-size: 24px; color: #9aa4b2; margin-top: 6px; }
+  .cols { display: flex; gap: 28px; margin-top: 36px; flex: 1; }
+  .pane { flex: 1; background: #0d1420; border: 1px solid #1e2a3d; border-radius: 14px;
+          padding: 22px 26px; font-family: Consolas, monospace; font-size: 17px; line-height: 1.5; }
+  .pane h3 { margin: 0 0 12px; font-family: inherit; font-size: 18px; font-weight: 600; }
+  .base h3 { color: #f87171; } .eco2 h3 { color: #34d399; }
+  .dim { color: #8b95a5; }
+  .pane .tok { display: inline-block; margin-left: 10px; padding: 2px 10px; border-radius: 999px;
+               font-size: 15px; font-weight: 700; }
+  .base .tok { background: #3f1d1d; color: #fca5a5; } .eco2 .tok { background: #123527; color: #6ee7b7; }
+  .foot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 30px; }
+  .big { font-size: 40px; font-weight: 800; color: #34d399; }
+  .sub { font-size: 20px; color: #9aa4b2; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div>
+    <div class="brand">claude-<span class="eco">eco</span></div>
+    <div class="tag">Eco mode for Claude Code — I measured the waste, then deleted it.</div>
+  </div>
+  <div class="cols">
+    <div class="pane base">
+      <h3>without eco <span class="tok">220 tokens</span></h3>
+      <div>`applyDiscount(100, 'SAVE10')` returns <b>90</b>.</div>
+      <div class="dim" style="margin-top:10px">The lookup gives pct = 10, so the function computes
+        100 − (100 × 10) / 100 = 100 − 10 = 90.</div>
+      <div class="dim" style="margin-top:10px">Unrelated to your question, but worth noting:
+        calcTotal at orders.js:5 has an off-by-one bug — the loop condition reads one past
+        the end of the array, so items[i] is undefined on the last iteration and…</div>
+    </div>
+    <div class="pane eco2">
+      <h3>with /eco <span class="tok">79 tokens</span></h3>
+      <div><b>90.</b> `SAVE10` maps to 10% (orders.js:12), so it returns
+        100 − (100 × 10) / 100 = 90.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="big">−52% to −75% output tokens</div>
+    <div class="sub">same answers · fixes executed &amp; verified · 23 raw runs in repo</div>
+  </div>
+</div>
+</body>
+</html>

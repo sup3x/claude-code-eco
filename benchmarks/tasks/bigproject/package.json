@@ -1,0 +1,9 @@
+{
+  "name": "shopcore",
+  "version": "1.4.2",
+  "description": "In-memory e-commerce order service (benchmark fixture)",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/pricing.test.js"
+  }
+}
