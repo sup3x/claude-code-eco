@@ -110,6 +110,10 @@ The Haiku row is a **negative result and we're keeping it**: Haiku's baseline is
 
 ## Methodology & caveats
 
+- **Version labeling.** The one behavioral change in v1.1 (keep unasked critical warnings) targets tasks where issues are *out of scope*; on review/fix tasks findings are already in scope, so no measurable effect is expected — and the review task was re-measured under v1.1 (Task 6) with consistent results. The surface v1.1 does change is measured in Tasks 7–7b.
+- **Effort levels differ between studies.** The Task 6 baseline (891 mean, default effort) is not comparable to Task 1's single-run baseline (1,096, max effort) — that's an effort difference, not variance.
+- **Reproducibility.** The Sonnet 5 (Free/Pro default model), Opus 4.8 and Haiku rows are reproducible on any current plan. Fable 5 rows require Fable access — per Anthropic's in-app notice as of July 2, 2026, included in paid plans until July 7 and moving to API usage credits afterwards (check current terms). No Fable? Start from the Sonnet 5 results. The multi-turn session is the scale test: a 12-file codebase, one invocation in turn 1, the mode held all session while input-side reads dropped ~40%.
+
 - **Most cells are n = 1** (single-shot runs; treat percentages as effect sizes, not lab constants) — except the flagship review task (n=5 per arm, Task 6), the warning-rate study (n=5 per arm, Task 7) and the three-arm reporting-rate study (n=5 per arm, Task 7b). The direction and rough magnitude were consistent across all 82 runs (Haiku being the honest exception, documented above).
 
 **Run inventory (50 raw JSONs):**

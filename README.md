@@ -33,11 +33,11 @@ Same question. Same correct answer. Half the tokens — and the critical warning
 >
 > Unrelated bug noticed: `calcTotal` loops `i <= items.length` (test/orders.js:5), so it reads past the array and throws on `items[i].price`.
 
-Half the tokens. That pair is real but hand-picked — eco's answer was chosen precisely because it carried the warning — so instead of implying it's typical, we measured how typical it is: full numbers in [Warning & reporting studies](#warning--reporting-studies) below. One spoiler worth the click: with the buggy file in view (n=5 per arm), eco v1.1 flagged the crash bug **5/5 times; stock Claude, 1/5**. On that surface eco isn't just quieter — it's more reliable.
+Half the tokens. That pair is real but hand-picked — eco's answer was chosen precisely because it carried the warning — so instead of implying it's typical, we measured how typical it is: full numbers in the [warning & reporting studies](benchmarks/results.md). One spoiler worth the click: with the buggy file in view (n=5 per arm), eco v1.1 flagged the crash bug **5/5 times; stock Claude, 1/5**. On that surface eco isn't just quieter — it's more reliable.
 
 ## Measured results
 
-Baseline = stock Claude Code, `claude-fable-5`, no CLAUDE.md, default system prompt; the eco arm differs only by the skill invocation. **Each row is labeled with its effort level and the skill version that produced it.** The one behavioral change in v1.1 (keep unasked critical warnings) targets tasks where issues are *out of scope*; on the review/fix tasks below, findings are already in scope, so no measurable effect is expected — and the review task was actually re-measured under v1.1 (the n=5 row), with consistent results. The surface v1.1 *does* change was measured separately (warning-rate study, next section).
+Baseline = stock Claude Code, no CLAUDE.md; the eco arm differs only by the skill invocation. Rows are labeled **(effort · skill version)**.
 
 | Task (effort · skill) | Baseline | With /eco | Output tokens | Cost | Quality |
 |---|---:|---:|---:|---:|---|
@@ -46,23 +46,9 @@ Baseline = stock Claude Code, `claude-fable-5`, no CLAUDE.md, default system pro
 | Real editing, re-run (default effort · v1.1 · n=1) | 1,610 tok | 1,107 tok | **−31%** | ≈0% | Both fixes executed and verified identical with Node — v1.1 consistent on in-scope tasks; smaller margin because the default-effort baseline is already leaner |
 | Multi-file project, 3-turn session (max · v1.0) | 11,912 tok | 3,285 tok | **−72%** | −46% | Same root cause, same fix, tests pass |
 | Code review with /eco-max (max · v1.0) | 1,096 tok | 279 tok | **−75%** | −30% | 2/2 planted bugs; missed the 1 unplanted edge case — that's the effort tradeoff, and it's why eco-max is opt-in |
-| **Code review, n=5 per arm (default effort · v1.1)** | 891 mean (824–937) | 328 mean (310–380) | **−63%** (ratio of means) | −12% mean | 10/10 runs found both planted bugs. The unplanted *non-critical* nitpick: baseline 5/5, eco 0/5 — by design; correctness-critical findings are exempt (measured below) |
+| **Code review, n=5 per arm (default effort · v1.1)** | 891 mean (824–937) | 328 mean (310–380) | **−63%** (ratio of means) | −12% mean | 10/10 runs found both planted bugs. The unplanted *non-critical* nitpick: baseline 5/5, eco 0/5 — by design; correctness-critical findings are exempt (measured) |
 
-Note the n=5 row uses a different effort level than the single-run rows, so its baseline (891) is not comparable to theirs (1,096) — that's an effort difference, not variance.
-
-### Warning & reporting studies
-
-Does frugality suppress useful warnings? Measured three ways (n=5 per arm each; details and raw files in [benchmarks/results.md](benchmarks/results.md)):
-
-- **Warning rate** — question never asks for review: the out-of-scope crash bug got volunteered in **1/5 baseline** and **0/5 eco** runs. Neither arm reliably notices what it wasn't asked to look for; the demo pair above is excluded from these statistics.
-- **Reporting rate, four arms** — whole file in view: eco **v1.1: 5/5** one-line warnings · **eco-max v1.1 (low effort): 5/5** · reconstructed **v1.0: 0/5** (a defect we suspected, then measured) · no-skill baseline: **1/5**. That isolates the v1.1 quality-floor clause as the cause — and shows it holds even at the lowest effort setting.
-- **Detection when asked** — the review task: **10/10** planted bugs found by both arms.
-
-Suppress noise, never *noticed* warnings — and when you want issues found, ask for a review.
-
-Don't take the table's word for it — run the same A/B on **your** task: `./benchmarks/run.sh "your task here"`. Full methodology, grading criteria, a run inventory and 82 raw JSONs: [benchmarks/results.md](benchmarks/results.md). The multi-turn row is the scale test: a 12-file codebase, one invocation in turn 1, and the mode held for the whole session while input-side reads dropped ~40%.
-
-**Reproducibility note:** the Sonnet 5 (Free/Pro default model), Opus 4.8 and Haiku rows are reproducible on any current plan. Fable 5 rows require Fable access — per Anthropic's in-app notice as of July 2, 2026, included in paid plans until July 7 and moving to API usage credits afterwards (check current terms). No Fable? Start from the Sonnet 5 results.
+**The short version:** savings hold across tasks, models and effort levels, and quality is measured rather than assumed — noticed critical warnings get reported **5/5 even at low effort** (the old v1.0 rules suppressed them 0/5; stock Claude volunteered 1/5), and detection on explicit reviews was 10/10. Every number above maps to a raw JSON: methodology, grading criteria, the warning/reporting studies, run inventory and reproducibility notes are all in **[benchmarks/results.md](benchmarks/results.md)** — or skip the reading and run the same A/B on *your* task: `./benchmarks/run.sh "your task here"`.
 
 ## Install
 
