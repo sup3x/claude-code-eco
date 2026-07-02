@@ -5,7 +5,7 @@
     {
       "name": "claude-eco",
       "source": "./",
-      "description": "Eco mode for Claude Code: /eco and /eco-max skills. Measured -52% to -75% output tokens on real agentic tasks at quality parity, benchmarked on Claude Fable 5 at max effort; eco-max also lowers reasoning effort - a lever no other terse-mode tool touches.",
+      "description": "Eco mode for Claude Code: /eco and /eco-max skills. Measured -31% to -73% output tokens on real agentic tasks with critical findings intact (82 raw runs published, negative results included); eco-max also lowers reasoning effort - a lever no other terse-mode tool touches.",
       "version": "1.1.4",
       "license": "MIT",
       "category": "productivity",

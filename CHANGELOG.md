@@ -1,5 +1,7 @@
 # Changelog
 
+> **2026-07-02:** repository renamed `claude-code-fable-eco` → **`claude-code-eco`** — the skills work on every effort-based Claude model and Fable 5 leaves subscription plans on July 7; GitHub redirects all old URLs.
+
 ## 1.1.4 — 2026-07-02
 
 Measurement additions; no rule changes.

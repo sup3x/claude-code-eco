@@ -1,8 +1,8 @@
-# claude-eco — eco mode for Claude Code, built for Claude Fable 5
+# claude-eco — eco mode for Claude Code
 
 **Your Claude Code sessions are full of work you never asked for. I measured it, deleted it, and published every number — including the ones where I lose.**
 
-*`/eco`: −31% to −73% output tokens depending on task and effort level (−63% mean on the flagship n=5 study), with critical findings intact and all produced fixes executed and verified. `/eco-max`: up to −75% by dialing reasoning effort down — opt-in, labeled. Raw data in the repo.*
+*Measured hardest on Claude Fable 5, tuned for every effort-based Claude. `/eco`: −31% to −73% output tokens depending on task and effort level (−63% mean on the flagship n=5 study), with critical findings intact and all produced fixes executed and verified. `/eco-max`: up to −75% by dialing reasoning effort down — opt-in, labeled. Raw data in the repo.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude%20Code-skill%20%2B%20plugin-blueviolet)](https://code.claude.com/docs/en/skills) [![Benchmarks](https://img.shields.io/badge/benchmarks-82%20raw%20runs-success)](benchmarks/results.md)
 
@@ -67,17 +67,17 @@ Don't take the table's word for it — run the same A/B on **your** task: `./ben
 **Plugin (cleanest):**
 
 ```
-/plugin marketplace add sup3x/claude-code-fable-eco
+/plugin marketplace add sup3x/claude-code-eco
 /plugin install claude-eco@claude-eco
 ```
 
 **Personal skill (all your projects):**
 
 ```bash
-git clone https://github.com/sup3x/claude-code-fable-eco && cd claude-code-fable-eco && ./install.sh          # macOS / Linux
+git clone https://github.com/sup3x/claude-code-eco && cd claude-code-eco && ./install.sh          # macOS / Linux
 ```
 ```powershell
-git clone https://github.com/sup3x/claude-code-fable-eco; cd claude-code-fable-eco; .\install.ps1             # Windows
+git clone https://github.com/sup3x/claude-code-eco; cd claude-code-eco; .\install.ps1             # Windows
 ```
 
 **Project-only:** copy `skills/` into your repo's `.claude/skills/`. This is also what makes `/eco` available in Claude Code **web/mobile cloud sessions** — those only load skills from the repo, not from `~/.claude/skills/`.
@@ -147,7 +147,7 @@ What claude-eco adds that none of the above have: the reasoning-effort lever, ag
 
 **Does it make Claude dumber?** `/eco` — mostly no; it makes Claude quieter, and we publish the exceptions. In the v1.0 max-effort benchmarks it found every planted bug and produced functionally identical, test-passing fixes; the v1.1 n=5 study confirms 10/10 planted-bug consistency at default effort on Fable. On Sonnet 5 it matched the critical crash bug 10/10 but missed a secondary edge-case bug in 4/10 runs — reported in the models section. One real tradeoff we noticed and addressed: early versions also suppressed *useful* unsolicited observations, so the v1.1 quality floor explicitly requires correctness-critical findings to be flagged in one line even when unasked — suppress noise, never warnings. Honest scope note: that's a guarantee about *reporting* what gets noticed, not about noticing — the warning-rate study in [benchmarks/results.md](benchmarks/results.md) shows out-of-scope issues rarely get noticed by either arm on tasks that don't ask for review. `/eco-max` *does* lower reasoning effort — opt-in, per task, labeled.
 
-**Why "built for Fable 5"?** Because that's the hungriest configuration that exists: the headline single-run benchmarks (v1.0) ran on `claude-fable-5` at **max** effort — the worst case, not a cherry-picked easy one. The v1.1 studies add the default-effort picture (n=5 row), where savings are smaller but consistent.
+**Why was it built around Fable 5?** Because that was the hungriest configuration in existence: the headline single-run benchmarks (v1.0) ran on `claude-fable-5` at **max** effort — the worst case, not a cherry-picked easy one. The v1.1 studies add the default-effort picture and the Sonnet 5 deep study, where savings are smaller but consistent.
 
 **Other models?** Measured with `/eco`: −48% on Opus 4.8, −53% mean on Sonnet 5 (eco n=10 — now the Free/Pro default model), −31% to −73% on Fable 5 depending on task and effort (the −75% figure is `/eco-max`, which lowers effort). The exception is Haiku (+16%, skip it) — see [Across models](#across-models).
 
