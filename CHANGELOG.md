@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.4 — 2026-07-02
+
+Measurement additions; no rule changes.
+
+- **Sonnet 5 eco arm extended to n=10** to test whether the secondary-bug miss was chance: it isn't. Critical crash bug 10/10; secondary NaN edge case 6/10 (each miss manually verified) vs baseline 5/5 — reported as a real tradeoff, with a completeness-over-brevity clause as the benchmark-gated candidate fix for v1.2.
+- **eco-max added to the reporting-rate experiment** (low effort — the weakest regime for the warnings clause): **5/5** one-line flags. The quality floor holds at every effort level measured.
+- Consistency fixes from external review: hero-image caption matched to the headline; cost range updated to ≈0%…−46% (owner: the fix re-run); across-models intro corrected ("except where labeled"); July 7 claim sourced to the in-app notice; re-run row labeled n=1; probe construction clarified; superseded Sonnet single-run marked as such. 82 raw JSONs.
+
 ## 1.1.3 — 2026-07-02
 
 Measurement additions and future-proofing; no rule changes.
