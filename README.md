@@ -4,7 +4,7 @@
 
 *`/eco`: −48% to −73% output tokens at full quality (all produced fixes executed and verified). `/eco-max`: up to −75% by dialing reasoning effort down — opt-in, labeled. Raw data in the repo.*
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude%20Code-skill%20%2B%20plugin-blueviolet)](https://code.claude.com/docs/en/skills) [![Benchmarks](https://img.shields.io/badge/benchmarks-50%20raw%20runs-success)](benchmarks/results.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude%20Code-skill%20%2B%20plugin-blueviolet)](https://code.claude.com/docs/en/skills) [![Benchmarks](https://img.shields.io/badge/benchmarks-60%20raw%20runs-success)](benchmarks/results.md)
 
 [Results](#measured-results) · [Install](#install) · [Usage](#usage) · [Benchmarks](benchmarks/results.md) · [FAQ](#faq)
 
@@ -17,7 +17,7 @@ Fable 5 at high effort re-reads files it just edited, pastes back diffs it alrea
 
 ## See the difference
 
-Same question, identical settings, paired runs — `what does applyDiscount(100, 'SAVE10') return?` — verbatim answers ([raw JSONs](benchmarks/raw/)):
+One real pair — shown for illustration, **excluded from the study statistics below** — same question, identical settings: `what does applyDiscount(100, 'SAVE10') return?` Verbatim answers ([raw JSONs](benchmarks/raw/)):
 
 **Without eco** (231-token answer):
 
@@ -31,7 +31,7 @@ Same question, identical settings, paired runs — `what does applyDiscount(100,
 >
 > Unrelated bug noticed: `calcTotal` loops `i <= items.length` (test/orders.js:5), so it reads past the array and throws on `items[i].price`.
 
-Half the tokens — and in this pair it's the *eco* answer carrying a critical warning. **How typical is that pair?** We measured instead of guessing: across 12 runs of this question at default effort (6 per arm — 5 dedicated study runs plus each arm's earlier demo run), the unrelated bug got volunteered in **1/6 baseline runs and 1/6 eco runs** — neither arm reliably notices out-of-scope issues on a question that never asked for a review. The quality floor guarantees that *noticed* critical findings are reported in one line (suppress noise, never warnings); it cannot guarantee noticing. The reporting side we did pin down: when noticing is forced — the prompt requires reading the whole file first — eco flagged the bug **5/5 times**, one line each. Want the bug found in normal use? Ask for a review — that's the n=5 row below, where detection was 10/10.
+Half the tokens — and in this pair it's the *eco* answer carrying a critical warning. **How typical is that pair? Not very, and we say so:** the eco run above was picked for illustration precisely *because* it carried the warning, so it's excluded from the statistic. In the dedicated study runs at default effort, the unrelated bug got volunteered in **1/5 baseline runs and 0/5 eco runs** (small n; the honest reading is that *neither* arm reliably notices out-of-scope issues on a question that never asked for a review). The quality floor guarantees that *noticed* critical findings are reported in one line (suppress noise, never warnings); it cannot guarantee noticing. The reporting side we did pin down, with a three-arm experiment (whole file read first, n=5 each): eco **v1.1 flagged the bug 5/5** times, one line each — while the v1.0 rules *suppressed* it 0/5 (worse than the no-skill baseline's 1/5). That's the rule's causal contribution, isolated: the defect an external review suspected was real, and the fix measurably repairs it. Want the bug found in normal use? Ask for a review — that's the n=5 row below, where detection was 10/10.
 
 ## Measured results
 
@@ -43,11 +43,11 @@ Baseline = stock Claude Code, `claude-fable-5`, no CLAUDE.md, default system pro
 | Real editing (max · v1.0) | 3,776 tok | 1,026 tok | **−73%** | −46% | Fixes verified functionally identical with Node |
 | Multi-file project, 3-turn session (max · v1.0) | 11,912 tok | 3,285 tok | **−72%** | −46% | Same root cause, same fix, tests pass |
 | Code review with /eco-max (max · v1.0) | 1,096 tok | 279 tok | **−75%** | −30% | 2/2 planted bugs; missed the 1 unplanted edge case — that's the effort tradeoff, and it's why eco-max is opt-in |
-| **Code review, n=5 per arm (default effort · v1.1)** | 891 mean (824–937) | 328 mean (310–380) | **−63% mean** (index-paired per-run: −57% to −66%) | −12% mean | 10/10 runs found both planted bugs. The unplanted *non-critical* nitpick: baseline 5/5, eco 0/5 — by design; correctness-critical findings are exempt (measured below) |
+| **Code review, n=5 per arm (default effort · v1.1)** | 891 mean (824–937) | 328 mean (310–380) | **−63%** (ratio of means) | −12% mean | 10/10 runs found both planted bugs. The unplanted *non-critical* nitpick: baseline 5/5, eco 0/5 — by design; correctness-critical findings are exempt (measured below) |
 
 Note the n=5 row uses a different effort level than the single-run rows, so its baseline (891) is not comparable to theirs (1,096) — that's an effort difference, not variance.
 
-Don't take the table's word for it — run the same A/B on **your** task: `./benchmarks/run.sh "your task here"`. Full methodology, grading criteria, a run inventory and 50 raw JSONs: [benchmarks/results.md](benchmarks/results.md). The multi-turn row is the scale test: a 12-file codebase, one invocation in turn 1, and the mode held for the whole session while input-side reads dropped ~40%.
+Don't take the table's word for it — run the same A/B on **your** task: `./benchmarks/run.sh "your task here"`. Full methodology, grading criteria, a run inventory and 60 raw JSONs: [benchmarks/results.md](benchmarks/results.md). The multi-turn row is the scale test: a 12-file codebase, one invocation in turn 1, and the mode held for the whole session while input-side reads dropped ~40%.
 
 ## Install
 
@@ -86,7 +86,7 @@ Use `/eco` as the everyday default — full reasoning depth on what you ask for.
 
 ## Across models
 
-Same review task; n=1 per cell, v1.0 skill, each model at its then-default effort (Fable 5 at max):
+Same review task; n=1 per cell, v1.0 skill. Fable 5 ran at max effort (its session default at the time), the others at their own defaults — so percentages are not directly comparable across rows:
 
 | Model | Baseline | /eco | Output tokens |
 |---|---:|---:|---:|

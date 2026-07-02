@@ -63,28 +63,32 @@ Run after the v1.1 skill update (adds the "flag correctness-critical findings ev
 | Baseline | 937, 824, 894, 933, 866 | **891** | 824–937 | 5/5 both found | 5/5 found |
 | /eco | 316, 310, 380, 314, 318 | **328** | 310–380 | 5/5 both found | 0/5 found |
 
-**Savings: −63% (ratio of arm means, 328 / 891); index-paired per-run reductions span −57% to −66%.** Arm spreads: baseline 891 ± 6% (824–937), eco 328 ± 11% (310–380). (Runs are sequential, not truly paired; the index pairing is given as a conservative range rather than cross-arm extremes.) Consistency is the point: every single run of both arms found both planted bugs; the spread within each arm is far smaller than the gap between arms. The honest nuance: at this effort level the baseline reliably volunteers the unplanted edge case and eco reliably doesn't — volunteered depth is what the token savings buy. When such an observation is correctness-critical, the v1.1 quality floor requires eco to flag it in one line (verified on the trivial-question task, `raw/triv2.json`).
+**Savings: −63% (ratio of arm means, 328 / 891).** Arm spreads: baseline 891 ± 6% (824–937), eco 328 ± 11% (310–380). Runs are sequential and independent — there is no meaningful pairing between them, so no per-pair range is reported; the arm spreads above are the honest picture of run-to-run variation. Consistency is the point: every single run of both arms found both planted bugs; the spread within each arm is far smaller than the gap between arms. The honest nuance: at this effort level the baseline reliably volunteers the unplanted edge case and eco reliably doesn't — volunteered depth is what the token savings buy. When such an observation is correctness-critical, the v1.1 quality floor requires eco to flag it in one line (verified on the trivial-question task, `raw/triv2.json`).
 
 ## Task 7 — Warning-rate study, n=5 per arm (trivial question, default effort, v1.1)
 
 Question: does the v1.1 "keep unasked critical warnings" clause fire in practice? Task: the trivial `applyDiscount` question from Task 3, which never asks for a review; the fixture's crash bug sits in an adjacent function.
 
-| Arm | Volunteered the unrelated crash bug | Runs |
+| Arm | Volunteered the unrelated crash bug | Dedicated study runs |
 |---|---|---|
 | Baseline | **1/5** (`wb_4`) | `wb_1..5` |
-| /eco v1.1 | **1/6** (`triv2`; 0/5 in `we_1..5`) | `we_1..5`, `triv2` |
+| /eco v1.1 | **0/5** | `we_1..5` |
 
-**Honest interpretation:** at default effort, *neither* arm reliably notices out-of-scope issues on a task that doesn't ask for review — the earlier demo pair where eco carried the warning was a real but lucky draw, so we report the rates next to it. The v1.1 clause is a guarantee about **reporting what gets noticed**, not a guarantee of noticing — and eco's grep-first targeted reading makes out-of-scope noticing *less* likely by design. If you want issues found, ask for a review: on the explicit review task, detection was 10/10 across both arms (Task 6).
+The README's demo pair (`triv2` for eco, `trivb2` for baseline) is **excluded from these statistics**: the eco demo run was selected for illustration precisely because it carried the warning, so counting it would bias the rate upward (selection). Both demo files remain in `raw/` for inspection.
+
+**Honest interpretation:** at default effort, *neither* arm reliably notices out-of-scope issues on a task that doesn't ask for review (small n; 1/5 vs 0/5 is not a meaningful difference) — and the demo pair where eco carried the warning was a real but lucky draw, which is why it is labeled as such. The v1.1 clause is a guarantee about **reporting what gets noticed**, not a guarantee of noticing — and eco's grep-first targeted reading makes out-of-scope noticing *less* likely by design. If you want issues found, ask for a review: on the explicit review task, detection was 10/10 across both arms (Task 6).
 
 ### Task 7b — Reporting-rate when noticing is forced (n=5, /eco v1.1)
 
-To test the reporting guarantee itself, the prompt forces the model to read the whole file before answering the same trivial question ("Read all of test/orders.js first, then answer only this: …"). Noticing is thereby near-guaranteed; the question still never asks for a review.
+To test the reporting guarantee itself, the prompt requires reading the whole file before answering the same trivial question ("Read all of test/orders.js first, then answer only this: …"). This puts the bug *in view* — reading does not strictly guarantee noticing, but it removes the targeted-reading confound; the question still never asks for a review. Runs use the v1.1 skill.
 
 | Arm | Flagged the crash bug (one line) | Runs |
 |---|---|---|
-| /eco v1.1 | **5/5** | `rr_1..5` |
+| **/eco v1.1** (with the warnings rule) | **5/5** | `rr_1..5` |
+| /eco v1.0 (same rules, minus the warnings clause — reconstructed probe) | **0/5** | `rv_1..5` |
+| Baseline (no skill) | 1/5 | `rb_1..5` |
 
-Every run appended a single-line warning ("Unrelated but critical: …") to an otherwise minimal answer (~200 output tokens/run). Together with Task 7: the rule reliably fires **when the issue is in view**; what it cannot do is make the model go looking.
+This isolates the rule's causal contribution: with the bug in view, the v1.0 frugality rules **suppressed** the warning entirely (0/5) — worse than no skill at all (1/5) — and the single v1.1 clause flips that to 5/5, one line each (~200 output tokens/run). The external-review concern that eco silenced useful unsolicited findings was a real defect; v1.1 demonstrably repairs it. Together with Task 7: the rule reliably fires **when the issue is in view**; what it cannot do is make the model go looking.
 
 ## Task 5 — Cross-model check (same review task as Task 1)
 
@@ -101,7 +105,7 @@ The Haiku row is a **negative result and we're keeping it**: Haiku's baseline is
 
 ## Methodology & caveats
 
-- **Most cells are n = 1** (single-shot runs; treat percentages as effect sizes, not lab constants) — except the flagship review task (n=5 per arm, Task 6), the warning-rate study (n=6 per arm, Task 7) and the reporting-rate study (n=5, Task 7b). The direction and rough magnitude were consistent across all 50 runs (Haiku being the honest exception, documented above).
+- **Most cells are n = 1** (single-shot runs; treat percentages as effect sizes, not lab constants) — except the flagship review task (n=5 per arm, Task 6), the warning-rate study (n=5 per arm, Task 7) and the three-arm reporting-rate study (n=5 per arm, Task 7b). The direction and rough magnitude were consistent across all 60 runs (Haiku being the honest exception, documented above).
 
 **Run inventory (50 raw JSONs):**
 
@@ -114,9 +118,9 @@ The Haiku row is a **negative result and we're keeping it**: Haiku's baseline is
 | Task 4 — multi-turn session | `big_b1..3, big_s1..3` | 6 | max · v1.0 |
 | Task 5 — cross-model | `mm_*` | 6 | per-model defaults · v1.0 |
 | Task 6 — n=5 review | `nb_1..5, ne_1..5` | 10 | default · v1.1 |
-| Task 7 — warning rate | `wb_1..5, we_1..5, triv2, trivb2` | 12 | default · v1.1 |
-| Task 7b — reporting rate | `rr_1..5` | 5 | default · v1.1 |
-| **Total** | | **50** | |
+| Task 7 — warning rate | `wb_1..5, we_1..5` (+ `triv2, trivb2` = demo pair, excluded from stats) | 12 | default · v1.1 |
+| Task 7b — reporting rate, 3 arms | `rr_1..5` (v1.1), `rv_1..5` (v1.0 probe), `rb_1..5` (no skill) | 15 | default |
+| **Total** | | **60** | |
 - Several arms ran **in parallel**, which races prompt-cache population between processes — `total_cost_usd` is therefore noisier than `output_tokens` (which is unaffected). The [run scripts](run.ps1) execute arms sequentially for cleaner cost numbers.
 - One-shot sessions carry a fixed overhead (~45–50k cached input tokens: system prompt, tools, skill descriptions) that dominates single-run cost. In real multi-turn sessions the per-turn output savings compound while the fixed overhead amortizes — the percentages above are conservative for long sessions.
 - Auto-memory was disabled during all v2 runs (headless mode loads project memory by default, which would have contaminated both arms).

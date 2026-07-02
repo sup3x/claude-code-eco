@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.2 — 2026-07-02
+
+Measurement-hygiene release; no rule changes.
+
+- **Selection-bias fix:** the warning-rate statistic now uses dedicated study runs only (baseline 1/5, eco 0/5); the README demo pair is explicitly labeled as a selected illustration and excluded — counting it had manufactured a misleading 1/6-vs-1/6 symmetry.
+- **Three-arm reporting-rate experiment** (whole file in view, n=5 per arm): eco v1.1 flags the crash bug **5/5**, a reconstructed v1.0 probe **0/5**, no-skill baseline 1/5 — the v1.1 rule's causal contribution, isolated. The suspected v1.0 suppression defect was real; the fix measurably repairs it.
+- Index-paired range dropped (pairing was arbitrary); arm spreads reported instead. Across-models note corrected (Fable at max = its then-default; rows not directly comparable). v1.1.1 release re-marked as Latest. Run inventory now 60 JSONs.
+
 ## 1.1.1 — 2026-07-02
 
 Measurement-hygiene release; no rule changes.
