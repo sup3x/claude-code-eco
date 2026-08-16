@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6364,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "bc55417b-0e03-4f22-b024-5fb6e9cc5bcb",
+  "total_cost_usd": 0.0858024,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 8004,
+    "cache_read_input_tokens": 106818,
+    "output_tokens": 381,
+    "output_tokens_details": {
+      "thinking_tokens": 39
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8004,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 107,
+        "cache_read_input_tokens": 38569,
+        "cache_creation_input_tokens": 481,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 481
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 381,
+      "cacheReadInputTokens": 106818,
+      "cacheCreationInputTokens": 8004,
+      "webSearchRequests": 0,
+      "costUSD": 0.0858024,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` → `90` (100 − 10%).\n\nUnrelated bug spotted: `calcTotal`'s loop uses `i <= items.length` (orders.js:5), which reads `items[items.length]` (undefined) and throws/`NaN`s — should be `<`.",
+  "ttft_ms": 2334,
+  "ttft_stream_ms": 1064,
+  "time_to_request_ms": 184,
+  "type": "result",
+  "duration_ms": 6610,
+  "uuid": "a11c5c6c-51e8-4b70-a79e-da9a00827fe0"
+}

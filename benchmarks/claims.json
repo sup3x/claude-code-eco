@@ -1,0 +1,1009 @@
+{
+  "$comment": "Every public number, tied to the exact sentence that states it and to the raw runs it comes from. `node benchmarks/verify.mjs` recomputes all of them; CI fails on drift. Adding a claim to a doc without adding it here is the only way this file can be wrong - so review it when you review the prose.",
+  "claims": [
+    {
+      "id": "raw-run-count",
+      "doc": "benchmarks/results.md",
+      "quote": "**267 runs** across two waves",
+      "check": {
+        "type": "rawFileCount",
+        "expected": 267,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task1-baseline-tokens",
+      "doc": "benchmarks/results.md",
+      "quote": "| No skill, effort max | 1,096 |",
+      "check": {
+        "type": "value",
+        "run": "baseline",
+        "expected": 1096,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task1-eco-tokens",
+      "doc": "README.md",
+      "quote": "| Code review (max · v1.0) | 1,096 tok | 531 tok | **−52%** |",
+      "check": {
+        "type": "value",
+        "run": "e2",
+        "expected": 531,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task1-eco-pct",
+      "doc": "README.md",
+      "quote": "**−52%**",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "baseline"
+        ],
+        "to": [
+          "e2"
+        ],
+        "expected": -51.6,
+        "tolerance": 0.6
+      }
+    },
+    {
+      "id": "task1-ecomax-tokens",
+      "doc": "benchmarks/results.md",
+      "quote": "**279**",
+      "check": {
+        "type": "value",
+        "run": "eco",
+        "expected": 279,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task2-baseline-tokens",
+      "doc": "README.md",
+      "quote": "| Real editing (max · v1.0) | 3,776 tok | 1,026 tok | **−73%** |",
+      "check": {
+        "type": "value",
+        "run": "fb",
+        "expected": 3776,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task2-eco-tokens",
+      "doc": "benchmarks/results.md",
+      "quote": "| **Skill v2** | **1,026** | **−73%** |",
+      "check": {
+        "type": "value",
+        "run": "fs",
+        "expected": 1026,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task2-rerun-pct",
+      "doc": "benchmarks/results.md",
+      "quote": "baseline 1,610 → eco 1,107 output tokens (**−31%**",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "fb2"
+        ],
+        "to": [
+          "fs2"
+        ],
+        "expected": -31.2,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "task4-session-baseline",
+      "doc": "benchmarks/results.md",
+      "quote": "| **Session total** | **11,912** | **3,285 (−72%)** |",
+      "check": {
+        "type": "sum",
+        "runs": [
+          "big_b1",
+          "big_b2",
+          "big_b3"
+        ],
+        "expected": 11912,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task4-session-eco",
+      "doc": "benchmarks/results.md",
+      "quote": "**3,285 (−72%)**",
+      "check": {
+        "type": "sum",
+        "runs": [
+          "big_s1",
+          "big_s2",
+          "big_s3"
+        ],
+        "expected": 3285,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task6-baseline-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "| Baseline | 937, 824, 894, 933, 866 | **891** |",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "nb_1",
+          "nb_2",
+          "nb_3",
+          "nb_4",
+          "nb_5"
+        ],
+        "expected": 891,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "task6-eco-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "| /eco | 316, 310, 380, 314, 318 | **328** |",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "ne_1",
+          "ne_2",
+          "ne_3",
+          "ne_4",
+          "ne_5"
+        ],
+        "expected": 328,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "task6-pct",
+      "doc": "benchmarks/results.md",
+      "quote": "**Savings: −63% (ratio of arm means, 328 / 891).**",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "nb_1",
+          "nb_2",
+          "nb_3",
+          "nb_4",
+          "nb_5"
+        ],
+        "to": [
+          "ne_1",
+          "ne_2",
+          "ne_3",
+          "ne_4",
+          "ne_5"
+        ],
+        "expected": -63.2,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "task6-baseline-planted",
+      "doc": "benchmarks/results.md",
+      "quote": "every single run of both arms found both planted bugs",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "crash-bug",
+        "runs": [
+          "nb_1",
+          "nb_2",
+          "nb_3",
+          "nb_4",
+          "nb_5"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "task6-eco-bonus-zero",
+      "doc": "README.md",
+      "quote": "baseline 5/5, eco 0/5",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "proto-bug",
+        "runs": [
+          "ne_1",
+          "ne_2",
+          "ne_3",
+          "ne_4",
+          "ne_5"
+        ],
+        "expected": 0,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "sonnet-baseline-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "baseline mean 592 (464–770, n=5)",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "sb_1",
+          "sb_2",
+          "sb_3",
+          "sb_4",
+          "sb_5"
+        ],
+        "expected": 592,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "sonnet-eco-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "eco mean 276 (204–380, n=10)",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "expected": 276,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "sonnet-eco-secondary-6of10",
+      "doc": "benchmarks/results.md",
+      "quote": "**eco 6/10** (`se_1, se_4, se_6, se_8` missed it",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "nan-bug",
+        "runs": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "expected": 6,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "sonnet-baseline-secondary-5of5",
+      "doc": "benchmarks/results.md",
+      "quote": "The secondary NaN edge case: baseline 5/5",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "nan-bug",
+        "runs": [
+          "sb_1",
+          "sb_2",
+          "sb_3",
+          "sb_4",
+          "sb_5"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "sonnet-secondary-fisher-one-sided",
+      "doc": "benchmarks/results.md",
+      "quote": "one-sided Fisher exact p = 0.15",
+      "check": {
+        "type": "fisher",
+        "rubric": "orders-review",
+        "criterion": "nan-bug",
+        "sided": "one",
+        "armA": [
+          "sb_1",
+          "sb_2",
+          "sb_3",
+          "sb_4",
+          "sb_5"
+        ],
+        "armB": [
+          "se_1",
+          "se_2",
+          "se_3",
+          "se_4",
+          "se_5",
+          "se_6",
+          "se_7",
+          "se_8",
+          "se_9",
+          "se_10"
+        ],
+        "expected": 0.154,
+        "tolerance": 0.005
+      }
+    },
+    {
+      "id": "opus-baseline",
+      "doc": "benchmarks/results.md",
+      "quote": "| Opus 4.8 | baseline | 648 | — | $0.112 | 2/2 |",
+      "check": {
+        "type": "value",
+        "run": "mm_opus_base",
+        "expected": 648,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "opus-eco",
+      "doc": "benchmarks/results.md",
+      "quote": "| Opus 4.8 | /eco | 340 | **−48%** |",
+      "check": {
+        "type": "value",
+        "run": "mm_opus_eco",
+        "expected": 340,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "haiku-negative-result",
+      "doc": "benchmarks/results.md",
+      "quote": "| Haiku 4.5 | /eco | 733 | **+16%** | $0.026 | 2/2 |",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "mm_haiku_base"
+        ],
+        "to": [
+          "mm_haiku_eco"
+        ],
+        "expected": 16.2,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "reporting-eco-5of5",
+      "doc": "benchmarks/results.md",
+      "quote": "| **/eco v1.1** (with the warnings rule) | **5/5** |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "rr_1",
+          "rr_2",
+          "rr_3",
+          "rr_4",
+          "rr_5"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "reporting-ecomax-5of5",
+      "doc": "benchmarks/results.md",
+      "quote": "the weakest regime for it) | **5/5** |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "rm_1",
+          "rm_2",
+          "rm_3",
+          "rm_4",
+          "rm_5"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "reporting-v10-probe-0of5",
+      "doc": "benchmarks/results.md",
+      "quote": "the v1.0 frugality rules **suppressed** the warning entirely (0/5)",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "rv_1",
+          "rv_2",
+          "rv_3",
+          "rv_4",
+          "rv_5"
+        ],
+        "expected": 0,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "reporting-baseline-1of5",
+      "doc": "benchmarks/results.md",
+      "quote": "worse than no skill at all (1/5)",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "rb_1",
+          "rb_2",
+          "rb_3",
+          "rb_4",
+          "rb_5"
+        ],
+        "expected": 1,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "warning-baseline-1of5",
+      "doc": "benchmarks/results.md",
+      "quote": "| Baseline | **1/5** (`wb_4`) |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "wb_1",
+          "wb_2",
+          "wb_3",
+          "wb_4",
+          "wb_5"
+        ],
+        "expected": 1,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "warning-eco-0of5",
+      "doc": "benchmarks/results.md",
+      "quote": "| /eco v1.1 | **0/5** |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "we_1",
+          "we_2",
+          "we_3",
+          "we_4",
+          "we_5"
+        ],
+        "expected": 0,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "warnings-clause-cost",
+      "doc": "benchmarks/results.md",
+      "quote": "median 207 output tokens/run, mean 275",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "rr_1",
+          "rr_2",
+          "rr_3",
+          "rr_4",
+          "rr_5"
+        ],
+        "expected": 274.6,
+        "tolerance": 0.5
+      }
+    },
+    {
+      "id": "aug-review-baseline-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "| baseline | 678.1 mean (467-1028, sd 194.2) | - | 10/10 | 10/10 | 0/10 | $0.0443 | 9.2s |",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "ar12_baseline_01",
+          "ar12_baseline_02",
+          "ar12_baseline_03",
+          "ar12_baseline_04",
+          "ar12_baseline_05",
+          "ar12_baseline_06",
+          "ar12_baseline_07",
+          "ar12_baseline_08",
+          "ar12_baseline_09",
+          "ar12_baseline_10"
+        ],
+        "expected": 678.1,
+        "tolerance": 0.1
+      }
+    },
+    {
+      "id": "aug-review-v11-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "| `/eco` v1.1 | 333.9 (290-379, sd 36.4) | **-50.8%** |",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "ar12_v11_01",
+          "ar12_v11_02",
+          "ar12_v11_03",
+          "ar12_v11_04",
+          "ar12_v11_05",
+          "ar12_v11_06",
+          "ar12_v11_07",
+          "ar12_v11_08",
+          "ar12_v11_09",
+          "ar12_v11_10"
+        ],
+        "expected": 333.9,
+        "tolerance": 0.1
+      }
+    },
+    {
+      "id": "aug-review-v12-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "| `/eco` v1.2 | 327.0 (265-366, sd 30.0) | **-51.8%** |",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "ar12_v12_01",
+          "ar12_v12_02",
+          "ar12_v12_03",
+          "ar12_v12_04",
+          "ar12_v12_05",
+          "ar12_v12_06",
+          "ar12_v12_07",
+          "ar12_v12_08",
+          "ar12_v12_09",
+          "ar12_v12_10"
+        ],
+        "expected": 327,
+        "tolerance": 0.1
+      }
+    },
+    {
+      "id": "aug-review-v12-pct",
+      "doc": "README.md",
+      "quote": "| `/eco` v1.2 | 327 mean (265–366) | **−51.8%** | 10/10 | $0.0368 | 5.8s |",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "ar12_baseline_01",
+          "ar12_baseline_02",
+          "ar12_baseline_03",
+          "ar12_baseline_04",
+          "ar12_baseline_05",
+          "ar12_baseline_06",
+          "ar12_baseline_07",
+          "ar12_baseline_08",
+          "ar12_baseline_09",
+          "ar12_baseline_10"
+        ],
+        "to": [
+          "ar12_v12_01",
+          "ar12_v12_02",
+          "ar12_v12_03",
+          "ar12_v12_04",
+          "ar12_v12_05",
+          "ar12_v12_06",
+          "ar12_v12_07",
+          "ar12_v12_08",
+          "ar12_v12_09",
+          "ar12_v12_10"
+        ],
+        "expected": -51.8,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "aug-review-v12-crash-10of10",
+      "doc": "benchmarks/results.md",
+      "quote": "here every arm, v1.1 included, found both planted bugs in\nevery run",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "crash-bug",
+        "runs": [
+          "ar12_v12_01",
+          "ar12_v12_02",
+          "ar12_v12_03",
+          "ar12_v12_04",
+          "ar12_v12_05",
+          "ar12_v12_06",
+          "ar12_v12_07",
+          "ar12_v12_08",
+          "ar12_v12_09",
+          "ar12_v12_10"
+        ],
+        "expected": 10,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "aug-review-v12-nan-10of10",
+      "doc": "benchmarks/results.md",
+      "quote": "The July Sonnet study had eco missing the\nsecondary NaN edge case in 4 of 10 runs",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "nan-bug",
+        "runs": [
+          "ar12_v12_01",
+          "ar12_v12_02",
+          "ar12_v12_03",
+          "ar12_v12_04",
+          "ar12_v12_05",
+          "ar12_v12_06",
+          "ar12_v12_07",
+          "ar12_v12_08",
+          "ar12_v12_09",
+          "ar12_v12_10"
+        ],
+        "expected": 10,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "aug-trivial-v11-5of5",
+      "doc": "benchmarks/results.md",
+      "quote": "| `trivial` - batch 2, after the fix | 5/5 | 2/5 | **5/5** |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "at12b_v11_01",
+          "at12b_v11_02",
+          "at12b_v11_03",
+          "at12b_v11_04",
+          "at12b_v11_05"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "aug-trivial-v12-2of5",
+      "doc": "benchmarks/results.md",
+      "quote": "| `trivial` - batch 2, after the fix | 5/5 | 2/5 | **5/5** |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "at12b_v12_01",
+          "at12b_v12_02",
+          "at12b_v12_03",
+          "at12b_v12_04",
+          "at12b_v12_05"
+        ],
+        "expected": 2,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "aug-trivial-v12b-5of5",
+      "doc": "benchmarks/results.md",
+      "quote": "restored 5/5 in the same batch as its control",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "at12b_v12b_01",
+          "at12b_v12b_02",
+          "at12b_v12b_03",
+          "at12b_v12b_04",
+          "at12b_v12b_05"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "aug-trivial-regression-fisher",
+      "doc": "benchmarks/results.md",
+      "quote": "one-sided\nFisher exact p = 0.005",
+      "check": {
+        "type": "fisher",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "sided": "one",
+        "armA": [
+          "at12_v11_01",
+          "at12_v11_02",
+          "at12_v11_03",
+          "at12_v11_04",
+          "at12_v11_05",
+          "at12b_v11_01",
+          "at12b_v11_02",
+          "at12b_v11_03",
+          "at12b_v11_04",
+          "at12b_v11_05"
+        ],
+        "armB": [
+          "at12_v12_01",
+          "at12_v12_02",
+          "at12_v12_03",
+          "at12_v12_04",
+          "at12_v12_05",
+          "at12b_v12_01",
+          "at12b_v12_02",
+          "at12b_v12_03",
+          "at12b_v12_04",
+          "at12b_v12_05"
+        ],
+        "expected": 0.0054,
+        "tolerance": 0.0005
+      }
+    },
+    {
+      "id": "aug-reporting-v11-0of5",
+      "doc": "benchmarks/results.md",
+      "quote": "| `/eco` v1.1 | 0/5 | 201.0 |",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-trivial",
+        "criterion": "volunteered-crash-warning",
+        "runs": [
+          "arep12b_v11_01",
+          "arep12b_v11_02",
+          "arep12b_v11_03",
+          "arep12b_v11_04",
+          "arep12b_v11_05"
+        ],
+        "expected": 0,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "aug-style-mean",
+      "doc": "benchmarks/results.md",
+      "quote": "| Eco output style (no invocation) | 489.8 (308-637, sd 153.3) | **-35.9%**",
+      "check": {
+        "type": "mean",
+        "runs": [
+          "ar12b_style_01",
+          "ar12b_style_02",
+          "ar12b_style_03",
+          "ar12b_style_04",
+          "ar12b_style_05"
+        ],
+        "expected": 489.8,
+        "tolerance": 0.1
+      }
+    },
+    {
+      "id": "aug-low-effort-v12-cost",
+      "doc": "benchmarks/results.md",
+      "quote": "| v1.1 vs v1.2 | 262.2 | 310.4 | **+18.4%**",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "arl12_v11_01",
+          "arl12_v11_02",
+          "arl12_v11_03",
+          "arl12_v11_04",
+          "arl12_v11_05"
+        ],
+        "to": [
+          "arl12_v12_01",
+          "arl12_v12_02",
+          "arl12_v12_03",
+          "arl12_v12_04",
+          "arl12_v12_05"
+        ],
+        "expected": 18.4,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "aug-low-effort-v12b-cost",
+      "doc": "benchmarks/results.md",
+      "quote": "| v1.1 vs v1.2b (shipped) | 252.6 | 294.0 | **+16.4%**",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "arl12b_v11_01",
+          "arl12b_v11_02",
+          "arl12b_v11_03",
+          "arl12b_v11_04",
+          "arl12b_v11_05"
+        ],
+        "to": [
+          "arl12b_v12b_01",
+          "arl12b_v12b_02",
+          "arl12b_v12b_03",
+          "arl12b_v12b_04",
+          "arl12b_v12b_05"
+        ],
+        "expected": 16.4,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "matrix-opus5-pct",
+      "doc": "benchmarks/results.md",
+      "quote": "| Opus 5 | 868.4 | 446.4 | 465.6 | **-46.4%** (CI -52.7 to -40.4) | 5/5 and 5/5 |",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "mo5_baseline_01",
+          "mo5_baseline_02",
+          "mo5_baseline_03",
+          "mo5_baseline_04",
+          "mo5_baseline_05"
+        ],
+        "to": [
+          "mo5_v12b_01",
+          "mo5_v12b_02",
+          "mo5_v12b_03",
+          "mo5_v12b_04",
+          "mo5_v12b_05"
+        ],
+        "expected": -46.4,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "matrix-opus48-pct",
+      "doc": "benchmarks/results.md",
+      "quote": "| Opus 4.8 | 720.0 | 464.4 | 390.6 | **-45.7%** (CI -52.3 to -38.2) | 5/5 and 5/5 |",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "mo48_baseline_01",
+          "mo48_baseline_02",
+          "mo48_baseline_03",
+          "mo48_baseline_04",
+          "mo48_baseline_05"
+        ],
+        "to": [
+          "mo48_v12b_01",
+          "mo48_v12b_02",
+          "mo48_v12b_03",
+          "mo48_v12b_04",
+          "mo48_v12b_05"
+        ],
+        "expected": -45.7,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "matrix-fable5-pct",
+      "doc": "benchmarks/results.md",
+      "quote": "| Fable 5 | 687.0 | 418.0 | 444.2 | **-35.3%** (CI -42.6 to -26.9) | 5/5 and 5/5 |",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "mfa_baseline_01",
+          "mfa_baseline_02",
+          "mfa_baseline_03",
+          "mfa_baseline_04",
+          "mfa_baseline_05"
+        ],
+        "to": [
+          "mfa_v12b_01",
+          "mfa_v12b_02",
+          "mfa_v12b_03",
+          "mfa_v12b_04",
+          "mfa_v12b_05"
+        ],
+        "expected": -35.3,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "matrix-haiku-pct",
+      "doc": "benchmarks/results.md",
+      "quote": "| Haiku 4.5 | 739.8 | 616.4 | 558.6 | **-24.5%** (CI -43.0 to +1.1) | 5/5 crash, **2/5 NaN** |",
+      "check": {
+        "type": "pctChange",
+        "from": [
+          "mha_baseline_01",
+          "mha_baseline_02",
+          "mha_baseline_03",
+          "mha_baseline_04",
+          "mha_baseline_05"
+        ],
+        "to": [
+          "mha_v12b_01",
+          "mha_v12b_02",
+          "mha_v12b_03",
+          "mha_v12b_04",
+          "mha_v12b_05"
+        ],
+        "expected": -24.5,
+        "tolerance": 0.2
+      }
+    },
+    {
+      "id": "matrix-opus5-bonus",
+      "doc": "benchmarks/results.md",
+      "quote": "3/5 runs, v1.1 in 4/5, **v1.2b in 5/5**",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "proto-bug",
+        "runs": [
+          "mo5_v12b_01",
+          "mo5_v12b_02",
+          "mo5_v12b_03",
+          "mo5_v12b_04",
+          "mo5_v12b_05"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "matrix-opus5-bonus-baseline",
+      "doc": "benchmarks/results.md",
+      "quote": "the baseline reported it in\n3/5 runs",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "proto-bug",
+        "runs": [
+          "mo5_baseline_01",
+          "mo5_baseline_02",
+          "mo5_baseline_03",
+          "mo5_baseline_04",
+          "mo5_baseline_05"
+        ],
+        "expected": 3,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "matrix-haiku-secondary-2of5",
+      "doc": "benchmarks/results.md",
+      "quote": "v1.2b reported the secondary NaN bug in **2 of 5 runs**",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "nan-bug",
+        "runs": [
+          "mha_v12b_01",
+          "mha_v12b_02",
+          "mha_v12b_03",
+          "mha_v12b_04",
+          "mha_v12b_05"
+        ],
+        "expected": 2,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "matrix-haiku-secondary-v11-5of5",
+      "doc": "benchmarks/results.md",
+      "quote": "against 5/5 for\nv1.1 and 4/5 for the unarmed baseline",
+      "check": {
+        "type": "detection",
+        "rubric": "orders-review",
+        "criterion": "nan-bug",
+        "runs": [
+          "mha_v11_01",
+          "mha_v11_02",
+          "mha_v11_03",
+          "mha_v11_04",
+          "mha_v11_05"
+        ],
+        "expected": 5,
+        "tolerance": 0
+      }
+    }
+  ]
+}

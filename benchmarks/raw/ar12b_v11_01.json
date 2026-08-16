@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6437,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "8a014571-dfd7-4dfd-a18b-df0de1612d62",
+  "total_cost_usd": 0.0710502,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7462,
+    "cache_read_input_tokens": 67804,
+    "output_tokens": 395,
+    "output_tokens_details": {
+      "thinking_tokens": 114
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7462,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 191,
+        "cache_read_input_tokens": 36758,
+        "cache_creation_input_tokens": 1750,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1750
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 395,
+      "cacheReadInputTokens": 67804,
+      "cacheCreationInputTokens": 7462,
+      "webSearchRequests": 0,
+      "costUSD": 0.0710502,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities: total calculation, discount codes, average item price, order formatting.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` off-by-one — reads `items[items.length]` (undefined), crashes on `.price`.\n- `averageItemPrice` (line 20): divides by `items.length` without checking for 0 → `NaN`/`Infinity` on empty array.\n- `applyDiscount`: no validation that `code` is a known key beyond lookup — fine, but silently ignores invalid/lowercase codes (minor, likely intended).",
+  "ttft_ms": 3331,
+  "ttft_stream_ms": 1041,
+  "time_to_request_ms": 181,
+  "type": "result",
+  "duration_ms": 6637,
+  "uuid": "2f8aa0b7-bda0-4034-9b9b-62e199995f6f"
+}

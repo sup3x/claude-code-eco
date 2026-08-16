@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9354,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "30b9ed4c-3248-4aaf-aaa5-53ac540396f6",
+  "total_cost_usd": 0.079348,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 60358,
+    "output_tokens": 379,
+    "output_tokens_details": {
+      "thinking_tokens": 23
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 268,
+        "cache_read_input_tokens": 30992,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 379,
+      "cacheReadInputTokens": 60358,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.079348,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small order-utility module for a shop backend: `calcTotal` sums price×qty over items, `applyDiscount` applies SAVE10/SAVE20 percentage codes, `averageItemPrice` divides total by item count, and `formatOrder` renders line items plus the discounted total.\n\nBugs:\n- `orders.js:5` — off-by-one: `i <= items.length` reads one past the end, so `items[i].price` throws a TypeError on every call (breaks `averageItemPrice` and `formatOrder` too).\n- `orders.js:20` — `averageItemPrice([])` divides by zero, returning `NaN` (after the loop bug is fixed).\n- `orders.js:20` — also, this is an average of per-line totals (price×qty), not the average item price its name implies; quantities skew it.",
+  "ttft_ms": 3258,
+  "ttft_stream_ms": 2508,
+  "time_to_request_ms": 390,
+  "type": "result",
+  "duration_ms": 9783,
+  "uuid": "a27c8167-7077-41e7-b3e2-77a22bdb3b45"
+}

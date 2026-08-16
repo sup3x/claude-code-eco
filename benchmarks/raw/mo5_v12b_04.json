@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6917,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "a5ab17f2-85b8-4c29-a6b5-e07bd019acab",
+  "total_cost_usd": 0.039117,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 59644,
+    "output_tokens": 371,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 282,
+        "cache_read_input_tokens": 30624,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 371,
+      "cacheReadInputTokens": 59644,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.039117,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities for a shop backend: sum line items, apply a percentage discount code, compute average item price, and render an order as text.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads `items[length]` (undefined) → `TypeError`. Use `i < items.length`.\n2. `orders.js:20` — `averageItemPrice([])` returns `NaN` (0/0); no empty-array guard.\n3. `orders.js:13` — prototype keys leak: `applyDiscount(t, \"constructor\")` (or `toString`) yields a non-undefined `pct` → `NaN` total. Use `Object.hasOwn(discounts, code)` or a `Map`.\n4. `orders.js:5` — no validation of `price`/`qty`; missing/non-numeric fields silently produce `NaN`.",
+  "ttft_ms": 2513,
+  "ttft_stream_ms": 1391,
+  "time_to_request_ms": 169,
+  "type": "result",
+  "duration_ms": 7101,
+  "uuid": "776cb134-183d-48b8-8a9e-b5d3404fdbc8"
+}

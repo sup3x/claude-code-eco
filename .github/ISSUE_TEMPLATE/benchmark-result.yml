@@ -1,0 +1,140 @@
+name: Benchmark result
+description: Report measured token numbers for /eco or /eco-max, with the raw runs.
+title: "[bench] "
+labels: ["benchmark"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Numbers without their raw runs cannot be published here, and a result that
+        contradicts a published claim is the most useful thing you can send.
+
+        Every field below appears in the `claude -p --output-format json` envelope or
+        in the command you ran, so none of it should need estimating. If you have to
+        estimate something, say so in the field.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is this result
+      options:
+        - Reproduces a published claim
+        - Contradicts a published claim
+        - New model or effort level not yet covered
+        - New task or fixture
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      description: >-
+        The exact model, as it appears under `modelUsage` in the run JSON (the Haiku
+        entry is Claude Code's background calls, not your arm's model).
+      placeholder: claude-sonnet-4-5-20250929
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Reasoning effort
+      description: The `--effort` value, or "session default" if you did not pass one.
+      options:
+        - session default
+        - low
+        - medium
+        - high
+        - the model has no effort control
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Skill version or commit
+      description: >-
+        Plugin version from `.claude-plugin/plugin.json`, or the commit SHA if you ran
+        a checkout. If you edited the skill body, say so here.
+      placeholder: 1.2.0 (or 4744db1)
+    validations:
+      required: true
+
+  - type: input
+    id: n
+    attributes:
+      label: n per arm
+      description: Repetitions per arm. n=1 is welcome but will be reported as anecdote, not evidence.
+      placeholder: "5"
+    validations:
+      required: true
+
+  - type: textarea
+    id: task
+    attributes:
+      label: Task string
+      description: The exact prompt, verbatim, including the leading `/eco` on the treatment arm.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Harness command
+      description: The exact command you ran, including every flag.
+      render: shell
+      placeholder: node benchmarks/bench.mjs study review --n 5 --model sonnet
+    validations:
+      required: true
+
+  - type: textarea
+    id: raw
+    attributes:
+      label: Raw run JSON
+      description: >-
+        One complete `claude -p --output-format json` envelope per run, unedited and
+        BOM-free, with `usage`, `modelUsage`, `total_cost_usd`, `duration_ms`,
+        `num_turns`, `is_error` and `permission_denials` intact.
+
+        GitHub will not accept a bare `.json` upload: drag in a `.zip` of the run
+        files, or link a gist. If you only have one or two runs, pasting them in a
+        fenced block is fine. Redact by dropping a whole run, never by editing fields
+        inside one.
+      placeholder: zip attachment, gist link, or pasted JSON
+    validations:
+      required: true
+
+  - type: textarea
+    id: numbers
+    attributes:
+      label: What you measured
+      description: >-
+        Mean output tokens per arm, the percentage change, and whether task quality
+        held. If a run errored, hit a permission denial or exhausted its turn budget,
+        list it here rather than dropping it silently.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Output of `claude --version` and `node --version`, plus OS and shell.
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before submitting
+      options:
+        - label: The run JSON is exactly what the CLI emitted - no fields edited, no BOM.
+          required: true
+        - label: The task, fixture and answers contain nothing I would not publish.
+          required: true
+        - label: I read CONTRIBUTING.md, and if this changes the skill rules I have a pre-registration to go with it.
+          required: true

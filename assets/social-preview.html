@@ -1,58 +1,137 @@
 <!DOCTYPE html>
-<!-- Social preview card generator. Open in a browser, screenshot the card at
-     1280x640, upload in GitHub -> Settings -> Social preview. -->
-<html>
+<!-- Social preview card. Open in a browser at 1280x640 and screenshot the card,
+     then upload in GitHub -> Settings -> Social preview. Every number on this
+     card is one that benchmarks/verify.mjs re-derives from benchmarks/raw. -->
+<html lang="en">
 <head>
 <meta charset="utf-8">
+<title>claude-eco social preview</title>
 <style>
-  body { margin: 0; background: #0b0e14; font-family: "Segoe UI", -apple-system, sans-serif; }
-  .card { width: 1280px; height: 640px; box-sizing: border-box; padding: 56px 64px;
-          background: linear-gradient(135deg, #0b0e14 0%, #101623 100%); color: #e6e9ef;
-          display: flex; flex-direction: column; }
-  .brand { font-size: 44px; font-weight: 700; letter-spacing: -1px; }
-  .brand .eco { color: #34d399; }
-  .tag { font-size: 24px; color: #9aa4b2; margin-top: 6px; }
-  .cols { display: flex; gap: 28px; margin-top: 36px; flex: 1; }
-  .pane { flex: 1; background: #0d1420; border: 1px solid #1e2a3d; border-radius: 14px;
-          padding: 22px 26px; font-family: Consolas, monospace; font-size: 17px; line-height: 1.5; }
-  .pane h3 { margin: 0 0 12px; font-family: inherit; font-size: 18px; font-weight: 600; }
-  .base h3 { color: #f87171; } .eco2 h3 { color: #34d399; }
-  .dim { color: #8b95a5; }
-  .warn { color: #fbbf24; margin-top: 12px; }
-  .pane .tok { display: inline-block; margin-left: 10px; padding: 2px 10px; border-radius: 999px;
-               font-size: 15px; font-weight: 700; }
-  .base .tok { background: #3f1d1d; color: #fca5a5; } .eco2 .tok { background: #123527; color: #6ee7b7; }
-  .foot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 30px; }
-  .big { font-size: 40px; font-weight: 800; color: #34d399; }
-  .sub { font-size: 20px; color: #9aa4b2; }
+  :root {
+    --bg: #080b11;
+    --bg2: #0e1420;
+    --panel: #0c1320;
+    --line: #1c2740;
+    --ink: #e8ecf3;
+    --dim: #8e99ac;
+    --green: #34d399;
+    --green-dim: #1c7a5a;
+    --red: #f87171;
+    --amber: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #05070b; font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif; }
+
+  .card {
+    width: 1280px; height: 640px; padding: 46px 56px 40px;
+    background:
+      radial-gradient(1100px 520px at 88% -12%, rgba(52, 211, 153, 0.13), transparent 62%),
+      linear-gradient(140deg, var(--bg) 0%, var(--bg2) 100%);
+    color: var(--ink); display: flex; flex-direction: column; position: relative; overflow: hidden;
+  }
+  /* A faint measurement grid: the card is about measurement, so the texture says so. */
+  .card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,.9), transparent 78%);
+  }
+
+  header { display: flex; align-items: flex-start; justify-content: space-between; z-index: 1; }
+  .brand { font-size: 46px; font-weight: 800; letter-spacing: -1.4px; line-height: 1; }
+  .brand .eco { color: var(--green); }
+  .tag { font-size: 21px; color: var(--dim); margin-top: 10px; letter-spacing: -.2px; }
+  .chip {
+    font-size: 15px; font-weight: 700; color: var(--green); letter-spacing: .3px;
+    border: 1px solid var(--green-dim); border-radius: 999px; padding: 7px 14px;
+    background: rgba(52, 211, 153, .08); white-space: nowrap;
+  }
+
+  .panes { display: flex; gap: 22px; margin-top: 30px; z-index: 1; }
+  .pane {
+    flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px 22px 20px; font-family: "Cascadia Mono", Consolas, ui-monospace, monospace;
+    font-size: 16.5px; line-height: 1.5; min-height: 196px;
+  }
+  .pane h3 {
+    margin: 0 0 12px; font-size: 15px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px; font-family: "Segoe UI", sans-serif;
+  }
+  .base h3 { color: var(--red); }
+  .eco2 h3 { color: var(--green); }
+  .tok { font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 999px; letter-spacing: 0; }
+  .base .tok { background: rgba(248, 113, 113, .14); color: #fca5a5; }
+  .eco2 .tok { background: rgba(52, 211, 153, .14); color: #6ee7b7; }
+  .dim { color: var(--dim); }
+  .warn { color: var(--amber); margin-top: 12px; font-size: 15.5px; }
+
+  .bars { margin-top: 26px; z-index: 1; }
+  .bar-row { display: flex; align-items: center; gap: 16px; margin-top: 12px; font-size: 16px; }
+  .bar-label { width: 118px; color: var(--dim); text-align: right; letter-spacing: -.2px; }
+  .track { flex: 1; height: 22px; background: rgba(255,255,255,.045); border-radius: 6px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 6px; }
+  .fill.base { width: 100%; background: linear-gradient(90deg, #7f1d1d, #ef4444); }
+  .fill.eco { width: 48.2%; background: linear-gradient(90deg, var(--green-dim), var(--green)); }
+  .bar-val { width: 168px; font-variant-numeric: tabular-nums; font-weight: 700; }
+  .bar-val small { display: block; font-weight: 400; color: var(--dim); font-size: 13px; }
+
+  footer { margin-top: auto; padding-top: 12px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; z-index: 1; }
+  .headline { font-size: 40px; font-weight: 800; color: var(--green); letter-spacing: -1px; line-height: 1.05; }
+  .headline small { display: block; font-size: 17px; font-weight: 500; color: var(--dim); letter-spacing: -.2px; margin-top: 8px; }
+  .proof { text-align: right; font-size: 15px; color: var(--dim); line-height: 1.7; padding-bottom: 2px; }
+  .proof b { color: var(--ink); font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="card">
-  <div>
-    <div class="brand">claude-<span class="eco">eco</span></div>
-    <div class="tag">Eco mode for Claude Code — I measured the waste, then deleted it.</div>
-  </div>
-  <div class="cols">
+  <header>
+    <div>
+      <div class="brand">claude-<span class="eco">eco</span></div>
+      <div class="tag">Eco mode for Claude Code &mdash; I measured the waste, then deleted it.</div>
+    </div>
+    <div class="chip">skills &middot; output style &middot; hooks &middot; audit</div>
+  </header>
+
+  <div class="panes">
     <div class="pane base">
       <h3>without eco <span class="tok">231 tokens</span></h3>
       <div>`applyDiscount(100, 'SAVE10')` returns <b>90</b>.</div>
       <div class="dim" style="margin-top:10px">In orders.js:11-16, the code looks up 'SAVE10'
         in the discounts map and gets 10 (percent), then computes
-        100 − (100 × 10) / 100 = 90.</div>
+        100 &minus; (100 &times; 10) / 100 = 90.</div>
     </div>
     <div class="pane eco2">
       <h3>with /eco <span class="tok">122 tokens</span></h3>
-      <div>`applyDiscount(100, 'SAVE10')` returns <b>90</b> — `SAVE10` maps to 10%,
-        so 100 − (100 × 10) / 100 (orders.js:15).</div>
-      <div class="warn">⚠ Unrelated bug noticed: calcTotal loops i &lt;= items.length
+      <div>`applyDiscount(100, 'SAVE10')` returns <b>90</b> &mdash; `SAVE10` maps to 10%,
+        so 100 &minus; (100 &times; 10) / 100 (orders.js:15).</div>
+      <div class="warn">&#9888; Unrelated bug noticed: calcTotal loops i &lt;= items.length
         (orders.js:5), so it reads past the array and throws.</div>
     </div>
   </div>
-  <div class="foot">
-    <div class="big">−31% to −73% output tokens</div>
-    <div class="sub">same answers · measured honestly · 82 raw runs in repo</div>
+
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">baseline</div>
+      <div class="track"><div class="fill base"></div></div>
+      <div class="bar-val">678 tok<small>mean of 10 runs</small></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">with /eco</div>
+      <div class="track"><div class="fill eco"></div></div>
+      <div class="bar-val">327 tok<small>both bugs found, 10/10</small></div>
+    </div>
   </div>
+
+  <footer>
+    <div class="headline">&minus;52% output tokens
+      <small>Sonnet 5, default effort, n=10 per arm &middot; 95% CI &minus;59% to &minus;42%</small>
+    </div>
+    <div class="proof">
+      <b>267 raw runs</b> published, negative results included<br>
+      every number re-derived from them <b>in CI</b>
+    </div>
+  </footer>
 </div>
 </body>
 </html>

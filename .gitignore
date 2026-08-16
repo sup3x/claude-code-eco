@@ -5,3 +5,7 @@ node_modules/
 Thumbs.db
 benchmarks/tasks/bigproject-baseline/
 benchmarks/tasks/bigproject-skill/
+
+# Local benchmark control copies (reconstructed from git)
+.control/
+benchmarks/results/

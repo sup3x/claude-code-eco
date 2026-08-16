@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5632,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "0efca810-6abc-4585-83e0-bc863157eec7",
+  "total_cost_usd": 0.0273672,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 75834,
+    "output_tokens": 307,
+    "output_tokens_details": {
+      "thinking_tokens": 16
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 202,
+        "cache_read_input_tokens": 38743,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 307,
+      "cacheReadInputTokens": 75834,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0273672,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module (calc totals, discounts, formatting) for a shop backend.\n\nBugs:\n- `calcTotal` (orders.js:5): `i <= items.length` off-by-one — reads `items[items.length]` (undefined) and throws `TypeError` on `.price`.\n- `averageItemPrice` (orders.js:20): divides by `items.length` without checking for `0` → returns `NaN` for empty arrays.\n- `applyDiscount` (orders.js:11-16): no validation that `total` is non-negative or `pct` is in a sane range — minor, not currently exploitable given callers.",
+  "ttft_ms": 1635,
+  "ttft_stream_ms": 1059,
+  "time_to_request_ms": 164,
+  "type": "result",
+  "duration_ms": 5810,
+  "uuid": "c417abe3-8890-47e3-9134-05a09002a461"
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5400,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "889ba7b9-e5ee-427e-9b87-76fb1246951b",
+  "total_cost_usd": 0.0366378,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1681,
+    "cache_read_input_tokens": 73516,
+    "output_tokens": 299,
+    "output_tokens_details": {
+      "thinking_tokens": 45
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1681,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 166,
+        "cache_read_input_tokens": 36758,
+        "cache_creation_input_tokens": 1681,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1681
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 299,
+      "cacheReadInputTokens": 73516,
+      "cacheCreationInputTokens": 1681,
+      "webSearchRequests": 0,
+      "costUSD": 0.0366378,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats a receipt string.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` is off-by-one — accesses `items[items.length]` (undefined), causing a crash (`Cannot read properties of undefined`).\n- `averageItemPrice` (line 20): divides by `items.length` with no guard — returns `NaN` for empty arrays (and inherits the crash from `calcTotal`).",
+  "ttft_ms": 2290,
+  "ttft_stream_ms": 1181,
+  "time_to_request_ms": 185,
+  "type": "result",
+  "duration_ms": 5602,
+  "uuid": "98337e6b-c9ce-4777-aab2-49ebb341b04f"
+}

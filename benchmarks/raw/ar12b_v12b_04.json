@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5608,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "6bcb75bc-2604-48b8-93de-0bc7454b0c05",
+  "total_cost_usd": 0.037229399999999996,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1680,
+    "cache_read_input_tokens": 74208,
+    "output_tokens": 325,
+    "output_tokens_details": {
+      "thinking_tokens": 44
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1680,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 193,
+        "cache_read_input_tokens": 37104,
+        "cache_creation_input_tokens": 1680,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1680
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 325,
+      "cacheReadInputTokens": 74208,
+      "cacheCreationInputTokens": 1680,
+      "webSearchRequests": 0,
+      "costUSD": 0.037229399999999996,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities module: computes cart totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` off-by-one — reads `items[items.length]` (undefined), causing a crash (`Cannot read properties of undefined`).\n- `averageItemPrice` (line 20): divides by `items.length` without checking for 0 → `NaN` on empty arrays.\n- `applyDiscount`: no validation that `total` is a number or `pct` is sane — minor, not a real bug given current callers.",
+  "ttft_ms": 2047,
+  "ttft_stream_ms": 933,
+  "time_to_request_ms": 164,
+  "type": "result",
+  "duration_ms": 5789,
+  "uuid": "04986142-e863-4549-a62a-a076845acfd9"
+}

@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 11898,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "62796119-7c0a-4af4-96ab-f1fddb1a7d9b",
+  "total_cost_usd": 0.044740999999999996,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1646,
+    "cache_read_input_tokens": 70660,
+    "output_tokens": 870,
+    "output_tokens_details": {
+      "thinking_tokens": 386
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1646,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 771,
+        "cache_read_input_tokens": 35330,
+        "cache_creation_input_tokens": 1646,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1646
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 870,
+      "cacheReadInputTokens": 70660,
+      "cacheCreationInputTokens": 1646,
+      "webSearchRequests": 0,
+      "costUSD": 0.044135999999999995,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "## What it does\n`test/orders.js` is a small set of order utilities for a shop backend: computing a cart total (`calcTotal`), applying a percentage discount by code (`applyDiscount`), computing average item price (`averageItemPrice`), and formatting a receipt-style string (`formatOrder`).\n\n## Bugs\n\n1. **`calcTotal` off-by-one (critical)** — line 5: `for (let i = 0; i <= items.length; i++)`. This loop runs one iteration too many, so on the last iteration `items[items.length]` is `undefined`, and `undefined.price` throws a `TypeError`. This breaks every function that depends on it (`averageItemPrice`, `formatOrder`). Should be `i < items.length`.\n\n2. **`averageItemPrice` divide-by-zero** — line 20: no guard for `items.length === 0`, so an empty cart returns `NaN`/`Infinity` instead of a sensible value (e.g. `0`).\n\nOnce bug #1 is fixed, `calcTotal`/`formatOrder` will work correctly for normal input; the empty-array edge case in #2 would still need an explicit check if that's a case the app expects to handle.",
+  "ttft_ms": 1501,
+  "ttft_stream_ms": 934,
+  "time_to_request_ms": 179,
+  "type": "result",
+  "duration_ms": 11165,
+  "uuid": "d6c855c1-711d-446a-a555-b844991847a3"
+}

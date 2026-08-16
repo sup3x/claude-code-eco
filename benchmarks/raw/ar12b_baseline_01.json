@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 13026,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "eed3a010-8b68-4b8e-9b61-4bb15d7c4bc8",
+  "total_cost_usd": 0.07937630000000001,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7508,
+    "cache_read_input_tokens": 64821,
+    "output_tokens": 951,
+    "output_tokens_details": {
+      "thinking_tokens": 363
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7508,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 831,
+        "cache_read_input_tokens": 35331,
+        "cache_creation_input_tokens": 1667,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1667
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 951,
+      "cacheReadInputTokens": 64821,
+      "cacheCreationInputTokens": 7508,
+      "webSearchRequests": 0,
+      "costUSD": 0.0787713,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "## What it does\n`test/orders.js` is a small set of order/cart utility functions for a shop backend:\n- `calcTotal(items)` – sums `price * qty` across items\n- `applyDiscount(total, code)` – applies a percentage discount (`SAVE10`, `SAVE20`) to a total\n- `averageItemPrice(items)` – average price per item using `calcTotal`\n- `formatOrder(order)` – renders a receipt-style string with line items and a discounted total\n\n## Bugs\n\n1. **`calcTotal` off-by-one (line 5)**: `for (let i = 0; i <= items.length; i++)` iterates one past the end of the array. On the last iteration `items[items.length]` is `undefined`, so `.price`/`.qty` throws a `TypeError`. This breaks every function that depends on `calcTotal` (`averageItemPrice`, `formatOrder`) for any non-empty array. Fix: use `i < items.length`.\n\n2. **`averageItemPrice` divides by zero (line 20)**: if `items` is an empty array, `total / items.length` is `0/0 = NaN`. No guard for empty input.\n\n3. **Empty-array crash in `calcTotal`**: with an empty array and the off-by-one bug, the loop runs once (`i=0 <= 0`), so it crashes on `items[0].price` even before reaching the division-by-zero case in #2.\n\nThe critical one is #1 — it's a straightforward off-by-one that makes the module fail on any real input.",
+  "ttft_ms": 2099,
+  "ttft_stream_ms": 988,
+  "time_to_request_ms": 166,
+  "type": "result",
+  "duration_ms": 11567,
+  "uuid": "c7a30bd8-8134-4d75-a4d8-52e7ae5e62bf"
+}

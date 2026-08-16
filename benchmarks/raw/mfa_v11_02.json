@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8233,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "42dcac0b-112e-44ff-8cb2-47a8b4c76814",
+  "total_cost_usd": 0.10844000000000001,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1628,
+    "cache_read_input_tokens": 58040,
+    "output_tokens": 356,
+    "output_tokens_details": {
+      "thinking_tokens": 25
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1628,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 243,
+        "cache_read_input_tokens": 29020,
+        "cache_creation_input_tokens": 1628,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1628
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 356,
+      "cacheReadInputTokens": 58040,
+      "cacheCreationInputTokens": 1628,
+      "webSearchRequests": 0,
+      "costUSD": 0.10844000000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small order-utility module: `calcTotal` sums price×qty, `applyDiscount` applies SAVE10/SAVE20 percentage codes, `averageItemPrice` divides total by item count, `formatOrder` renders line items plus discounted total.\n\nBugs:\n- `test/orders.js:5` — off-by-one: `i <= items.length` reads one past the end, so `items[i].price` throws a TypeError on every call (breaks `calcTotal`, `averageItemPrice`, and `formatOrder` too). Should be `i < items.length`.\n- `test/orders.js:20` — empty `items` gives `0 / 0` → `NaN` (division-by-zero unguarded), once the loop bug is fixed.",
+  "ttft_ms": 3115,
+  "ttft_stream_ms": 2327,
+  "time_to_request_ms": 429,
+  "type": "result",
+  "duration_ms": 8680,
+  "uuid": "86d37a14-e2fd-4b7c-a7a0-e905448b044c"
+}

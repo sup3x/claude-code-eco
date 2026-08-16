@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 15222,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "281e1120-45f1-4aff-817e-a46716acbeb7",
+  "total_cost_usd": 0.0519275,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 56105,
+    "output_tokens": 930,
+    "output_tokens_details": {
+      "thinking_tokens": 314
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 832,
+        "cache_read_input_tokens": 28859,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 930,
+      "cacheReadInputTokens": 56105,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0513225,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** `test/orders.js` is a small CommonJS module of order utilities for a shop backend — sum line items (`calcTotal`), apply a percentage discount code (`applyDiscount`), compute average item price, and render an order as text lines plus a formatted total.\n\n**Bugs:**\n\n1. **Off-by-one loop — `orders.js:5`** (the real one). `i <= items.length` runs one iteration past the end, so `items[i]` is `undefined` and `undefined.price` throws `TypeError`. It crashes on *every* call, including empty arrays. Fix: `i < items.length`.\n\n2. **Divide by zero — `orders.js:20`.** `averageItemPrice([])` returns `NaN` (once bug 1 is fixed; today it throws instead). Guard the empty case and return `0` or `null`.\n\n3. **Prototype keys treated as valid codes — `orders.js:13`.** `discounts[code]` on a plain object literal means `applyDiscount(100, \"toString\")` gets a function, not `undefined`, so the guard passes and the result is `NaN`. Use `Object.hasOwn(discounts, code)` or a `Map` / `Object.create(null)`.\n\n4. **Float precision on money — `orders.js:15`.** `total - (total * pct) / 100` accumulates binary-float error (e.g. `0.1 + 0.2` class issues). Minor at this scale, but for a real backend prices should be integer cents.\n\n`formatOrder` itself is fine — it just inherits whatever `calcTotal` does.",
+  "ttft_ms": 2672,
+  "ttft_stream_ms": 1693,
+  "time_to_request_ms": 190,
+  "type": "result",
+  "duration_ms": 14439,
+  "uuid": "58881bf7-6ee9-418e-879d-8c5ac0d5db57"
+}

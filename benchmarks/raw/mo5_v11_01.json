@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 10606,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "b1f47fd7-7636-4e87-bd4a-b727550b41a7",
+  "total_cost_usd": 0.11495,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7200,
+    "cache_read_input_tokens": 51760,
+    "output_tokens": 682,
+    "output_tokens_details": {
+      "thinking_tokens": 226
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7200,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 585,
+        "cache_read_input_tokens": 28674,
+        "cache_creation_input_tokens": 1612,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1612
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 682,
+      "cacheReadInputTokens": 51760,
+      "cacheCreationInputTokens": 7200,
+      "webSearchRequests": 0,
+      "costUSD": 0.11495,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities for a shop backend: `calcTotal` sums price×qty, `applyDiscount` applies a coupon percentage, `averageItemPrice` = total/count, `formatOrder` renders line items plus discounted total.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads one past the end → `TypeError: Cannot read properties of undefined`. Every call throws. Use `i < items.length`.\n2. `orders.js:20` — empty array gives `0/0` → `NaN`; guard for `items.length === 0`.\n3. `orders.js:13` — object-literal lookup hits `Object.prototype`: `applyDiscount(100, \"toString\")` (or `\"constructor\"`) returns a function, not `undefined`, so the guard passes and the result is `NaN`. Use `Object.hasOwn(discounts, code)` or a `Map`/null-prototype object.\n\nKnock-on: 1 and 3 both propagate into `formatOrder`, where `total.toFixed(2)` then yields `\"NaN\"`.",
+  "ttft_ms": 1950,
+  "ttft_stream_ms": 1203,
+  "time_to_request_ms": 158,
+  "type": "result",
+  "duration_ms": 10776,
+  "uuid": "6f62691b-beb9-4cf8-9e23-4dae415ad86d"
+}

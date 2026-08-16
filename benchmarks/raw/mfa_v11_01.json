@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9433,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "ce7331e2-ab1a-4ac1-ad64-c8009d2dcab3",
+  "total_cost_usd": 0.219474,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7249,
+    "cache_read_input_tokens": 52454,
+    "output_tokens": 440,
+    "output_tokens_details": {
+      "thinking_tokens": 60
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7249,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 292,
+        "cache_read_input_tokens": 29020,
+        "cache_creation_input_tokens": 1663,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1663
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 440,
+      "cacheReadInputTokens": 52454,
+      "cacheCreationInputTokens": 7249,
+      "webSearchRequests": 0,
+      "costUSD": 0.219474,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small CommonJS module of order utilities for a shop backend: compute an order total (`calcTotal`), apply a percentage discount code (`applyDiscount`), get the average item price, and format an order as a text receipt.\n\nBugs:\n\n1. `calcTotal` (line 5): off-by-one — `i <= items.length` reads one past the end, so `items[i].price` throws `TypeError: Cannot read properties of undefined`. Every caller (`averageItemPrice`, `formatOrder`) crashes too. Should be `i < items.length`.\n2. `averageItemPrice` (line 20): divides by `items.length` with no empty check → `NaN` for `[]` (0/0), even after fixing bug 1.\n\nMinor: discount codes are case-sensitive (`save10` silently ignored), and there's no input validation anywhere — but the off-by-one is the only outright crash.",
+  "ttft_ms": 3450,
+  "ttft_stream_ms": 1992,
+  "time_to_request_ms": 268,
+  "type": "result",
+  "duration_ms": 9717,
+  "uuid": "1d554f98-68c8-456a-a4e0-92fb060ca5d9"
+}

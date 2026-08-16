@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6358,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "4ff7234d-eaf3-49aa-8f30-733165966cc1",
+  "total_cost_usd": 0.0493575,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1712,
+    "cache_read_input_tokens": 112475,
+    "output_tokens": 355,
+    "output_tokens_details": {
+      "thinking_tokens": 9
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1712,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 201,
+        "cache_read_input_tokens": 38293,
+        "cache_creation_input_tokens": 510,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 510
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 355,
+      "cacheReadInputTokens": 112475,
+      "cacheCreationInputTokens": 1712,
+      "webSearchRequests": 0,
+      "costUSD": 0.0493575,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities module: computes item totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` off-by-one → accesses `items[items.length]` (undefined) and throws `TypeError` reading `.price`.\n- `averageItemPrice` (line 20): divides by `items.length`; with empty array gives `NaN` (no zero-check).\n- `applyDiscount`: invalid/unknown codes silently ignored (not a bug per se, but no case-insensitivity, e.g. \"save10\" fails silently).",
+  "ttft_ms": 1501,
+  "ttft_stream_ms": 933,
+  "time_to_request_ms": 164,
+  "type": "result",
+  "duration_ms": 6566,
+  "uuid": "80eccb9e-ac1f-44da-bfd6-0aaa62db62d9"
+}

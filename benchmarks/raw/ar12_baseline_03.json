@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8913,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "3c19c868-a154-4d06-8cb8-6e30972778da",
+  "total_cost_usd": 0.039556999999999995,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1657,
+    "cache_read_input_tokens": 70660,
+    "output_tokens": 519,
+    "output_tokens_details": {
+      "thinking_tokens": 21
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1657,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 409,
+        "cache_read_input_tokens": 35330,
+        "cache_creation_input_tokens": 1657,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1657
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00062,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 519,
+      "cacheReadInputTokens": 70660,
+      "cacheCreationInputTokens": 1657,
+      "webSearchRequests": 0,
+      "costUSD": 0.038937,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** `test/orders.js` is a small set of order utilities for a shop backend — computing an order total, applying a discount code, averaging item price, and formatting an order as a printable string.\n\n**Bugs found:**\n\n1. **`calcTotal` off-by-one / out-of-bounds (line 5):** `for (let i = 0; i <= items.length; i++)` runs one iteration too many. On the last iteration `items[items.length]` is `undefined`, so `.price`/`.qty` throws a `TypeError`. Should be `i < items.length`.\n\n2. **`averageItemPrice` divide-by-zero (line 20):** if `items` is empty, `calcTotal` returns `0` (once bug #1 is fixed) and `0 / 0` yields `NaN` with no guard.\n\n3. **`applyDiscount` case sensitivity (line 12-13):** discount codes are matched exactly against `SAVE10`/`SAVE20`; a lowercase or mixed-case code (e.g. `save10`) silently fails to apply rather than being normalized — likely not intended given typical UX for promo codes (minor/design issue, not a crash).\n\nThe most serious bug is #1, which will throw on every call since the loop always overruns the array.",
+  "ttft_ms": 1532,
+  "ttft_stream_ms": 926,
+  "time_to_request_ms": 179,
+  "type": "result",
+  "duration_ms": 8177,
+  "uuid": "63694a06-b13b-48cb-a9b7-a85ecedbf423"
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9263,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "7266f0bb-2758-4fcc-9f6a-70d7caa4605c",
+  "total_cost_usd": 0.05656599999999999,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1682,
+    "cache_read_input_tokens": 55402,
+    "output_tokens": 481,
+    "output_tokens_details": {
+      "thinking_tokens": 235
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1682,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 314,
+        "cache_read_input_tokens": 27701,
+        "cache_creation_input_tokens": 1682,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1682
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 481,
+      "cacheReadInputTokens": 55402,
+      "cacheCreationInputTokens": 1682,
+      "webSearchRequests": 0,
+      "costUSD": 0.05656599999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`test/orders.js` — order math helpers for a shop backend: line-item total, discount codes, average price, and a formatted receipt.\n\nBug (correctness-critical): `calcTotal` line 5 uses `i <= items.length`, so it reads `items[items.length]` (undefined) and crashes on `.price`. Should be `i < items.length`.\n\nMinor: `averageItemPrice` returns `NaN` for an empty array (0/0) — guard if that input is possible.",
+  "ttft_ms": 3539,
+  "ttft_stream_ms": 1757,
+  "time_to_request_ms": 180,
+  "type": "result",
+  "duration_ms": 9457,
+  "uuid": "c4cabc52-8e8f-40d0-8294-11d9fcca195a"
+}

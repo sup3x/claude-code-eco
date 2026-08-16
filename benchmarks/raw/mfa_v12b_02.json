@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8418,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "d12be433-479b-491a-a17f-7adbf8621ea0",
+  "total_cost_usd": 0.08069799999999999,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 60358,
+    "output_tokens": 406,
+    "output_tokens_details": {
+      "thinking_tokens": 23
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 295,
+        "cache_read_input_tokens": 30992,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 406,
+      "cacheReadInputTokens": 60358,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.08069799999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small order-utility module for a shop backend: computes an order total (`calcTotal`), applies percentage discount codes (`applyDiscount`), computes average item price (`averageItemPrice`), and formats an order as text with the discounted total (`formatOrder`).\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads one past the end, so `items[i].price` throws a TypeError on every call (breaking `averageItemPrice` and `formatOrder` too).\n2. `orders.js:20` — `averageItemPrice([])` divides 0/0 → `NaN` (no empty-array guard).\n3. `orders.js:13` — inherited-property lookup: a code like `\"constructor\"` or `\"toString\"` hits `Object.prototype`, making `pct` a function and returning `NaN`; use `Object.hasOwn` or a `Map`.",
+  "ttft_ms": 2618,
+  "ttft_stream_ms": 1888,
+  "time_to_request_ms": 424,
+  "type": "result",
+  "duration_ms": 8885,
+  "uuid": "8e87acb1-b5a6-4837-a39c-f5149473029b"
+}

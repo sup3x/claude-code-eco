@@ -1,0 +1,29 @@
+{
+  "name": "claude-code-eco",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Token-frugal skills for Claude Code (/eco, /eco-max) and the benchmark harness that measures them.",
+  "license": "MIT",
+  "author": "Kerim",
+  "homepage": "https://github.com/sup3x/claude-code-eco#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sup3x/claude-code-eco.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sup3x/claude-code-eco/issues"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test \"benchmarks/test/*.test.mjs\"",
+    "build:skills": "node scripts/build-skills.mjs",
+    "check:skills": "node scripts/build-skills.mjs --check",
+    "bench": "node benchmarks/bench.mjs",
+    "build:chart": "node scripts/build-chart.mjs",
+    "check:chart": "node scripts/build-chart.mjs --check",
+    "check:manifest": "node scripts/build-manifest.mjs --check",
+    "verify": "node benchmarks/verify.mjs"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6180,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "26b817f4-8f4b-430a-95a2-26189bffc800",
+  "total_cost_usd": 0.0491292,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1758,
+    "cache_read_input_tokens": 113294,
+    "output_tokens": 305,
+    "output_tokens_details": {
+      "thinking_tokens": 56
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1758,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 104,
+        "cache_read_input_tokens": 38580,
+        "cache_creation_input_tokens": 535,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 535
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 305,
+      "cacheReadInputTokens": 113294,
+      "cacheCreationInputTokens": 1758,
+      "webSearchRequests": 0,
+      "costUSD": 0.0491292,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` → 90 (100 − 100×10/100).\n\nNote: unrelated bug spotted — `calcTotal` loops with `i <= items.length`, causing an out-of-bounds access (`items[items.length]` is `undefined`, so `.price` throws).",
+  "ttft_ms": 2448,
+  "ttft_stream_ms": 1152,
+  "time_to_request_ms": 177,
+  "type": "result",
+  "duration_ms": 6386,
+  "uuid": "daee3858-16e5-442b-97a7-77333207febf"
+}

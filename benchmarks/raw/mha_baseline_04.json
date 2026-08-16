@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 10396,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "318a0ab3-4791-41c6-8dcc-c7c5686d8db0",
+  "total_cost_usd": 0.011134000000000002,
+  "usage": {
+    "input_tokens": 18,
+    "cache_creation_input_tokens": 615,
+    "cache_read_input_tokens": 52460,
+    "output_tokens": 807,
+    "output_tokens_details": {
+      "thinking_tokens": 485
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 615,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 676,
+        "cache_read_input_tokens": 26230,
+        "cache_creation_input_tokens": 615,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 615
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 553,
+      "outputTokens": 821,
+      "cacheReadInputTokens": 52460,
+      "cacheCreationInputTokens": 615,
+      "webSearchRequests": 0,
+      "costUSD": 0.011134000000000002,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:**\nThis module provides order processing utilities: calculating totals from items, applying discount codes (SAVE10/SAVE20), computing average item prices, and formatting orders for display.\n\n**Bugs:**\n\n1. **Critical: Off-by-one error in `calcTotal()` (line 5)** — Loop condition uses `i <= items.length` instead of `i < items.length`. This accesses `items[items.length]` which is undefined, causing the function to crash when trying to read `.price` and `.qty`.\n\n2. **Logic error in `averageItemPrice()` (line 20)** — Divides total by `items.length` (number of unique items), not by the total quantity of items. If an order has 2 items with 3 and 5 units respectively, it divides by 2 instead of 8. Should sum quantities first: `const qty = items.reduce((s, it) => s + it.qty, 0); return total / qty;`",
+  "ttft_ms": 1570,
+  "ttft_stream_ms": 924,
+  "time_to_request_ms": 203,
+  "type": "result",
+  "duration_ms": 9662,
+  "uuid": "a43fd18d-7e55-4945-aa59-43288c14f3ba"
+}

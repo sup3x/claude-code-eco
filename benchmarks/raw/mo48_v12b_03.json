@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8656,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "ae35a912-61c3-4337-9c72-25d1e555dce4",
+  "total_cost_usd": 0.054466999999999995,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1630,
+    "cache_read_input_tokens": 56094,
+    "output_tokens": 404,
+    "output_tokens_details": {
+      "thinking_tokens": 27
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1630,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 289,
+        "cache_read_input_tokens": 28047,
+        "cache_creation_input_tokens": 1630,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1630
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 404,
+      "cacheReadInputTokens": 56094,
+      "cacheCreationInputTokens": 1630,
+      "webSearchRequests": 0,
+      "costUSD": 0.054466999999999995,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities — `calcTotal` sums item price×qty, `applyDiscount` applies a percentage code, `averageItemPrice` averages, `formatOrder` renders a receipt string with discounted total.\n\n**Bugs:**\n1. `calcTotal:5` — off-by-one: `i <= items.length` reads `items[length]` (undefined) → `undefined.price` throws `TypeError`. Use `i < items.length`.\n2. `averageItemPrice:20` — divides by `items.length` with no empty-array guard → `NaN` (0/0) on empty input.\n3. `applyDiscount:13` — code lookup is case-sensitive and unvalidated; also no clamp/guard on negative totals (minor, depending on intent).\n\nBug #1 is the crash — everything routing through `calcTotal` fails on non-empty arrays.",
+  "ttft_ms": 2705,
+  "ttft_stream_ms": 1958,
+  "time_to_request_ms": 165,
+  "type": "result",
+  "duration_ms": 8835,
+  "uuid": "1adbe8b3-827f-47bd-ac0b-53b8cf3e8182"
+}

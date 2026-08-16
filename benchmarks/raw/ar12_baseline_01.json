@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7752,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "975ef874-7d19-4ddc-916b-35cbfc76a4cf",
+  "total_cost_usd": 0.072071,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7488,
+    "cache_read_input_tokens": 64820,
+    "output_tokens": 472,
+    "output_tokens_details": {
+      "thinking_tokens": 12
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7488,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 371,
+        "cache_read_input_tokens": 35330,
+        "cache_creation_input_tokens": 1648,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1648
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 472,
+      "cacheReadInputTokens": 64820,
+      "cacheCreationInputTokens": 7488,
+      "webSearchRequests": 0,
+      "costUSD": 0.071466,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utility module for a shop backend — computes order totals, applies discount codes, averages item price, and formats an order into a printable string with line items and total.\n\n**Bugs:**\n\n1. **`calcTotal` off-by-one / out-of-bounds read (line 5):** `i <= items.length` iterates one past the last valid index, so `items[items.length]` is `undefined` and `.price`/`.qty` throws a `TypeError`. Should be `i < items.length`.\n\n2. **`averageItemPrice` divide-by-zero (line 20):** if `items` is empty, `calcTotal` returns `0` (once bug #1 is fixed) and `0 / 0` yields `NaN` with no guard.\n\n3. **`applyDiscount` case sensitivity:** discount codes are matched with exact-case keys (`SAVE10`, `SAVE20`), so a lowercase or mixed-case code silently falls through to \"no discount\" rather than erroring or normalizing — likely not what's intended for user-facing codes.\n\nBug #1 is the critical one — it breaks every call that computes a total on a non-empty list.",
+  "ttft_ms": 1697,
+  "ttft_stream_ms": 1022,
+  "time_to_request_ms": 204,
+  "type": "result",
+  "duration_ms": 7032,
+  "uuid": "248eb5c0-1850-4f48-b3e1-7fc0963d037e"
+}

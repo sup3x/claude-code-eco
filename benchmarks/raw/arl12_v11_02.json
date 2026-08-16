@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 4776,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "7469a551-ecd1-4fce-834f-286433e8a5b0",
+  "total_cost_usd": 0.0356352,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1654,
+    "cache_read_input_tokens": 73514,
+    "output_tokens": 243,
+    "output_tokens_details": {
+      "thinking_tokens": 18
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1654,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 137,
+        "cache_read_input_tokens": 36757,
+        "cache_creation_input_tokens": 1654,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1654
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 243,
+      "cacheReadInputTokens": 73514,
+      "cacheCreationInputTokens": 1654,
+      "webSearchRequests": 0,
+      "costUSD": 0.0356352,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: total calculation, discount codes, average price, and order formatting for a shop backend.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` causes off-by-one, reading `items[items.length]` (undefined) → crash on `.price`.\n- `averageItemPrice` (line 20): divides by `items.length` without guarding empty array → `NaN`/`0/0`.",
+  "ttft_ms": 1604,
+  "ttft_stream_ms": 1035,
+  "time_to_request_ms": 169,
+  "type": "result",
+  "duration_ms": 4962,
+  "uuid": "96b52502-a3c6-4f2f-9bc9-40493dad3682"
+}

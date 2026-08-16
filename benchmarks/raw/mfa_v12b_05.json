@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 10362,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "5edf7fed-e4fe-461f-83ef-fc3fd9dd8aa9",
+  "total_cost_usd": 0.116752,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1659,
+    "cache_read_input_tokens": 58732,
+    "output_tokens": 496,
+    "output_tokens_details": {
+      "thinking_tokens": 56
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1659,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 352,
+        "cache_read_input_tokens": 29366,
+        "cache_creation_input_tokens": 1659,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1659
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 496,
+      "cacheReadInputTokens": 58732,
+      "cacheCreationInputTokens": 1659,
+      "webSearchRequests": 0,
+      "costUSD": 0.116752,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small order-utility module for a shop backend: `calcTotal` sums price×qty, `applyDiscount` applies SAVE10/SAVE20 percentage codes, `averageItemPrice` divides total by item count, `formatOrder` renders line items plus a discounted total.\n\nBugs:\n- `calcTotal` (line 5): loop uses `i <= items.length`, reading one past the end — `items[i].price` throws a TypeError on every non-empty array, and returns `NaN`-free 0 only for empty input by crashing first. Should be `i < items.length`.\n- `averageItemPrice` (line 20): returns `NaN` for an empty array (0/0) — no guard.\n- `formatOrder` (line 26): if a fix ever makes `calcTotal` propagate `NaN`/`undefined` values (e.g. missing `price`), `total.toFixed(2)` would throw; minor, but worth validating item fields.\n\nThe off-by-one in `calcTotal` is the critical one — every function here depends on it, so the whole module crashes on any real order.",
+  "ttft_ms": 3218,
+  "ttft_stream_ms": 1732,
+  "time_to_request_ms": 343,
+  "type": "result",
+  "duration_ms": 10745,
+  "uuid": "6df89409-d210-4cda-8a92-7ec25d0af431"
+}

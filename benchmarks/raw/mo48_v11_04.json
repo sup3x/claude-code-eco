@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8899,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "8e5e4280-f15b-4131-a1e4-9e4f5bd92d59",
+  "total_cost_usd": 0.055596,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1650,
+    "cache_read_input_tokens": 55402,
+    "output_tokens": 455,
+    "output_tokens_details": {
+      "thinking_tokens": 47
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1650,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 320,
+        "cache_read_input_tokens": 27701,
+        "cache_creation_input_tokens": 1650,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1650
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 455,
+      "cacheReadInputTokens": 55402,
+      "cacheCreationInputTokens": 1650,
+      "webSearchRequests": 0,
+      "costUSD": 0.055596,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities — `calcTotal` sums item price×qty, `applyDiscount` applies coded percentage discounts, `averageItemPrice` averages, `formatOrder` renders lines + discounted total.\n\n**Bugs:**\n1. `calcTotal:5` — off-by-one: `i <= items.length` reads `items[items.length]` (undefined) → `undefined.price` throws. Use `i < items.length`.\n2. `averageItemPrice:20` — empty `items` → `0/0 = NaN` (also `calcTotal` throws on empty via bug 1). Guard for `length === 0`.\n3. `applyDiscount` — no validation that `total`/`pct` are sane, and `formatOrder:26` calls `.toFixed` assuming a number; if any item lacks `price`/`qty`, total becomes `NaN`. Minor vs. the above.\n\nBug #1 is critical: every `calcTotal` call throws.",
+  "ttft_ms": 2098,
+  "ttft_stream_ms": 1373,
+  "time_to_request_ms": 158,
+  "type": "result",
+  "duration_ms": 9071,
+  "uuid": "957db51a-76b1-4ef8-87f1-be2a4fef9870"
+}

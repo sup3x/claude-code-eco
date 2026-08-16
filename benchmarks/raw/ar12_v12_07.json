@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5857,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "73f7a6be-559b-4cce-93a2-afe65df339b5",
+  "total_cost_usd": 0.0375666,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1650,
+    "cache_read_input_tokens": 74182,
+    "output_tokens": 360,
+    "output_tokens_details": {
+      "thinking_tokens": 14
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1650,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 257,
+        "cache_read_input_tokens": 37091,
+        "cache_creation_input_tokens": 1650,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1650
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 360,
+      "cacheReadInputTokens": 74182,
+      "cacheCreationInputTokens": 1650,
+      "webSearchRequests": 0,
+      "costUSD": 0.0375666,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities — computes item totals, applies discount codes, averages item price, and formats an order receipt.\n\n**Bugs:**\n1. `calcTotal` (line 5): `i <= items.length` causes an off-by-one, reading `items[items.length]` (undefined) → `.price` throws `TypeError`. Should be `i < items.length`.\n2. `averageItemPrice` (line 20): divides by `items.length` with no check — `items.length === 0` gives `NaN`/`0/0` (and would also hit bug #1 first anyway).\n3. `applyDiscount`: no validation that `total` is a number or that `code` handling is case-sensitive (e.g., `\"save10\"` silently no-ops) — minor, likely intentional but worth flagging.",
+  "ttft_ms": 1727,
+  "ttft_stream_ms": 1178,
+  "time_to_request_ms": 163,
+  "type": "result",
+  "duration_ms": 6036,
+  "uuid": "7afa777b-2c5c-437b-8940-7cf26474af9a"
+}

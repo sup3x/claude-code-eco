@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5196,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "46c7a741-8be8-4a22-8e8e-36dae78cf9be",
+  "total_cost_usd": 0.0363942,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1648,
+    "cache_read_input_tokens": 73514,
+    "output_tokens": 296,
+    "output_tokens_details": {
+      "thinking_tokens": 12
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1648,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 195,
+        "cache_read_input_tokens": 36757,
+        "cache_creation_input_tokens": 1648,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1648
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 296,
+      "cacheReadInputTokens": 73514,
+      "cacheCreationInputTokens": 1648,
+      "webSearchRequests": 0,
+      "costUSD": 0.0363942,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` is off-by-one — reads `items[items.length]` (undefined), throwing on `.price`.\n- `averageItemPrice` (line 20): divides by `items.length` with no guard for empty arrays → `NaN`/`0/0`.\n- `applyDiscount`: no validation that `pct` is a sane percentage, but not a crash — minor.\n\nFix for line 5: `i < items.length`.",
+  "ttft_ms": 1539,
+  "ttft_stream_ms": 936,
+  "time_to_request_ms": 176,
+  "type": "result",
+  "duration_ms": 5389,
+  "uuid": "ebe11496-b049-4c90-b136-0329bbaf0022"
+}

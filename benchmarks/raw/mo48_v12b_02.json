@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8131,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "ac42a040-6a01-4330-919c-6000a1459621",
+  "total_cost_usd": 0.038273499999999995,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 57707,
+    "output_tokens": 376,
+    "output_tokens_details": {
+      "thinking_tokens": 10
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 278,
+        "cache_read_input_tokens": 29660,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 376,
+      "cacheReadInputTokens": 57707,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.038273499999999995,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities for a shop backend — `calcTotal` sums item price×qty, `applyDiscount` applies coupon codes, `averageItemPrice` averages, `formatOrder` renders an order to text.\n\n**Bugs:**\n1. `calcTotal` (line 5): `i <= items.length` overruns the array — reads `items[items.length]` (undefined) and throws on `.price`. Should be `i < items.length`.\n2. `averageItemPrice` (line 20): divides by zero for an empty array, returning `NaN`. Guard `items.length === 0`.\n3. `applyDiscount` (line 13): code lookup is case-sensitive and unvalidated — `discounts[code]` with a value like `\"constructor\"` hits prototype junk. Minor, but worth an `Object.hasOwn` check.",
+  "ttft_ms": 1794,
+  "ttft_stream_ms": 1488,
+  "time_to_request_ms": 185,
+  "type": "result",
+  "duration_ms": 8332,
+  "uuid": "ea95858e-5329-4f2d-8c7c-79219262a706"
+}

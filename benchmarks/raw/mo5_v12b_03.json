@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9299,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "869aa207-5e82-4621-94c2-eb4f250785ba",
+  "total_cost_usd": 0.042717,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 59644,
+    "output_tokens": 515,
+    "output_tokens_details": {
+      "thinking_tokens": 11
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 426,
+        "cache_read_input_tokens": 30624,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 515,
+      "cacheReadInputTokens": 59644,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.042717,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities for a shop backend: sum line totals, apply a percentage discount code, average price per item, and render an order as text lines + discounted total.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads `items[length]` (undefined) → `TypeError` on every call.\n2. `orders.js:20` — `averageItemPrice` divides by item *count*, not total quantity, and returns `NaN` for an empty array (0/0).\n3. `orders.js:15` — no clamping/validation: a discount code mapping to >100 (or negative total input) yields a negative total; also `discounts[code]` hits `Object.prototype` keys — `applyDiscount(t, \"constructor\")` returns `NaN`. Use `Object.hasOwn(discounts, code)`.\n4. `orders.js:6,26` — float money math (`0.1+0.2`) accumulates rounding error; `toFixed(2)` hides but doesn't fix it. Cents-as-integers is the usual fix.\n5. `orders.js:5` — `calcTotal(undefined/null)` throws rather than returning 0; `formatOrder` likewise assumes `order.items` exists.\n\nFix for #1 is `i < items.length`.",
+  "ttft_ms": 2362,
+  "ttft_stream_ms": 1145,
+  "time_to_request_ms": 143,
+  "type": "result",
+  "duration_ms": 9458,
+  "uuid": "ff27d060-5743-43ac-86d8-16fa8cbd6301"
+}

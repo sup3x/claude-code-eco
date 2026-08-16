@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7027,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "37b7ff14-75b8-497c-9edd-84fcb0f2ba64",
+  "total_cost_usd": 0.050691599999999996,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1848,
+    "cache_read_input_tokens": 113302,
+    "output_tokens": 373,
+    "output_tokens_details": {
+      "thinking_tokens": 146
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1848,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 81,
+        "cache_read_input_tokens": 38588,
+        "cache_creation_input_tokens": 617,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 617
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 373,
+      "cacheReadInputTokens": 113302,
+      "cacheCreationInputTokens": 1848,
+      "webSearchRequests": 0,
+      "costUSD": 0.050691599999999996,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` returns `90`.\n\nNote (unrelated bug spotted): `calcTotal`'s loop uses `i <= items.length`, causing an out-of-bounds access on the last iteration.",
+  "ttft_ms": 2392,
+  "ttft_stream_ms": 1093,
+  "time_to_request_ms": 212,
+  "type": "result",
+  "duration_ms": 7268,
+  "uuid": "0b6dc706-ff3f-4660-95de-56944ea98a03"
+}

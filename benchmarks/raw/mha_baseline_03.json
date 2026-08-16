@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 13667,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "606d5a6c-44d1-468c-8c87-c2ae95da560c",
+  "total_cost_usd": 0.013721,
+  "usage": {
+    "input_tokens": 18,
+    "cache_creation_input_tokens": 1286,
+    "cache_read_input_tokens": 52460,
+    "output_tokens": 1056,
+    "output_tokens_details": {
+      "thinking_tokens": 675
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1286,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 932,
+        "cache_read_input_tokens": 26230,
+        "cache_creation_input_tokens": 1286,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1286
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 553,
+      "outputTokens": 1070,
+      "cacheReadInputTokens": 52460,
+      "cacheCreationInputTokens": 1286,
+      "webSearchRequests": 0,
+      "costUSD": 0.013721,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What the module does:**\n\nThis is a simple order utility module for a shop backend with four functions:\n- `calcTotal()` — sums up the total price of all items (price × quantity for each)\n- `applyDiscount()` — applies a discount code (SAVE10 = 10% off, SAVE20 = 20% off) to a total\n- `averageItemPrice()` — calculates average price per item row by dividing total by item count\n- `formatOrder()` — formats an order as a readable string with item details and final total\n\n**Bugs:**\n\n1. **Off-by-one error in `calcTotal()` (line 5):** The loop condition is `i <= items.length` but should be `i < items.length`. This causes the loop to access `items[items.length]` (undefined) on the final iteration, making `undefined * qty = NaN` and breaking the calculation.\n\n2. **Logic issue in `averageItemPrice()` (line 20):** The function divides total revenue by the count of item rows, not by units. If an item has qty > 1, this doesn't give a meaningful \"average item price.\" It should probably divide by the total quantity of units, or the function's purpose needs clarification.",
+  "ttft_ms": 1654,
+  "ttft_stream_ms": 936,
+  "time_to_request_ms": 146,
+  "type": "result",
+  "duration_ms": 12851,
+  "uuid": "f5dae274-bb35-46da-94e7-ad9e40e90dd8"
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5323,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "189ffa9c-356d-4f2e-99bc-801f5c9cb7ed",
+  "total_cost_usd": 0.0272769,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 75833,
+    "output_tokens": 301,
+    "output_tokens_details": {
+      "thinking_tokens": 15
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 197,
+        "cache_read_input_tokens": 38742,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 301,
+      "cacheReadInputTokens": 75833,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0272769,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats an order as text.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` is off-by-one — reads `items[items.length]` (undefined) and throws on `.price`.\n- `averageItemPrice` (line 20): divides by `items.length` without guarding empty arrays → `NaN`/`0/0` (and inherits the `calcTotal` bug above).\n- `formatOrder` (line 24): no guard for empty `order.items` — inherits the crash from `calcTotal`.",
+  "ttft_ms": 2024,
+  "ttft_stream_ms": 1484,
+  "time_to_request_ms": 185,
+  "type": "result",
+  "duration_ms": 5524,
+  "uuid": "2bac5682-a33a-4ef7-8f69-3acb6efade8f"
+}

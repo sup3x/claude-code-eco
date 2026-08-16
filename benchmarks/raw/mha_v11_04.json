@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8465,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "b7ed2a1a-b004-492c-82f8-0f42bbb37d68",
+  "total_cost_usd": 0.011264800000000002,
+  "usage": {
+    "input_tokens": 17,
+    "cache_creation_input_tokens": 1304,
+    "cache_read_input_tokens": 54498,
+    "output_tokens": 638,
+    "output_tokens_details": {
+      "thinking_tokens": 402
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1304,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 495,
+        "cache_read_input_tokens": 27249,
+        "cache_creation_input_tokens": 1304,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1304
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 17,
+      "outputTokens": 638,
+      "cacheReadInputTokens": 54498,
+      "cacheCreationInputTokens": 1304,
+      "webSearchRequests": 0,
+      "costUSD": 0.011264800000000002,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Calculates order totals, applies discount codes, computes average item price, and formats orders as strings.\n\n**Bugs found:**\n\n1. **Line 5 (calcTotal):** Off-by-one error — `i <= items.length` should be `i < items.length`. Will try to access `items[items.length]` (undefined), producing NaN.\n\n2. **Line 20 (averageItemPrice):** Logic error — divides total value (price × qty summed) by item count. Should divide by sum of quantities if intent is per-unit price, or clarify intent. Currently misleading.",
+  "ttft_ms": 1732,
+  "ttft_stream_ms": 1023,
+  "time_to_request_ms": 186,
+  "type": "result",
+  "duration_ms": 8665,
+  "uuid": "9a7e8fb0-240e-41a7-8418-e6b7303a8abd"
+}

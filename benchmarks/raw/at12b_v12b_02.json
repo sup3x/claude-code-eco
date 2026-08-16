@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8893,
+  "num_turns": 4,
+  "stop_reason": "end_turn",
+  "session_id": "278077fd-015d-47c9-988f-4561a783b2e4",
+  "total_cost_usd": 0.0659196,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 2026,
+    "cache_read_input_tokens": 151732,
+    "output_tokens": 548,
+    "output_tokens_details": {
+      "thinking_tokens": 128
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2026,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 113,
+        "cache_read_input_tokens": 38791,
+        "cache_creation_input_tokens": 438,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 438
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 8,
+      "outputTokens": 548,
+      "cacheReadInputTokens": 151732,
+      "cacheCreationInputTokens": 2026,
+      "webSearchRequests": 0,
+      "costUSD": 0.0659196,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` → `90` (100 − 100×10/100).\n\nUnrelated bug spotted: `calcTotal` (test\\orders.js:5) loops `i <= items.length`, so it reads past the array end (`items[i]` undefined) → `NaN`/crash on any non-empty items array.",
+  "ttft_ms": 2938,
+  "ttft_stream_ms": 1247,
+  "time_to_request_ms": 183,
+  "type": "result",
+  "duration_ms": 9187,
+  "uuid": "10c9bf34-415b-43b1-bb23-34d2abc30812"
+}

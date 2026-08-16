@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 4562,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "bd3592be-61df-4a62-bdd0-0c9023a8868e",
+  "total_cost_usd": 0.070536,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7709,
+    "cache_read_input_tokens": 68150,
+    "output_tokens": 255,
+    "output_tokens_details": {
+      "thinking_tokens": 15
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7709,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 151,
+        "cache_read_input_tokens": 37104,
+        "cache_creation_input_tokens": 1651,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1651
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 255,
+      "cacheReadInputTokens": 68150,
+      "cacheCreationInputTokens": 7709,
+      "webSearchRequests": 0,
+      "costUSD": 0.070536,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` is off-by-one — reads `items[items.length]` (undefined), causing a crash (`Cannot read properties of undefined`).\n- `averageItemPrice` (line 20): divides by `items.length` without checking for empty array → returns `NaN` for `[]`.",
+  "ttft_ms": 1548,
+  "ttft_stream_ms": 980,
+  "time_to_request_ms": 182,
+  "type": "result",
+  "duration_ms": 4756,
+  "uuid": "a1a5cbfd-31b9-487f-b442-4bb3534bde5e"
+}

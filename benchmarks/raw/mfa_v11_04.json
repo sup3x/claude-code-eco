@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8982,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "1670b498-dd01-42a7-a3c9-e9ca3a0b47db",
+  "total_cost_usd": 0.11232,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1642,
+    "cache_read_input_tokens": 58040,
+    "output_tokens": 428,
+    "output_tokens_details": {
+      "thinking_tokens": 39
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1642,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 301,
+        "cache_read_input_tokens": 29020,
+        "cache_creation_input_tokens": 1642,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1642
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 428,
+      "cacheReadInputTokens": 58040,
+      "cacheCreationInputTokens": 1642,
+      "webSearchRequests": 0,
+      "costUSD": 0.11232,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small order-utility module: `calcTotal` sums price×qty over items, `applyDiscount` applies a percentage for known codes (SAVE10/SAVE20), `averageItemPrice` divides total by item count, and `formatOrder` renders line items plus the discounted total.\n\nBugs:\n1. `calcTotal` (orders.js:5) — off-by-one: `i <= items.length` reads one past the end, so `items[i].price` throws `TypeError: Cannot read properties of undefined` on every call. This breaks every function in the module since all depend on it.\n2. `averageItemPrice` (orders.js:20) — returns `NaN` on an empty array (0/0), even if bug 1 were fixed.\n\nMinor: `applyDiscount` treats codes case-sensitively (`save10` silently gives no discount), and no validation of missing `price`/`qty` — worth noting, but arguably by design.",
+  "ttft_ms": 2698,
+  "ttft_stream_ms": 1957,
+  "time_to_request_ms": 360,
+  "type": "result",
+  "duration_ms": 9392,
+  "uuid": "a168bbad-f641-4f08-82f0-088f9aab280f"
+}

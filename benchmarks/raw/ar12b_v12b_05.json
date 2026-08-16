@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5771,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "83f0ed17-07ab-4fed-8177-55a46ead4634",
+  "total_cost_usd": 0.037754399999999994,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1700,
+    "cache_read_input_tokens": 74208,
+    "output_tokens": 352,
+    "output_tokens_details": {
+      "thinking_tokens": 64
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1700,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 198,
+        "cache_read_input_tokens": 37104,
+        "cache_creation_input_tokens": 1700,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1700
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 352,
+      "cacheReadInputTokens": 74208,
+      "cacheCreationInputTokens": 1700,
+      "webSearchRequests": 0,
+      "costUSD": 0.037754399999999994,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (orders.js:5): `i <= items.length` off-by-one — accesses `items[items.length]` (undefined), throws `TypeError` reading `.price`.\n- `averageItemPrice` (orders.js:20): no guard for `items.length === 0` → returns `NaN`.\n- `applyDiscount`/`calcTotal`: no validation of `price`/`qty` types or negative values, but that's likely out of scope — not a crash bug.",
+  "ttft_ms": 2141,
+  "ttft_stream_ms": 1007,
+  "time_to_request_ms": 222,
+  "type": "result",
+  "duration_ms": 6017,
+  "uuid": "f850efbf-1712-4447-ac46-c59b59b278fc"
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 4698,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "e3191073-691f-4596-80e8-683bbe7cec40",
+  "total_cost_usd": 0.0268656,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 75162,
+    "output_tokens": 287,
+    "output_tokens_details": {
+      "thinking_tokens": 12
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 186,
+        "cache_read_input_tokens": 38405,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 287,
+      "cacheReadInputTokens": 75162,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0268656,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities: `calcTotal` sums item price×qty, `applyDiscount` applies a code-based %, `averageItemPrice` divides total by item count, `formatOrder` renders line items + discounted total.\n\nBugs:\n- `calcTotal` line 5: `i <= items.length` is off-by-one — reads `items[items.length]` (undefined), throwing `TypeError: Cannot read properties of undefined`. Should be `<`.\n- `averageItemPrice`: divides by zero (`NaN`) if `items` is empty; no guard.",
+  "ttft_ms": 1508,
+  "ttft_stream_ms": 937,
+  "time_to_request_ms": 164,
+  "type": "result",
+  "duration_ms": 4881,
+  "uuid": "760dff4f-2379-406e-bb7f-e9ec543ed3c8"
+}

@@ -1,0 +1,102 @@
+{
+  "_doc": [
+    "eco enforcement hooks - example configuration.",
+    "",
+    "The hooks ship INERT. Nothing in this directory changes Claude Code's behaviour",
+    "until this file exists at <config-dir>/eco-hooks.json. Its existence is the opt-in.",
+    "",
+    "  <config-dir> is $CLAUDE_CONFIG_DIR when set, otherwise ~/.claude",
+    "  (%USERPROFILE%\\.claude on Windows). $ECO_HOOKS_CONFIG overrides the whole path.",
+    "",
+    "Install:  cp scripts/hooks/config.example.json ~/.claude/eco-hooks.json",
+    "Verify:   node scripts/hooks/status.mjs",
+    "Disable:  delete the file, or set \"enabled\": false below.",
+    "",
+    "Every value here is the built-in default, so copying this file unchanged turns on",
+    "all four hooks at their default thresholds. Keys beginning with _ are ignored.",
+    "A malformed value falls back to its default; a malformed file disables the hooks",
+    "entirely rather than breaking a tool call."
+  ],
+
+  "enabled": true,
+
+  "bashOutputTrim": {
+    "_doc": [
+      "PostToolUse on Bash. Collapses repeated/progress lines, keeps a head and a tail,",
+      "and appends a marker stating exactly how many lines were removed and where the",
+      "untrimmed output was saved."
+    ],
+    "enabled": true,
+    "_floorBytes": "Output at or below this many bytes is never touched.",
+    "floorBytes": 4096,
+    "_headLines": "Lines kept from the start of the output.",
+    "headLines": 60,
+    "_tailLines": "Lines kept from the end of the output.",
+    "tailLines": 40,
+    "_collapseRepeats": "Collapse runs of near-identical lines before the head/tail cut.",
+    "collapseRepeats": true,
+    "_repeatThreshold": "Run length that triggers a collapse. Digits are normalised first, so a progress counter counts as one repeated line. Minimum 2.",
+    "repeatThreshold": 3,
+    "_keepFullOutput": "Write the untrimmed output to a file so the removed lines stay recoverable. With this off, the marker says the output was not saved.",
+    "keepFullOutput": true,
+    "_cacheDir": "Where to keep those files. Empty string means <os temp dir>/eco-hooks.",
+    "cacheDir": "",
+    "_cacheMaxAgeHours": "Cached outputs older than this are deleted on the next trim. 0 disables pruning.",
+    "cacheMaxAgeHours": 24,
+    "_errorSignatures": "Case-sensitive, multiline regexes. If ANY of them match anywhere in the output, the output is left completely alone - a truncated stack trace is worse than a long one. Narrow this list if it exempts too much; a pattern that fails to compile is skipped, not fatal.",
+    "errorSignatures": [
+      "Traceback \\(most recent call last\\)",
+      "^\\s+at .+:\\d+:\\d+\\)?\\s*$",
+      "^(fatal|error|panic|FATAL|ERROR|PANIC):",
+      "\\b(Error|Exception|AssertionError|SyntaxError|TypeError|ReferenceError)\\b",
+      "npm ERR!",
+      "Segmentation fault",
+      "core dumped",
+      "^\\s*FAIL(ED)?\\b"
+    ]
+  },
+
+  "writeGuard": {
+    "_doc": [
+      "PreToolUse on Write. Denies a Write that would overwrite an existing file larger",
+      "than the threshold, naming the file and its size and pointing at Edit. New files",
+      "and small files are never blocked."
+    ],
+    "enabled": true,
+    "_maxExistingBytes": "Existing files larger than this may not be rewritten with Write. 16384 is about 4k output tokens of re-emitted text.",
+    "maxExistingBytes": 16384,
+    "_exemptPatterns": "Plain substrings (not regexes) of the resolved absolute path that are always allowed, e.g. \"/generated/\" or \"dist\".",
+    "exemptPatterns": []
+  },
+
+  "readWindow": {
+    "_doc": [
+      "PreToolUse on Read injects a limit when a long file is read without one.",
+      "PostToolUse on Read appends the file's true line count when the read was windowed,",
+      "so the model knows it has not seen the whole file."
+    ],
+    "enabled": true,
+    "_maxLines": "Files with more lines than this get a limit injected when the call has none.",
+    "maxLines": 800,
+    "_injectLimit": "The limit that gets injected.",
+    "injectLimit": 400,
+    "_annotate": "Append the true line count after a windowed Read.",
+    "annotate": true,
+    "_maxScanBytes": "Stop counting newlines after this many bytes. Past it the reported count is labelled 'at least N', never presented as exact.",
+    "maxScanBytes": 67108864,
+    "_permissionDecision": "\"none\" (default) sends updatedInput on its own, leaving your permission rules in charge. \"allow\" pairs it with an explicit allow, which some Claude Code builds require for updatedInput to take effect - but that bypasses permission rules for this tool. \"ask\" escalates to you.",
+    "permissionDecision": "none"
+  },
+
+  "grepLimit": {
+    "_doc": [
+      "PreToolUse on Grep. Sets head_limit when output_mode is \"content\" and no",
+      "head_limit was given. Other output modes and explicit limits are untouched."
+    ],
+    "enabled": true,
+    "_defaultHeadLimit": "Injected head_limit. Grep's own default for content mode is 250. Set 0 to disable this hook.",
+    "defaultHeadLimit": 50,
+    "_permissionDecision": "Same meaning as readWindow.permissionDecision.",
+    "permissionDecision": "none"
+  }
+}

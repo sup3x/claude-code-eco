@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8974,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "5f5878b2-5c7f-42bc-83f4-20b0506bb2ac",
+  "total_cost_usd": 0.055137,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1612,
+    "cache_read_input_tokens": 56094,
+    "output_tokens": 438,
+    "output_tokens_details": {
+      "thinking_tokens": 9
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1612,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 341,
+        "cache_read_input_tokens": 28047,
+        "cache_creation_input_tokens": 1612,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1612
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 438,
+      "cacheReadInputTokens": 56094,
+      "cacheCreationInputTokens": 1612,
+      "webSearchRequests": 0,
+      "costUSD": 0.055137,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** `test/orders.js` — order utilities for a shop backend: `calcTotal` (sum price×qty), `applyDiscount` (percent off by code), `averageItemPrice`, and `formatOrder` (renders line items + discounted total).\n\n**Bugs:**\n1. `calcTotal:5` — loop uses `i <= items.length`, reading one past the end → `items[items.length]` is `undefined`, throws on `.price`. Use `i < items.length`.\n2. `averageItemPrice:20` — divides by `items.length` with no empty-array guard → `NaN` (and `calcTotal` throws first on `[]`). Guard against length 0.\n3. `applyDiscount:13` — `code` is untrusted key lookup; falls through fine for unknown codes, but inherited props (e.g. `\"constructor\"`) would resolve. Minor: use `Object.prototype.hasOwnProperty.call(discounts, code)` or a `Map`.\n\n#1 is the real crash; #2 secondary.",
+  "ttft_ms": 3405,
+  "ttft_stream_ms": 2640,
+  "time_to_request_ms": 433,
+  "type": "result",
+  "duration_ms": 9439,
+  "uuid": "52223c30-848d-41ed-90dd-32fef43de182"
+}

@@ -8,10 +8,11 @@ Every lever that actually reduces token consumption in Claude Code, ranked by me
 
 ## 1. Reasoning effort — THE output-token lever on modern Claude models (BIG)
 
-The Claude 5 family (Fable 5, Sonnet 5) and Opus 4.7/4.8 use **adaptive reasoning**. The effort level controls how much thinking *and* output the model produces — including how many tool calls it makes. On these models `MAX_THINKING_TOKENS` is **ignored** and thinking **cannot be disabled**.
+Fable 5, Opus 5, Sonnet 5, Opus 4.8 and Opus 4.7 use **adaptive reasoning**: the model decides per step whether to think, and the effort level sets how much thinking *and* output it produces — including how many tool calls it makes.
 
-- Anthropic's measurement (Opus 4.5): `medium` effort matched Sonnet 4.5's SWE-bench score with **76% fewer output tokens**; `high` beat it by 4.3 points with 48% fewer tokens.
-- Levels: `low` / `medium` / `high` (default) / `xhigh` / `max`. Official docs describe `max` as "prone to overthinking" — you pay for every thinking token even when it's collapsed in the UI.
+- Anthropic's measurement (Opus 4.5): `medium` effort matched Sonnet 4.5's SWE-bench score with **76% fewer output tokens**; `high` beat it by 4.3 points with 48% fewer tokens. That is a cross-model comparison at a fixed effort, not a within-model saving — treat it as evidence that lower effort can hold quality, not as a promise of −76% on your workload.
+- Levels: `low` / `medium` / `high` / `xhigh` / `max`. **`high` is the default** on every effort-capable model except Opus 4.7 (`xhigh`). Official docs describe `max` as "prone to overthinking" — you pay for every thinking token even when it's collapsed in the UI. The `/effort` menu also offers `ultracode`, a session-only Claude Code setting (xhigh plus workflow orchestration) that `effortLevel` does not accept.
+- Thinking itself: on adaptive-reasoning models a non-zero `MAX_THINKING_TOKENS` budget is ignored — effort is the control. `MAX_THINKING_TOKENS=0` still turns thinking off entirely on the Anthropic API, **except on Fable 5, where thinking cannot be turned off at all** (the `/config` toggle and Alt+T have no effect there either).
 
 **How:** `"effortLevel": "medium"` in `~/.claude/settings.json` · `/effort` or the `/model` slider (interactive) · `--effort <level>` (CLI) · `CLAUDE_CODE_EFFORT_LEVEL` (env, highest precedence).
 
@@ -41,9 +42,9 @@ Sources: [MCP docs](https://code.claude.com/docs/en/mcp), [community measurement
 
 ## 4. Subagent economics — grunt work on cheap models (BIG-MEDIUM)
 
-Subagents run in isolated contexts: verbose output (test logs, doc dumps, codebase sweeps) stays there; only a summary returns to the parent. The built-in **Explore** agent already runs on Haiku and skips CLAUDE.md to stay cheap.
+Subagents run in isolated contexts: verbose output (test logs, doc dumps, codebase sweeps) stays there; only a summary returns to the parent. The built-in **Explore** agent skips CLAUDE.md, but **as of Claude Code v2.1.198 it inherits the main conversation's model** instead of always running on Haiku (`model: "inherit"` in the shipped agent definition) — so delegation keeps output out of your context without automatically making it cheaper. Every subagent also starts on a cold cache with a five-minute TTL.
 
-**Do:** delegate broad searches to Explore; force all subagents onto Haiku with `CLAUDE_CODE_SUBAGENT_MODEL=haiku` (or per-agent `model: haiku` + `effort: low` frontmatter). **Don't** spawn subagents for jobs of a few tool calls (each spawn starts a cold cache on 5-min TTL) and don't let many subagents return long reports — that re-bloats the parent.
+**Do:** force the cheap model explicitly — `CLAUDE_CODE_SUBAGENT_MODEL=haiku`, or per-agent `model: haiku` + `effort: low` frontmatter (this plugin ships `eco-scout`, which is exactly that). **Don't** spawn subagents for jobs of a few tool calls, and don't let many subagents return long reports — that re-bloats the parent.
 
 Source: [Subagents](https://code.claude.com/docs/en/sub-agents)
 
@@ -55,7 +56,7 @@ Source: [Costs](https://code.claude.com/docs/en/costs)
 
 ## 6. Context lifecycle: /clear, /compact, /rewind (MEDIUM-BIG, compounding)
 
-Stale context costs on every subsequent message even when cached. `/clear` between unrelated tasks. After two failed correction attempts, `/clear` + a better prompt beats continuing (official best practice). `/compact <instructions>` at natural breakpoints (e.g. `/compact keep the API changes and test commands`); prefer `/rewind` when abandoning a path. Tune auto-compact with `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE`. Audit anytime with `/context` and `/usage` (per-skill/subagent/MCP breakdown).
+Stale context costs on every subsequent message even when cached. `/clear` between unrelated tasks. After two failed correction attempts, `/clear` + a better prompt beats continuing (official best practice). `/compact <instructions>` at natural breakpoints (e.g. `/compact keep the API changes and test commands`); prefer `/rewind` when abandoning a path. Tune auto-compact with `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE`. Audit anytime with `/context` (what is in the window now), `/usage` (plan usage with a per-skill/subagent/plugin/MCP attribution breakdown) and `/insights` (an HTML report over your recent sessions, written to `~/.claude/usage-data/report.html`).
 
 Source: [Costs](https://code.claude.com/docs/en/costs)
 
@@ -91,8 +92,10 @@ Source: [Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-
 
 ## 12. Small free wins
 
-- `DISABLE_NON_ESSENTIAL_MODEL_CALLS=1` — kills flavor-text and non-critical background calls.
+- `BASH_MAX_OUTPUT_LENGTH` — characters of command output read back into context (default 30000, max 150000). Lowering it truncates the tail rather than compressing it.
+- `MAX_MCP_OUTPUT_TOKENS` — same trade for MCP tool results (default 25000).
 - `CLAUDE_CODE_MAX_OUTPUT_TOKENS` — hard per-response cap (blunt; prefer the levers above).
+- Not a saver, despite appearances: `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` suppresses non-essential *network* traffic, not model calls. Background token usage is documented at typically under $0.04 per session. (Earlier versions of this guide recommended `DISABLE_NON_ESSENTIAL_MODEL_CALLS`; that variable does not exist in Claude Code — verified against the v2.1.233 binary and the env-vars page.)
 - Baseline awareness: ~20–30k tokens (system prompt + tools + CLAUDE.md) load before you type anything; `/context` shows yours.
 
 ---

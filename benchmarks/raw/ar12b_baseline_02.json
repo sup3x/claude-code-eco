@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9696,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "4ca6b4b0-aa50-4242-aac2-de21fa72a320",
+  "total_cost_usd": 0.0412256,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1645,
+    "cache_read_input_tokens": 70662,
+    "output_tokens": 636,
+    "output_tokens_details": {
+      "thinking_tokens": 44
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1645,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 537,
+        "cache_read_input_tokens": 35331,
+        "cache_creation_input_tokens": 1645,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1645
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 636,
+      "cacheReadInputTokens": 70662,
+      "cacheCreationInputTokens": 1645,
+      "webSearchRequests": 0,
+      "costUSD": 0.04062060000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** `test/orders.js` is a small set of order-related utilities for a shop backend: computing an order total (`calcTotal`), applying a percentage discount code (`applyDiscount`), computing average item price (`averageItemPrice`), and formatting a human-readable order summary with total (`formatOrder`).\n\n**Bugs found:**\n\n1. **Off-by-one out-of-bounds access in `calcTotal` (line 5)** — the loop condition is `i <= items.length` instead of `i < items.length`. On the last iteration, `items[items.length]` is `undefined`, so `items[i].price` throws `TypeError: Cannot read properties of undefined (reading 'price')`. This breaks every caller, including `averageItemPrice` and `formatOrder`.\n\n2. **`averageItemPrice` divides by zero for empty arrays (line 20)** — if `items` is `[]`, `calcTotal` returns `0` (once bug #1 is fixed) but `0 / 0` yields `NaN` with no guard. Minor, but worth flagging as an edge case.\n\n3. **`applyDiscount` doesn't validate `total`/`pct` types** — not a crash bug per se, but if `code` isn't a string key in `discounts`, e.g. `undefined`/`null`, `discounts[code]` is safely `undefined` and handled; this one's actually fine, just noting it was checked.\n\nThe critical bug is #1 — fix by changing `i <= items.length` to `i < items.length` (or better, replace the loop with `items.reduce((sum, it) => sum + it.price * it.qty, 0)`).",
+  "ttft_ms": 1475,
+  "ttft_stream_ms": 896,
+  "time_to_request_ms": 155,
+  "type": "result",
+  "duration_ms": 8132,
+  "uuid": "8b5ca4cc-496f-430e-906b-a9a3075c7b5a"
+}

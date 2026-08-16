@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8254,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "cba343d1-efb8-4230-8bc8-fdb214033a0b",
+  "total_cost_usd": 0.011269,
+  "usage": {
+    "input_tokens": 18,
+    "cache_creation_input_tokens": 1285,
+    "cache_read_input_tokens": 52460,
+    "output_tokens": 563,
+    "output_tokens_details": {
+      "thinking_tokens": 286
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1285,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 440,
+        "cache_read_input_tokens": 26230,
+        "cache_creation_input_tokens": 1285,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1285
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 553,
+      "outputTokens": 580,
+      "cacheReadInputTokens": 52460,
+      "cacheCreationInputTokens": 1285,
+      "webSearchRequests": 0,
+      "costUSD": 0.011269,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "## Module Overview\nThis is a simple order utility module for a shop backend with four functions: `calcTotal()` sums item prices, `applyDiscount()` applies percentage discounts with codes, `averageItemPrice()` computes the mean item cost, and `formatOrder()` formats an order as a readable string.\n\n## Bugs\n\n1. **Off-by-one error in `calcTotal` (line 5)**: The loop uses `i <= items.length` instead of `i < items.length`. This tries to access `items[items.length]` (undefined), causing the total to become `NaN`.\n\n2. **Division by zero in `averageItemPrice` (line 20)**: If `items` is empty, `items.length` is 0, returning `Infinity`. No guard for empty arrays.",
+  "ttft_ms": 1835,
+  "ttft_stream_ms": 1161,
+  "time_to_request_ms": 167,
+  "type": "result",
+  "duration_ms": 7529,
+  "uuid": "71e1b99c-6fe5-49fb-97f0-5b4a87730600"
+}

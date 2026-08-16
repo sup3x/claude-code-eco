@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6025,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "260c37bc-154e-4d54-98e4-c090dfc4385c",
+  "total_cost_usd": 0.0377442,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1693,
+    "cache_read_input_tokens": 73514,
+    "output_tokens": 368,
+    "output_tokens_details": {
+      "thinking_tokens": 57
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1693,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 221,
+        "cache_read_input_tokens": 36757,
+        "cache_creation_input_tokens": 1693,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1693
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 368,
+      "cacheReadInputTokens": 73514,
+      "cacheCreationInputTokens": 1693,
+      "webSearchRequests": 0,
+      "costUSD": 0.0377442,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: `calcTotal` sums item price×qty, `applyDiscount` applies a % off by code, `averageItemPrice` averages price over item count, `formatOrder` renders a receipt string.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` off-by-one → reads `items[items.length]` (undefined) and throws `Cannot read properties of undefined`. Should be `i < items.length`.\n- `averageItemPrice` (line 20): divides by 0 if `items` is empty → `NaN`, no guard.\n- `applyDiscount`: no validation that `total` is a valid number; minor, not a bug per se.",
+  "ttft_ms": 2162,
+  "ttft_stream_ms": 1005,
+  "time_to_request_ms": 164,
+  "type": "result",
+  "duration_ms": 6205,
+  "uuid": "220203ed-785f-4519-a005-da6878b19bc4"
+}

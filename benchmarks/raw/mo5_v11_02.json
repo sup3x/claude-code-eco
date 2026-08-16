@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8283,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "ae237724-24ec-4038-8f2e-42f2d3b8edaf",
+  "total_cost_usd": 0.053884,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1604,
+    "cache_read_input_tokens": 57348,
+    "output_tokens": 366,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1604,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 277,
+        "cache_read_input_tokens": 28674,
+        "cache_creation_input_tokens": 1604,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1604
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 366,
+      "cacheReadInputTokens": 57348,
+      "cacheCreationInputTokens": 1604,
+      "webSearchRequests": 0,
+      "costUSD": 0.053884,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities for a shop backend: sum line items, apply a percentage discount code, average price, render a text receipt.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads `items[length]` (undefined) → TypeError on every call. Should be `i < items.length`.\n2. `orders.js:20` — `averageItemPrice([])` returns `NaN` (0/0); also it divides by line count, not total quantity, so `2x @10` averages to 20 rather than 10.\n3. `orders.js:15` — no clamping/validation: negative or >100 discount data would yield a negative total; also codes are case-sensitive (`save10` silently ignored).\n4. `orders.js:26` — `toFixed(2)` uses binary float rounding; money should be computed in integer cents to avoid drift.",
+  "ttft_ms": 2784,
+  "ttft_stream_ms": 2105,
+  "time_to_request_ms": 153,
+  "type": "result",
+  "duration_ms": 8449,
+  "uuid": "7f968502-7747-44c2-b383-308b054e74fa"
+}

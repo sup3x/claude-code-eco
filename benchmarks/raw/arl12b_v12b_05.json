@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6089,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "01f0ccc4-ac17-4c21-9804-f68b0760a5db",
+  "total_cost_usd": 0.0370506,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1665,
+    "cache_read_input_tokens": 74212,
+    "output_tokens": 319,
+    "output_tokens_details": {
+      "thinking_tokens": 28
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1665,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 202,
+        "cache_read_input_tokens": 37106,
+        "cache_creation_input_tokens": 1665,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1665
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 319,
+      "cacheReadInputTokens": 74212,
+      "cacheCreationInputTokens": 1665,
+      "webSearchRequests": 0,
+      "costUSD": 0.0370506,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes totals, applies discount codes, averages item price, formats an order for display.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` off-by-one — accesses `items[items.length]` (undefined), throws `TypeError`.\n- `averageItemPrice` (line 20): divides by `items.length` with no empty-array guard → `NaN`/`0÷0`.\n- `applyDiscount`: no validation that `total` is a number, but not a bug per se — fine.\n\nThe `calcTotal` off-by-one is the critical one (crashes on any non-empty items array).",
+  "ttft_ms": 2049,
+  "ttft_stream_ms": 1498,
+  "time_to_request_ms": 174,
+  "type": "result",
+  "duration_ms": 6279,
+  "uuid": "175feb69-3abe-4069-a09f-b8788f507d2f"
+}

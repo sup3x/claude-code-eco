@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9011,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "cce52674-f2c9-47d2-8f78-b0da6a7a38c0",
+  "total_cost_usd": 0.019692599999999998,
+  "usage": {
+    "input_tokens": 17,
+    "cache_creation_input_tokens": 5537,
+    "cache_read_input_tokens": 50266,
+    "output_tokens": 715,
+    "output_tokens_details": {
+      "thinking_tokens": 476
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5537,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 571,
+        "cache_read_input_tokens": 27249,
+        "cache_creation_input_tokens": 1305,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1305
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 17,
+      "outputTokens": 715,
+      "cacheReadInputTokens": 50266,
+      "cacheCreationInputTokens": 5537,
+      "webSearchRequests": 0,
+      "costUSD": 0.019692599999999998,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module**: Order utilities calculating totals, applying discounts, and formatting orders for display.\n\n**Bugs**:\n\n1. **Line 5, `calcTotal`**: Off-by-one error — `i <= items.length` should be `i < items.length`. Loop accesses `items[items.length]` (undefined), resulting in `NaN` being added.\n\n2. **Line 20, `averageItemPrice`**: Divides total cost by item count, not total quantity. With mixed quantities, this doesn't correctly calculate average unit price. Should divide by `items.reduce((sum, it) => sum + it.qty, 0)`.",
+  "ttft_ms": 1957,
+  "ttft_stream_ms": 916,
+  "time_to_request_ms": 148,
+  "type": "result",
+  "duration_ms": 9171,
+  "uuid": "f972a958-0021-4fed-ab04-84eb6041270f"
+}

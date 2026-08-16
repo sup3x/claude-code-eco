@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 14736,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "6d3db579-f38a-4e6b-8bc8-61e3b5b851aa",
+  "total_cost_usd": 0.065125,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1676,
+    "cache_read_input_tokens": 52550,
+    "output_tokens": 858,
+    "output_tokens_details": {
+      "thinking_tokens": 255
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1676,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 697,
+        "cache_read_input_tokens": 26275,
+        "cache_creation_input_tokens": 1676,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1676
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00062,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 858,
+      "cacheReadInputTokens": 52550,
+      "cacheCreationInputTokens": 1676,
+      "webSearchRequests": 0,
+      "costUSD": 0.064505,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What the module does:** `test/orders.js` is a small set of order utilities for a shop backend, exported for reuse:\n\n- `calcTotal(items)` — sums `price × qty` over line items.\n- `applyDiscount(total, code)` — applies a `SAVE10`/`SAVE20` percentage discount; returns the total unchanged for unknown codes.\n- `averageItemPrice(items)` — total divided by item count.\n- `formatOrder(order)` — renders each line as `qty x name @ price` plus a discounted total.\n\n**Bugs:**\n\n1. **Off-by-one in `calcTotal` (line 5) — real crash.** The loop condition is `i <= items.length`, so the final iteration reads `items[items.length]`, which is `undefined`, and `undefined.price` throws `TypeError: Cannot read properties of undefined`. This breaks `calcTotal` on *every* call, and by extension `averageItemPrice` and `formatOrder`. Fix: use `i < items.length`.\n\n2. **`averageItemPrice` divides by zero on empty input (line 20).** For `items = []` it returns `NaN` (`0 / 0`). Depending on requirements you'd guard with `if (items.length === 0) return 0;`. (Note: with bug #1 present it actually throws before reaching this.)\n\nThe other two functions (`applyDiscount`, `formatOrder`) are correct, though `formatOrder` will throw if `order.items` is missing — a robustness gap rather than a bug.\n\nThe clear, must-fix defect is #1.",
+  "ttft_ms": 3011,
+  "ttft_stream_ms": 1350,
+  "time_to_request_ms": 167,
+  "type": "result",
+  "duration_ms": 14027,
+  "uuid": "0e6c6087-b853-44de-8bb7-8f3736221999"
+}

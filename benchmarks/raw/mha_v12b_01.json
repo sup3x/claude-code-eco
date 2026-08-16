@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9042,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "1c5e356f-f8e4-4412-8510-d285aa06c9a0",
+  "total_cost_usd": 0.020298999999999998,
+  "usage": {
+    "input_tokens": 17,
+    "cache_creation_input_tokens": 5803,
+    "cache_read_input_tokens": 50510,
+    "output_tokens": 725,
+    "output_tokens_details": {
+      "thinking_tokens": 490
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5803,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 559,
+        "cache_read_input_tokens": 27493,
+        "cache_creation_input_tokens": 1327,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1327
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 17,
+      "outputTokens": 725,
+      "cacheReadInputTokens": 50510,
+      "cacheCreationInputTokens": 5803,
+      "webSearchRequests": 0,
+      "costUSD": 0.020298999999999998,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module**: Simple order utilities—calculates totals, applies discount codes, averages item prices, formats orders for display.\n\n**Bugs**:\n1. **Line 5** — Off-by-one: `i <= items.length` should be `i < items.length`. Accessing `items[items.length]` is undefined, crashes on `items[i].price`.\n2. **Line 20** — Logic error: `averageItemPrice` divides total revenue by item *count*, ignoring quantities. Should divide by total quantity: `total / items.reduce((sum, it) => sum + it.qty, 0)`.",
+  "ttft_ms": 2044,
+  "ttft_stream_ms": 1003,
+  "time_to_request_ms": 150,
+  "type": "result",
+  "duration_ms": 9204,
+  "uuid": "206aca0e-5f61-49eb-b293-3ea9e0596b88"
+}

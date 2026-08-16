@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7559,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "803450fd-d121-43d6-830f-c7b66a90d0ff",
+  "total_cost_usd": 0.053501,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1613,
+    "cache_read_input_tokens": 55402,
+    "output_tokens": 386,
+    "output_tokens_details": {
+      "thinking_tokens": 10
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1613,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 288,
+        "cache_read_input_tokens": 27701,
+        "cache_creation_input_tokens": 1613,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1613
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 386,
+      "cacheReadInputTokens": 55402,
+      "cacheCreationInputTokens": 1613,
+      "webSearchRequests": 0,
+      "costUSD": 0.053501,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities for a shop backend — `calcTotal` sums item price×qty, `applyDiscount` applies SAVE10/SAVE20 codes, `averageItemPrice` computes the mean, `formatOrder` renders a receipt string.\n\n**Bugs:**\n- `orders.js:5` — off-by-one: `i <= items.length` reads past the end; `items[items.length]` is `undefined`, so `.price` throws `TypeError`. Use `i < items.length`.\n- `orders.js:20` — `averageItemPrice` divides by `items.length` with no guard; empty array returns `NaN` (also 0/0). Guard for empty.\n- Minor: `averageItemPrice` averages the *discountable* total but ignores discounts, while `formatOrder` applies them — inconsistent, likely fine by design but worth confirming.",
+  "ttft_ms": 1703,
+  "ttft_stream_ms": 1442,
+  "time_to_request_ms": 162,
+  "type": "result",
+  "duration_ms": 7735,
+  "uuid": "ac55c123-f09c-4aa1-9c34-a44213cc6b25"
+}

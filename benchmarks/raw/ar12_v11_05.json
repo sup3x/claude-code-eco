@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5389,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "4bf1c290-ba60-4893-96c1-57f77fa7f1e0",
+  "total_cost_usd": 0.0372552,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1699,
+    "cache_read_input_tokens": 73514,
+    "output_tokens": 333,
+    "output_tokens_details": {
+      "thinking_tokens": 63
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1699,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 180,
+        "cache_read_input_tokens": 36757,
+        "cache_creation_input_tokens": 1699,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1699
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 333,
+      "cacheReadInputTokens": 73514,
+      "cacheCreationInputTokens": 1699,
+      "webSearchRequests": 0,
+      "costUSD": 0.0372552,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities: `calcTotal` sums price×qty, `applyDiscount` applies a % code, `averageItemPrice` divides total by item count, `formatOrder` renders a receipt string.\n\nBugs:\n- `calcTotal` line 5: `i <= items.length` is off-by-one — reads `items[items.length]` (undefined), throws `TypeError` on any non-empty array.\n- `averageItemPrice`: divides by 0 (→ `NaN`) if `items` is empty; also inherits the calcTotal bug.",
+  "ttft_ms": 2684,
+  "ttft_stream_ms": 1356,
+  "time_to_request_ms": 166,
+  "type": "result",
+  "duration_ms": 5571,
+  "uuid": "aab4f026-8bb1-467f-a604-f4c3db4d7a0c"
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7281,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "82b96371-ea4d-40ba-9f38-f81486ff7239",
+  "total_cost_usd": 0.039221,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 58952,
+    "output_tokens": 389,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 300,
+        "cache_read_input_tokens": 30278,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 389,
+      "cacheReadInputTokens": 58952,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.039221,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "CommonJS order utilities: `calcTotal` sums price×qty, `applyDiscount` applies SAVE10/SAVE20 percent codes, `averageItemPrice` divides total by count, `formatOrder` renders line items plus discounted total.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads `items[items.length]` (undefined) → TypeError on every call. Should be `i < items.length`.\n2. `orders.js:20` — division by zero on empty `items` → returns `NaN`. Guard with `items.length === 0 ? 0 : …`.\n3. `orders.js:13` — `discounts[code]` inherits `Object.prototype`, so codes like `constructor`/`toString` return a function; `total * pct` then yields `NaN`. Use `Object.hasOwn(discounts, code)` or `Object.create(null)`.",
+  "ttft_ms": 2468,
+  "ttft_stream_ms": 1209,
+  "time_to_request_ms": 169,
+  "type": "result",
+  "duration_ms": 7466,
+  "uuid": "55d64199-990c-43ce-9b68-a6ae3d63ef30"
+}

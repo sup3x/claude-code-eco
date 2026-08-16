@@ -1,0 +1,31 @@
+# EditorConfig - https://editorconfig.org
+# These rules are asserted in .github/workflows/ci.yml, not left to editors:
+# a whitespace or encoding slip in this repo has already shipped a broken file.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# CI asserts indent_style for exactly these extensions under .github/, scripts/
+# and benchmarks/. Keep the two lists in step or the check stops matching the rule.
+[*.{mjs,js,json,yml,yaml,sh}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+indent_style = space
+indent_size = 2
+# Two trailing spaces are a hard line break in Markdown.
+trim_trailing_whitespace = false
+
+# .gitattributes checks .ps1 out as CRLF because Windows PowerShell wants it.
+# EditorConfig has no "ascii" charset, so the rule these files really need is
+# enforced in CI instead: a single non-ASCII character in a BOM-less .ps1 makes
+# Windows PowerShell 5.1 misparse the whole file. That is not hypothetical here.
+[*.ps1]
+end_of_line = crlf
+indent_style = space
+indent_size = 2

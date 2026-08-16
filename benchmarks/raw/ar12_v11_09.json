@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6026,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "766a052d-23b1-46a2-8396-98c354144bf5",
+  "total_cost_usd": 0.0368142,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1678,
+    "cache_read_input_tokens": 73514,
+    "output_tokens": 312,
+    "output_tokens_details": {
+      "thinking_tokens": 42
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1678,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 180,
+        "cache_read_input_tokens": 36757,
+        "cache_creation_input_tokens": 1678,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1678
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 312,
+      "cacheReadInputTokens": 73514,
+      "cacheCreationInputTokens": 1678,
+      "webSearchRequests": 0,
+      "costUSD": 0.0368142,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities module: computes item totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` is off-by-one — reads `items[items.length]` (undefined), causing a TypeError.\n- `averageItemPrice` (line 20): divides by `items.length` without checking for empty array → `NaN`/`0/0`.\n- `applyDiscount`: no validation that `total`/`pct` are sane, but not a bug per se — fine given valid input.",
+  "ttft_ms": 2728,
+  "ttft_stream_ms": 1594,
+  "time_to_request_ms": 163,
+  "type": "result",
+  "duration_ms": 6205,
+  "uuid": "8640b04f-b775-4e24-a211-b9f8108cebd2"
+}

@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 16626,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "67559df5-9551-4c31-9ffa-fbd205e1cbb5",
+  "total_cost_usd": 0.064291,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1613,
+    "cache_read_input_tokens": 54492,
+    "output_tokens": 811,
+    "output_tokens_details": {
+      "thinking_tokens": 226
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1613,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 713,
+        "cache_read_input_tokens": 27246,
+        "cache_creation_input_tokens": 1613,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1613
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00062,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 811,
+      "cacheReadInputTokens": 54492,
+      "cacheCreationInputTokens": 1613,
+      "webSearchRequests": 0,
+      "costUSD": 0.063671,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** A small CommonJS module of order helpers — sums line items (`calcTotal`), applies a percentage discount by code (`applyDiscount`), computes mean item price (`averageItemPrice`), and renders an order as text lines plus a formatted total (`formatOrder`).\n\n**Bugs:**\n\n1. **`calcTotal` off-by-one — crashes on every call** (`test/orders.js:5`). The loop condition is `i <= items.length`, so the final iteration reads `items[items.length]`, which is `undefined`, and `undefined.price` throws `TypeError`. This breaks all four exports transitively. Fix: `i < items.length`.\n\n2. **`averageItemPrice` divides by zero** (`test/orders.js:20`). With an empty array it returns `NaN` (once bug 1 is fixed; today it throws instead). Should return `0` or guard explicitly.\n\n3. **`applyDiscount` doesn't validate the discount range** (`test/orders.js:15`). Not exploitable with the current hardcoded table, but the function accepts any `pct` from `discounts`, so a future `SAVE150` entry would silently produce a negative total. Clamping the result at `0` would make it safe.\n\nMinor, not strictly a bug: money is computed in floating point, so `total.toFixed(2)` can round in surprising ways on long orders (e.g. `0.1 + 0.2`). Integer cents would be more robust if this handles real payments.",
+  "ttft_ms": 3124,
+  "ttft_stream_ms": 2932,
+  "time_to_request_ms": 202,
+  "type": "result",
+  "duration_ms": 15769,
+  "uuid": "122f4f50-1ab0-4de0-b069-486a99f1a14e"
+}

@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8782,
+  "num_turns": 4,
+  "stop_reason": "end_turn",
+  "session_id": "6f71002d-011e-41b1-983f-b52bf6089966",
+  "total_cost_usd": 0.065691,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 1991,
+    "cache_read_input_tokens": 150420,
+    "output_tokens": 573,
+    "output_tokens_details": {
+      "thinking_tokens": 141
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1991,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 89,
+        "cache_read_input_tokens": 38501,
+        "cache_creation_input_tokens": 347,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 347
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 8,
+      "outputTokens": 573,
+      "cacheReadInputTokens": 150420,
+      "cacheCreationInputTokens": 1991,
+      "webSearchRequests": 0,
+      "costUSD": 0.065691,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` returns `90` (100 − 10%).\n\nUnrelated bug spotted: `calcTotal` (line 5) uses `i <= items.length`, which reads past the array end and will throw/produce `NaN`.",
+  "ttft_ms": 2649,
+  "ttft_stream_ms": 1010,
+  "time_to_request_ms": 167,
+  "type": "result",
+  "duration_ms": 9041,
+  "uuid": "e3979f7f-f066-41d3-beed-3c8ea248190a"
+}

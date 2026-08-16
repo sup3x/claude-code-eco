@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 4314,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "b4678327-43f4-4c18-ae5c-c0144ae6caef",
+  "total_cost_usd": 0.035415,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1647,
+    "cache_read_input_tokens": 73520,
+    "output_tokens": 231,
+    "output_tokens_details": {
+      "thinking_tokens": 10
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1647,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 131,
+        "cache_read_input_tokens": 36760,
+        "cache_creation_input_tokens": 1647,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1647
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 231,
+      "cacheReadInputTokens": 73520,
+      "cacheCreationInputTokens": 1647,
+      "webSearchRequests": 0,
+      "costUSD": 0.035415,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities: total calc, discount codes, average price, order formatting.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` causes off-by-one, accessing `items[items.length]` (undefined) → crashes on `.price`.\n- `averageItemPrice`: divides by `items.length` → returns `NaN`/`Infinity` for empty array (no guard).",
+  "ttft_ms": 1568,
+  "ttft_stream_ms": 999,
+  "time_to_request_ms": 179,
+  "type": "result",
+  "duration_ms": 4509,
+  "uuid": "0e799611-5d8d-464b-94db-cdfe074ea6c0"
+}

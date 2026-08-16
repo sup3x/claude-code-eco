@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 4678,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "f6b55c71-8acb-4605-8097-99a13162f3b3",
+  "total_cost_usd": 0.08976809999999999,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 9148,
+    "cache_read_input_tokens": 104907,
+    "output_tokens": 226,
+    "output_tokens_details": {
+      "thinking_tokens": 12
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 9148,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5,
+        "cache_read_input_tokens": 38384,
+        "cache_creation_input_tokens": 254,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 254
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 226,
+      "cacheReadInputTokens": 104907,
+      "cacheCreationInputTokens": 9148,
+      "webSearchRequests": 0,
+      "costUSD": 0.08976809999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`90`",
+  "ttft_ms": 2216,
+  "ttft_stream_ms": 1321,
+  "time_to_request_ms": 204,
+  "type": "result",
+  "duration_ms": 4935,
+  "uuid": "4ffff16d-fbb8-4ac3-b752-eafb98f8d4bd"
+}

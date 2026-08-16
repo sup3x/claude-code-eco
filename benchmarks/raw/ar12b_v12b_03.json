@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5875,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "dfa72d5e-88e0-4fa8-8653-47ebc6fd9bbb",
+  "total_cost_usd": 0.0373344,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1665,
+    "cache_read_input_tokens": 74208,
+    "output_tokens": 338,
+    "output_tokens_details": {
+      "thinking_tokens": 29
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1665,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 221,
+        "cache_read_input_tokens": 37104,
+        "cache_creation_input_tokens": 1665,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1665
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 338,
+      "cacheReadInputTokens": 74208,
+      "cacheCreationInputTokens": 1665,
+      "webSearchRequests": 0,
+      "costUSD": 0.0373344,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (orders.js:5): `i <= items.length` off-by-one — reads `items[items.length]` (undefined), throwing `TypeError` when accessing `.price`.\n- `averageItemPrice` (orders.js:18-20): divides by `items.length`; if `items` is empty, returns `NaN` (and also hits the `calcTotal` bug above).\n- `applyDiscount` (orders.js:13): discount codes are case-sensitive with no trim, so e.g. `\"save10\"` silently fails to apply.",
+  "ttft_ms": 2099,
+  "ttft_stream_ms": 992,
+  "time_to_request_ms": 167,
+  "type": "result",
+  "duration_ms": 6058,
+  "uuid": "e4fceddc-67cb-430f-8a04-72502430f73e"
+}

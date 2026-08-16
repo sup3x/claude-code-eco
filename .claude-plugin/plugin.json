@@ -1,9 +1,24 @@
 {
   "name": "claude-eco",
   "displayName": "Claude Eco",
-  "description": "Eco mode for Claude Code: minimize token consumption with critical findings intact. Ships /eco (frugality rules) and /eco-max (rules + low reasoning-effort override). Measured hardest on Claude Fable 5, works on every effort-based Claude: -31% to -73% output tokens.",
-  "version": "1.1.4",
-  "author": { "name": "Kerim" },
+  "description": "Eco mode for Claude Code: minimize token consumption with critical findings intact. Ships /eco and /eco-max (frugality rules, with a low reasoning-effort override), an Eco output style, /eco audit and /eco report, opt-in enforcement hooks, and a benchmark harness. Measured -35% to -57% output tokens on the same task across Opus 5, Sonnet 5, Opus 4.8 and Fable 5 (n=5 per arm), up to -73% on long agentic tasks; 267 raw runs published, negative results included.",
+  "version": "1.2.0",
+  "author": {
+    "name": "Kerim"
+  },
+  "homepage": "https://github.com/sup3x/claude-code-eco#readme",
+  "repository": "https://github.com/sup3x/claude-code-eco",
   "license": "MIT",
-  "keywords": ["tokens", "cost", "efficiency", "budget", "eco", "effort", "claude-code", "skill", "fable-5", "sonnet-5"]
+  "keywords": [
+    "tokens",
+    "cost",
+    "efficiency",
+    "budget",
+    "eco",
+    "effort",
+    "claude-code",
+    "skill",
+    "hooks",
+    "output-style"
+  ]
 }

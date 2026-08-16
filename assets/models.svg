@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="418" viewBox="0 0 900 418" role="img" aria-label="Output tokens per answer, baseline versus /eco, across five Claude models">
+<title>Output tokens per answer: baseline vs /eco across five Claude models</title>
+<rect width="900" height="418" rx="14" fill="#0b111c"/>
+<text x="28" y="36" font-family="Segoe UI, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#e8ecf3">Output tokens per answer &#8212; same review task, n=5 per arm</text>
+<text x="28" y="58" font-family="Segoe UI, -apple-system, sans-serif" font-size="13" fill="#8e99ac">2026-08-16 &#183; Claude Code 2.1.233 &#183; default effort &#183; both planted bugs found in every run except where noted</text>
+<text x="104" y="89" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e8ecf3">Opus 5</text>
+<rect x="132" y="78" width="568.0" height="13" rx="4" fill="#3f4a5f"/>
+<rect x="132" y="96" width="304.5" height="13" rx="4" fill="#34d399"/>
+<text x="710" y="89" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#8e99ac">868 baseline</text>
+<text x="446.53800092123447" y="107" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#34d399">466 with /eco</text>
+<text x="876" y="100" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#34d399">−46%</text>
+
+<text x="104" y="147" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e8ecf3">Sonnet 5</text>
+<rect x="132" y="136" width="500.1" height="13" rx="4" fill="#3f4a5f"/>
+<rect x="132" y="154" width="215.8" height="13" rx="4" fill="#34d399"/>
+<text x="642.1068631966835" y="147" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#8e99ac">765 baseline</text>
+<text x="357.84523261169966" y="165" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#34d399">330 with /eco</text>
+<text x="876" y="158" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#34d399">−57%</text>
+
+<text x="104" y="205" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e8ecf3">Opus 4.8</text>
+<rect x="132" y="194" width="470.9" height="13" rx="4" fill="#3f4a5f"/>
+<rect x="132" y="212" width="255.5" height="13" rx="4" fill="#34d399"/>
+<text x="612.9350529709811" y="205" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#8e99ac">720 baseline</text>
+<text x="397.48226623675725" y="223" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#34d399">391 with /eco</text>
+<text x="876" y="216" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#34d399">−46%</text>
+
+<text x="104" y="263" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e8ecf3">Fable 5</text>
+<rect x="132" y="252" width="449.4" height="13" rx="4" fill="#3f4a5f"/>
+<rect x="132" y="270" width="290.5" height="13" rx="4" fill="#34d399"/>
+<text x="591.3505297098111" y="263" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#8e99ac">687 baseline</text>
+<text x="432.540764624597" y="281" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#34d399">444 with /eco</text>
+<text x="876" y="274" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#34d399">−35%</text>
+
+<text x="104" y="321" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#e8ecf3">Haiku 4.5</text>
+<rect x="132" y="310" width="483.9" height="13" rx="4" fill="#3f4a5f"/>
+<rect x="132" y="328" width="365.4" height="13" rx="4" fill="#fbbf24"/>
+<text x="625.8857669276831" y="321" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#8e99ac">740 baseline</text>
+<text x="507.3671119299862" y="339" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#fbbf24">559 with /eco</text>
+<text x="876" y="332" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#fbbf24">−24%</text>
+<text x="876" y="349" text-anchor="end" font-family="Segoe UI, -apple-system, sans-serif" font-size="11.5" fill="#fbbf24">secondary bug 2/5</text>
+<text x="28" y="382" font-family="Segoe UI, -apple-system, sans-serif" font-size="12.5" fill="#8e99ac">Amber = the token cut came with a quality cost: on Haiku the eco arm reported the secondary bug in 2 of 5 runs, against 5/5 for v1.1.</text>
+<text x="28" y="399" font-family="Segoe UI, -apple-system, sans-serif" font-size="12.5" fill="#8e99ac">Absolute counts are not comparable across models (different tokenizers) &#8212; only the percentage within a row is. Generated by scripts/build-chart.mjs.</text>
+</svg>

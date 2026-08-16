@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8355,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "c673adde-55d8-4c56-a6ae-93bc57d42257",
+  "total_cost_usd": 0.0114046,
+  "usage": {
+    "input_tokens": 17,
+    "cache_creation_input_tokens": 1307,
+    "cache_read_input_tokens": 54986,
+    "output_tokens": 655,
+    "output_tokens_details": {
+      "thinking_tokens": 425
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1307,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 509,
+        "cache_read_input_tokens": 27493,
+        "cache_creation_input_tokens": 1307,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1307
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 17,
+      "outputTokens": 655,
+      "cacheReadInputTokens": 54986,
+      "cacheCreationInputTokens": 1307,
+      "webSearchRequests": 0,
+      "costUSD": 0.0114046,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module:** Shop order utilities — calculates totals, applies discount codes (SAVE10/SAVE20), computes average item price, formats orders for display.\n\n**Bugs:**\n\n1. **Line 5 (off-by-one in `calcTotal`):** Loop uses `i <= items.length` instead of `i < items.length`. Accesses `items[items.length]` (undefined) on the last iteration, producing NaN totals.\n\n2. **Line 20 (division by zero in `averageItemPrice`):** No check for empty arrays; returns NaN when `items` is empty.",
+  "ttft_ms": 2277,
+  "ttft_stream_ms": 1515,
+  "time_to_request_ms": 186,
+  "type": "result",
+  "duration_ms": 8554,
+  "uuid": "4f3d33c3-9653-4556-a2c0-dfb81670ab1e"
+}

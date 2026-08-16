@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 4895,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "0bb1a25a-f353-4afc-b82e-8c60ddb5a4fe",
+  "total_cost_usd": 0.0362286,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1652,
+    "cache_read_input_tokens": 74182,
+    "output_tokens": 270,
+    "output_tokens_details": {
+      "thinking_tokens": 16
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1652,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 165,
+        "cache_read_input_tokens": 37091,
+        "cache_creation_input_tokens": 1652,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1652
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 270,
+      "cacheReadInputTokens": 74182,
+      "cacheCreationInputTokens": 1652,
+      "webSearchRequests": 0,
+      "costUSD": 0.0362286,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes totals, applies discount codes, averages item price, formats an order receipt.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` causes off-by-one, reading `items[items.length]` (undefined) → crash/NaN.\n- `averageItemPrice` (line 20): divides by `items.length` with no guard → `NaN` for empty array.\n- `applyDiscount`: no validation that `total` is a valid number, but no bug per se — fine.",
+  "ttft_ms": 1853,
+  "ttft_stream_ms": 1177,
+  "time_to_request_ms": 179,
+  "type": "result",
+  "duration_ms": 5090,
+  "uuid": "9d0cafe3-b90a-46dc-b70a-648950afe439"
+}

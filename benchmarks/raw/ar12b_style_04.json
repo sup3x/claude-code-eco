@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8703,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "d84c2ec8-f9be-47f9-90d3-98174fa18d3d",
+  "total_cost_usd": 0.0415032,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1661,
+    "cache_read_input_tokens": 73284,
+    "output_tokens": 595,
+    "output_tokens_details": {
+      "thinking_tokens": 280
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1661,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 481,
+        "cache_read_input_tokens": 36642,
+        "cache_creation_input_tokens": 1661,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1661
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 16,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000615,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 595,
+      "cacheReadInputTokens": 73284,
+      "cacheCreationInputTokens": 1661,
+      "webSearchRequests": 0,
+      "costUSD": 0.0408882,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module:** Small order-utilities lib — computes order totals, applies discount codes, averages item price, and formats an order as a receipt string.\n\n**Bugs:**\n1. `calcTotal` (line 5): loop uses `i <= items.length`, an off-by-one that reads `items[items.length]` (`undefined`) and crashes on `undefined.price`. Should be `i < items.length`.\n2. `averageItemPrice` (line 20): no guard for `items.length === 0`, returns `NaN` (0/0). Also inherits the `calcTotal` crash above.\n\nEverything downstream (`formatOrder`) inherits bug #1 since it calls `calcTotal`.",
+  "ttft_ms": 2011,
+  "ttft_stream_ms": 1312,
+  "time_to_request_ms": 180,
+  "type": "result",
+  "duration_ms": 7930,
+  "uuid": "00f19e2c-1884-4e06-afbe-4ef78094cb26"
+}

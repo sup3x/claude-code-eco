@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5653,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "5cb81afd-a242-483b-b477-71b171a114bf",
+  "total_cost_usd": 0.0371166,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1645,
+    "cache_read_input_tokens": 74182,
+    "output_tokens": 332,
+    "output_tokens_details": {
+      "thinking_tokens": 9
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1645,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 234,
+        "cache_read_input_tokens": 37091,
+        "cache_creation_input_tokens": 1645,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1645
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 332,
+      "cacheReadInputTokens": 74182,
+      "cacheCreationInputTokens": 1645,
+      "webSearchRequests": 0,
+      "costUSD": 0.0371166,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: computes cart totals, applies discount codes, averages item price, and formats a receipt string.\n\nBugs:\n- `calcTotal` (test/orders.js:5): `i <= items.length` is off-by-one — accesses `items[items.length]` (undefined) and throws `TypeError` on `.price`.\n- `averageItemPrice` (test/orders.js:18-20): divides by `items.length` with no guard, so an empty array yields `NaN` (and `calcTotal` would already throw first due to the bug above once `items` is non-empty... actually for empty arrays `calcTotal`'s loop still runs one iteration at `i=0` since `0 <= 0`, causing the same crash).",
+  "ttft_ms": 1672,
+  "ttft_stream_ms": 1106,
+  "time_to_request_ms": 174,
+  "type": "result",
+  "duration_ms": 5845,
+  "uuid": "910aad89-205b-459c-afa0-ba78e987a3b1"
+}

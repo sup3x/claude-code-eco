@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7690,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "e80ee898-d816-456f-be57-24c0f3def147",
+  "total_cost_usd": 0.041392,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 59644,
+    "output_tokens": 462,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 373,
+        "cache_read_input_tokens": 30624,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 462,
+      "cacheReadInputTokens": 59644,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.041392,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order helpers for a shop backend: `calcTotal` sums line items, `applyDiscount` applies a code-based percentage, `averageItemPrice` divides total by item count, `formatOrder` renders lines + discounted total.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads past the end and throws `TypeError` on `undefined.price`. Use `i < items.length`.\n2. `orders.js:20` — division by zero on empty `items`: returns `NaN` (once bug 1 is fixed). Guard with `if (!items.length) return 0`.\n3. `orders.js:13` — prototype keys leak: `applyDiscount(t, \"constructor\")` (or `\"toString\"`) returns a function, not `undefined`, so line 15 yields `NaN`. Use `Object.prototype.hasOwnProperty.call(discounts, code)` or a `Map`.\n4. `orders.js:26` — `formatOrder` on an empty order produces `\"\\nTotal: 0.00\"` with a leading blank line; minor, but worth handling alongside the empty-list guard.",
+  "ttft_ms": 2552,
+  "ttft_stream_ms": 1324,
+  "time_to_request_ms": 172,
+  "type": "result",
+  "duration_ms": 7876,
+  "uuid": "9067fa8a-9cae-4080-ad9f-eccd8da2d502"
+}

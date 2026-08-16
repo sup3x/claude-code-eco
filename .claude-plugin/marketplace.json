@@ -1,15 +1,26 @@
 {
   "name": "claude-eco",
-  "owner": { "name": "Kerim" },
+  "description": "Token-frugality tooling for Claude Code, published with 82 raw benchmark runs including the negative ones.",
+  "owner": {
+    "name": "Kerim",
+    "url": "https://github.com/sup3x"
+  },
   "plugins": [
     {
       "name": "claude-eco",
       "source": "./",
-      "description": "Eco mode for Claude Code: /eco and /eco-max skills. Measured -31% to -73% output tokens on real agentic tasks with critical findings intact (82 raw runs published, negative results included); eco-max also lowers reasoning effort - a lever no other terse-mode tool touches.",
-      "version": "1.1.4",
+      "description": "Eco mode for Claude Code: /eco and /eco-max skills, an Eco output style, /eco audit and /eco report, and opt-in enforcement hooks. Measured -35% to -57% output tokens across four Claude models on one task (n=5 per arm) and up to -73% on long agentic tasks, with both planted bugs found in every run (267 raw runs published, negative results included); eco-max also lowers reasoning effort - a lever no other terse-mode tool touches.",
+      "version": "1.2.0",
       "license": "MIT",
+      "homepage": "https://github.com/sup3x/claude-code-eco#readme",
       "category": "productivity",
-      "tags": ["tokens", "cost", "efficiency", "eco", "effort"]
+      "tags": [
+        "tokens",
+        "cost",
+        "efficiency",
+        "eco",
+        "effort"
+      ]
     }
   ]
 }

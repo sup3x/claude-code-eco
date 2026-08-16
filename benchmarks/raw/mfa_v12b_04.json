@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9977,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "ea6dc4c3-401c-4ca8-aaf1-5413caf13731",
+  "total_cost_usd": 0.116782,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1638,
+    "cache_read_input_tokens": 58732,
+    "output_tokens": 505,
+    "output_tokens_details": {
+      "thinking_tokens": 35
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1638,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 382,
+        "cache_read_input_tokens": 29366,
+        "cache_creation_input_tokens": 1638,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1638
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 505,
+      "cacheReadInputTokens": 58732,
+      "cacheCreationInputTokens": 1638,
+      "webSearchRequests": 0,
+      "costUSD": 0.116782,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Small order-utility module: `calcTotal` sums price×qty, `applyDiscount` applies SAVE10/SAVE20 percentage codes, `averageItemPrice` divides total by item count, and `formatOrder` renders line items plus discounted total.\n\nBugs:\n- `test/orders.js:5` — off-by-one: `i <= items.length` reads past the array; `items[i]` is undefined on the last iteration, so `calcTotal` always throws (TypeError). This breaks `averageItemPrice` and `formatOrder` too.\n- `test/orders.js:6` — missing items with `undefined` price/qty yield `NaN` (silent, once the loop bound is fixed).\n- `test/orders.js:20` — empty `items` gives `0/0 = NaN` instead of a sane value/error.\n- `test/orders.js:12–13` — lookup via plain object: codes like `\"constructor\"` or `\"toString\"` hit inherited properties, returning a function instead of undefined (`pct` truthy → wrong math). Use a `Map` or `Object.hasOwn` check. Also codes are case-sensitive, if that's unintended.",
+  "ttft_ms": 2404,
+  "ttft_stream_ms": 1672,
+  "time_to_request_ms": 299,
+  "type": "result",
+  "duration_ms": 10308,
+  "uuid": "6ee39f66-66df-4912-998b-1de6e314a913"
+}

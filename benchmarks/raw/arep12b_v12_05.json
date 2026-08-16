@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6555,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "0b1c05d9-719a-48a4-91a7-a591afc4757e",
+  "total_cost_usd": 0.0496215,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1794,
+    "cache_read_input_tokens": 113265,
+    "output_tokens": 324,
+    "output_tokens_details": {
+      "thinking_tokens": 90
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1794,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 86,
+        "cache_read_input_tokens": 38575,
+        "cache_creation_input_tokens": 564,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 564
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 324,
+      "cacheReadInputTokens": 113265,
+      "cacheCreationInputTokens": 1794,
+      "webSearchRequests": 0,
+      "costUSD": 0.0496215,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` returns `90`.\n\nNote: unrelated bug spotted — `calcTotal` (line 5) loops with `i <= items.length`, which reads `items[items.length]` (undefined) and will throw.",
+  "ttft_ms": 2291,
+  "ttft_stream_ms": 1022,
+  "time_to_request_ms": 188,
+  "type": "result",
+  "duration_ms": 6799,
+  "uuid": "eb62bcbb-39bd-4bf4-9567-d5dc93303b5c"
+}

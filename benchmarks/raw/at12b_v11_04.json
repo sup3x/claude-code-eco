@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6723,
+  "num_turns": 3,
+  "stop_reason": "end_turn",
+  "session_id": "28985b6f-837b-45c3-bdcc-0751a945386d",
+  "total_cost_usd": 0.0516003,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1881,
+    "cache_read_input_tokens": 111971,
+    "output_tokens": 447,
+    "output_tokens_details": {
+      "thinking_tokens": 92
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1881,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 96,
+        "cache_read_input_tokens": 38257,
+        "cache_creation_input_tokens": 481,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 481
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 6,
+      "outputTokens": 447,
+      "cacheReadInputTokens": 111971,
+      "cacheCreationInputTokens": 1881,
+      "webSearchRequests": 0,
+      "costUSD": 0.0516003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`applyDiscount(100, 'SAVE10')` returns `90` (10% off 100).\n\nNote: unrelated bug spotted — `calcTotal` (test/orders.js:5) loops `i <= items.length`, which reads `items[items.length]` (undefined) and will throw.",
+  "ttft_ms": 2790,
+  "ttft_stream_ms": 1076,
+  "time_to_request_ms": 162,
+  "type": "result",
+  "duration_ms": 6948,
+  "uuid": "9bf96d7f-b79e-4fe8-8662-c979e4a974af"
+}

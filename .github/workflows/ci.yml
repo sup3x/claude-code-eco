@@ -1,0 +1,253 @@
+# Continuous integration for claude-code-eco.
+#
+# Nothing here calls the Claude API or needs a secret: every job is a static
+# check over the checked-out tree. That is deliberate. The project's only asset
+# is that its published numbers are checkable, so CI has to be runnable by
+# anyone who forks the repo, with no key and no spend.
+#
+# The Windows job exists because of a real shipped defect: a single em-dash in a
+# BOM-less .ps1 makes Windows PowerShell 5.1 misparse the entire file, and
+# nothing on Linux notices.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    name: tests and repository hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # No install step and no lockfile on purpose: this package has zero
+      # runtime and zero dev dependencies, so `npm test` needs neither.
+      - name: Assert zero npm dependencies
+        run: |
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const pkg = JSON.parse(readFileSync("package.json", "utf8"));
+            const fields = ["dependencies", "devDependencies", "peerDependencies", "optionalDependencies"];
+            for (const field of fields) {
+              const n = Object.keys(pkg[field] ?? {}).length;
+              if (n > 0) {
+                console.error(`package.json declares ${n} ${field}; this repo ships zero`);
+                process.exit(1);
+              }
+            }
+            console.log(`ok: ${pkg.name}@${pkg.version} declares no dependencies`);
+          '
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Generated skill files are in sync with their sources
+        run: node scripts/build-skills.mjs --check
+
+      - name: Benchmark harness loads and prints its usage
+        run: node benchmarks/bench.mjs help
+
+      # Recomputes every published number from benchmarks/raw and fails if the
+      # prose drifted. No API calls; see the header of the script.
+      - name: Published claims still match the raw runs
+        run: node benchmarks/verify.mjs
+
+      # Provenance: every raw run has a manifest row and vice versa, and the
+      # measured fields in each row still match the file they came from.
+      - name: Benchmark manifest is in sync with benchmarks/raw
+        run: node scripts/build-manifest.mjs --check
+
+      # The README's chart is generated from that manifest, so it cannot drift
+      # into showing a number the data no longer supports.
+      - name: Cross-model chart is in sync with the manifest
+        run: node scripts/build-chart.mjs --check
+
+      - name: Raw runs are BOM-free and parse with plain JSON.parse
+        run: |
+          cat > "$RUNNER_TEMP/check-json.mjs" <<'NODE'
+          // benchmarks/lib/io.mjs strips a UTF-8 BOM on read because the early raw
+          // runs were captured through PowerShell redirection, which prepends one.
+          // That tolerance is for reading history, not a licence to commit new BOMs:
+          // jq, JSON.parse and every consumer outside this repo choke on them, and
+          // "download the raw JSON and check it yourself" is the whole promise.
+          import { readFileSync, readdirSync } from "node:fs";
+          import { join } from "node:path";
+
+          const repo = process.cwd();
+          const rawDir = join(repo, "benchmarks", "raw");
+          const rawFiles = readdirSync(rawDir).filter((f) => f.endsWith(".json")).sort();
+          if (rawFiles.length === 0) {
+            console.error(`${rawDir}: no raw run files found`);
+            process.exit(1);
+          }
+
+          // Hand-maintained JSON that ships to users; a parse error here breaks install.
+          const otherFiles = [
+            join(repo, ".claude-plugin", "plugin.json"),
+            join(repo, ".claude-plugin", "marketplace.json"),
+            join(repo, "benchmarks", "studies.json"),
+            join(repo, "package.json"),
+          ];
+
+          const problems = [];
+          function checkParse(file, label) {
+            const bytes = readFileSync(file);
+            try {
+              JSON.parse(bytes.toString("utf8"));
+            } catch (err) {
+              problems.push(`${label}: ${err.message}`);
+            }
+            return bytes;
+          }
+
+          for (const name of rawFiles) {
+            const bytes = checkParse(join(rawDir, name), `benchmarks/raw/${name}`);
+            if (bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf) {
+              problems.push(`benchmarks/raw/${name}: starts with a UTF-8 BOM`);
+            }
+          }
+          for (const file of otherFiles) checkParse(file, file.slice(repo.length + 1));
+
+          if (problems.length > 0) {
+            console.error(`${problems.length} problem(s):`);
+            for (const p of problems) console.error(`  ${p}`);
+            console.error("");
+            console.error("Strip BOMs in place from the repo root with:");
+            console.error("  node scripts/strip-bom.mjs   (if present)");
+            console.error("or re-save the offending files as UTF-8 without a signature.");
+            process.exit(1);
+          }
+          console.log(`ok: ${rawFiles.length} raw runs BOM-free and parseable, ${otherFiles.length} manifests parseable`);
+          NODE
+          node "$RUNNER_TEMP/check-json.mjs"
+
+      - name: Shell installers are committed executable
+        run: |
+          status=0
+          for f in install.sh benchmarks/run.sh; do
+            mode="$(git ls-files -s -- "$f" | awk '{ print $1 }')"
+            if [ -z "$mode" ]; then
+              echo "FAIL $f: not tracked by git"
+              status=1
+            elif [ "$mode" != "100755" ]; then
+              echo "FAIL $f: committed mode $mode, expected 100755"
+              echo "     fix: git update-index --chmod=+x $f"
+              status=1
+            else
+              echo "ok   $f: 100755"
+            fi
+          done
+          exit "$status"
+
+      # Warnings and above only. Style-level notes are advisory and would tie the
+      # gate to whichever shellcheck version the runner image happens to ship.
+      - name: Shellcheck
+        run: |
+          shellcheck --version
+          count="$(git ls-files '*.sh' | wc -l)"
+          echo "checking $count tracked .sh files"
+          [ "$count" -gt 0 ] || { echo "no .sh files tracked - expected install.sh and benchmarks/run.sh"; exit 1; }
+          git ls-files -z '*.sh' | xargs -0 -r shellcheck --severity=warning
+
+      # .editorconfig sets indent_style = space for these extensions. An editor
+      # can be told to ignore that; CI cannot.
+      - name: No tab-indented lines in code files
+        run: |
+          pattern='\.(mjs|js|json|yml|yaml|sh)$'
+          count="$(git ls-files -- .github scripts benchmarks | grep -cE "$pattern" || true)"
+          echo "checking $count files against indent_style = space"
+          [ "$count" -gt 0 ] || { echo "no matching files found - the path list is wrong"; exit 1; }
+          git ls-files -z -- .github scripts benchmarks \
+            | grep -zE "$pattern" \
+            | xargs -0 -r grep -nP '^ *\t' > "$RUNNER_TEMP/tabs.txt" || true
+          if [ -s "$RUNNER_TEMP/tabs.txt" ]; then
+            echo "tab-indented lines found (.editorconfig sets indent_style = space):"
+            cat "$RUNNER_TEMP/tabs.txt"
+            exit 1
+          fi
+          echo "ok: no tab-indented lines"
+
+  windows:
+    name: PowerShell 5.1 compatibility
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # `shell: powershell` is Windows PowerShell 5.1 on the GitHub runners.
+      # pwsh 7 accepts things 5.1 rejects, which is exactly the bug class this
+      # job exists to catch, so do not "modernise" this to pwsh.
+      - name: Windows PowerShell 5.1 parses every .ps1
+        shell: powershell
+        run: |
+          Write-Host "PowerShell $($PSVersionTable.PSVersion)"
+          $files = @(Get-ChildItem -Path . -Recurse -Filter *.ps1 -File |
+            Where-Object { $_.FullName -notmatch '\\\.git\\' })
+          if ($files.Count -eq 0) { Write-Host "FAIL: no .ps1 files found"; exit 1 }
+          $status = 0
+          foreach ($f in $files) {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            $rel = Resolve-Path -Relative $f.FullName
+            if ($errors.Count -gt 0) {
+              $status = 1
+              Write-Host ("FAIL {0}: {1} parse error(s)" -f $rel, $errors.Count)
+              foreach ($e in $errors) {
+                Write-Host ("     line {0} col {1}: {2}" -f $e.Extent.StartLineNumber, $e.Extent.StartColumnNumber, $e.Message)
+              }
+            } else {
+              Write-Host ("ok   {0}" -f $rel)
+            }
+          }
+          exit $status
+
+      # A BOM-less .ps1 is decoded as the system ANSI codepage by PowerShell 5.1,
+      # so one UTF-8 em-dash arrives as garbage bytes mid-string and the parser
+      # loses the rest of the file - every quote after it is misread. Keeping
+      # .ps1 files pure ASCII removes the failure mode instead of managing it.
+      - name: Every .ps1 is pure ASCII
+        shell: powershell
+        run: |
+          $files = @(Get-ChildItem -Path . -Recurse -Filter *.ps1 -File |
+            Where-Object { $_.FullName -notmatch '\\\.git\\' })
+          if ($files.Count -eq 0) { Write-Host "FAIL: no .ps1 files found"; exit 1 }
+          $status = 0
+          foreach ($f in $files) {
+            $bytes = [System.IO.File]::ReadAllBytes($f.FullName)
+            $rel = Resolve-Path -Relative $f.FullName
+            $line = 1
+            $col = 1
+            $bad = 0
+            $first = ""
+            for ($i = 0; $i -lt $bytes.Length; $i++) {
+              $b = $bytes[$i]
+              if ($b -eq 10) { $line++; $col = 1; continue }
+              if ($b -gt 127) {
+                $bad++
+                if ($bad -eq 1) { $first = "line $line col $col (byte 0x{0:X2})" -f $b }
+              }
+              $col++
+            }
+            if ($bad -gt 0) {
+              $status = 1
+              Write-Host ("FAIL {0}: {1} non-ASCII byte(s), first at {2}" -f $rel, $bad, $first)
+              Write-Host "     use ASCII instead: - for a dash, ' for a curly quote, ... for an ellipsis"
+            } else {
+              Write-Host ("ok   {0}: {1} bytes, all ASCII" -f $rel, $bytes.Length)
+            }
+          }
+          exit $status

@@ -1,0 +1,88 @@
+name: Bug report
+description: Something in this plugin does not work.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a token-count result that disagrees with a published number, use the
+        **Benchmark result** form instead - that needs raw runs, not a repro.
+
+        Security issues do not belong here. See SECURITY.md.
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - /eco skill
+        - /eco-max skill
+        - Eco output style
+        - Hooks (scripts/hooks)
+        - Config audit (scripts/audit.mjs)
+        - Benchmark harness (benchmarks/bench.mjs)
+        - Skill generator (scripts/build-skills.mjs)
+        - Installer (install.sh / install.ps1)
+        - Documentation
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what happened instead. Paste the actual error text, not a paraphrase.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: >-
+        The exact commands or prompts, in order. If it depends on your settings.json
+        or a project CLAUDE.md, include the relevant part.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      description: From `.claude-plugin/plugin.json`, or the commit SHA if you installed from a checkout.
+      placeholder: "1.2.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: >-
+        Output of `claude --version` and `node --version`, plus your OS and shell
+        (PowerShell 5.1, PowerShell 7, Git Bash, zsh, ...). Shell matters here more
+        than usual: several past defects were shell-specific.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Logs, a failing test, or the output of `node scripts/audit.mjs` if the problem looks config-related.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I can reproduce this on the latest release.
+          required: true

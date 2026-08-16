@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7707,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "58bbab82-81da-4dbf-8809-a83f0b88b641",
+  "total_cost_usd": 0.0111758,
+  "usage": {
+    "input_tokens": 17,
+    "cache_creation_input_tokens": 1327,
+    "cache_read_input_tokens": 54498,
+    "output_tokens": 611,
+    "output_tokens_details": {
+      "thinking_tokens": 386
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1327,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 445,
+        "cache_read_input_tokens": 27249,
+        "cache_creation_input_tokens": 1327,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1327
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 17,
+      "outputTokens": 611,
+      "cacheReadInputTokens": 54498,
+      "cacheCreationInputTokens": 1327,
+      "webSearchRequests": 0,
+      "costUSD": 0.0111758,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module overview:** Shop order utilities—calculates totals, applies discount codes, computes average item price, and formats orders for display.\n\n**Bugs:**\n\n1. **Line 5: Off-by-one in calcTotal** — `i <= items.length` accesses `items[items.length]` (undefined), producing `NaN`. Should be `i < items.length`.\n\n2. **Line 20: Division by zero in averageItemPrice** — Returns `Infinity` if items array is empty. Needs guard: `if (!items.length) return 0` (or throw).",
+  "ttft_ms": 2098,
+  "ttft_stream_ms": 1000,
+  "time_to_request_ms": 169,
+  "type": "result",
+  "duration_ms": 7890,
+  "uuid": "8ef62300-c1e7-49bc-b903-ab3d38f9c494"
+}

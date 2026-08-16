@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 7749,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "cf366340-744b-43de-9d33-ba43ae30ca80",
+  "total_cost_usd": 0.029314399999999997,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 72308,
+    "output_tokens": 467,
+    "output_tokens_details": {
+      "thinking_tokens": 12
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 366,
+        "cache_read_input_tokens": 36978,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 467,
+      "cacheReadInputTokens": 72308,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.028709399999999996,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Small order-utility module for a shop backend — computes order totals, applies discount codes, averages item price, and formats an order as printable text.\n\n**Bugs:**\n\n1. **`calcTotal` off-by-one (line 5):** `for (let i = 0; i <= items.length; i++)` runs one iteration too many, so `items[items.length]` is `undefined` and `items[i].price` throws `TypeError: Cannot read properties of undefined`. Should be `i < items.length`.\n2. **`averageItemPrice` divide-by-zero (line 20):** if `items` is empty, `total / items.length` is `0 / 0 = NaN` (not thrown, but silently wrong) — no guard for empty arrays.\n3. **`applyDiscount` unvalidated code (line 13):** not really a bug, but any unrecognized code silently falls through to full price with no feedback — worth confirming that's intended.\n\nThe most serious is #1, since it breaks every call to `calcTotal` (and transitively `applyDiscount`'s callers and `formatOrder`) whenever `items` is non-empty.",
+  "ttft_ms": 1533,
+  "ttft_stream_ms": 961,
+  "time_to_request_ms": 171,
+  "type": "result",
+  "duration_ms": 6935,
+  "uuid": "40559269-1c23-40be-a2e5-bc6ecbbd1dc9"
+}

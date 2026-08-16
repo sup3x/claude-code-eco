@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8552,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "65a9b1fc-623f-4fc7-94e0-ba7206fa2b92",
+  "total_cost_usd": 0.055796,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1650,
+    "cache_read_input_tokens": 55402,
+    "output_tokens": 463,
+    "output_tokens_details": {
+      "thinking_tokens": 47
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1650,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 328,
+        "cache_read_input_tokens": 27701,
+        "cache_creation_input_tokens": 1650,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1650
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 463,
+      "cacheReadInputTokens": 55402,
+      "cacheCreationInputTokens": 1650,
+      "webSearchRequests": 0,
+      "costUSD": 0.055796,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module:** `test/orders.js` — order math for a small shop. `calcTotal` sums price×qty; `applyDiscount` applies SAVE10/SAVE20 percent codes; `averageItemPrice` = total/count; `formatOrder` renders line items + discounted total.\n\n**Bugs:**\n1. `calcTotal:5` — off-by-one: `i <= items.length` reads `items[items.length]` (undefined) → `TypeError` on `.price`. Use `i < items.length`.\n2. `averageItemPrice:20` — divides by `items.length` with no empty-array guard → `NaN` (and crashes anyway via bug 1). Return 0 when empty.\n3. Minor: `formatOrder`/`averageItemPrice` assume `items` non-empty and well-formed; no validation of `price`/`qty` types.\n\nFix for bug 1 (the crashing one):\n\n`orders.js:5` → `for (let i = 0; i < items.length; i++)`",
+  "ttft_ms": 2695,
+  "ttft_stream_ms": 1728,
+  "time_to_request_ms": 455,
+  "type": "result",
+  "duration_ms": 9032,
+  "uuid": "d17c6bd5-e3a5-4e5e-b96b-bcc3a7db4ca1"
+}

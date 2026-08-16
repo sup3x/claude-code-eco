@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 6608,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "68835ccd-c577-4404-9de1-c8e6b9c29532",
+  "total_cost_usd": 0.011090800000000001,
+  "usage": {
+    "input_tokens": 17,
+    "cache_creation_input_tokens": 1327,
+    "cache_read_input_tokens": 54498,
+    "output_tokens": 594,
+    "output_tokens_details": {
+      "thinking_tokens": 350
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1327,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 428,
+        "cache_read_input_tokens": 27249,
+        "cache_creation_input_tokens": 1327,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1327
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 17,
+      "outputTokens": 594,
+      "cacheReadInputTokens": 54498,
+      "cacheCreationInputTokens": 1327,
+      "webSearchRequests": 0,
+      "costUSD": 0.011090800000000001,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module:** Order utility functions—calculates totals, applies discount codes (SAVE10/SAVE20), computes average item price, and formats orders as strings.\n\n**Bugs:**\n\n1. **Line 5 (critical):** `i <= items.length` should be `i < items.length`. The loop accesses `items[items.length]` (undefined), causing `NaN` in totals.\n\n2. **Line 20:** `averageItemPrice` doesn't guard against empty `items` array—returns `NaN` when dividing by 0.\n\nThe first bug breaks `calcTotal` and cascades to `formatOrder` and `averageItemPrice`.",
+  "ttft_ms": 1553,
+  "ttft_stream_ms": 890,
+  "time_to_request_ms": 151,
+  "type": "result",
+  "duration_ms": 6773,
+  "uuid": "75fe01e7-cbe3-4c18-8bfa-2894a106a92e"
+}

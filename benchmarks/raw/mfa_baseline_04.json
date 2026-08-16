@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 12437,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "4fbe573b-72fb-4c0a-96ba-2c29fcdedf21",
+  "total_cost_usd": 0.091795,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 56800,
+    "output_tokens": 687,
+    "output_tokens_details": {
+      "thinking_tokens": 39
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 590,
+        "cache_read_input_tokens": 29206,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-fable-5": {
+      "inputTokens": 4,
+      "outputTokens": 687,
+      "cacheReadInputTokens": 56800,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.09119,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-fable-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The module is a small set of order utilities for a shop backend: `calcTotal` sums price × quantity over line items, `applyDiscount` applies a percentage discount for known codes (SAVE10/SAVE20), `averageItemPrice` divides the total by the item count, and `formatOrder` renders an order as text lines with a discounted, formatted total.\n\nBugs I found:\n\n1. **Off-by-one loop in `calcTotal` (line 5):** the loop condition is `i <= items.length`, so the last iteration reads `items[items.length]`, which is `undefined`, and `undefined.price` throws a `TypeError`. Every call with a non-empty array crashes (and since `formatOrder` and `averageItemPrice` call it, they crash too). It should be `i < items.length`.\n\n2. **Division by zero in `averageItemPrice` (line 20):** for an empty items array it returns `NaN` (`0 / 0`). Whether that's a bug depends on the intended contract, but callers almost certainly don't expect `NaN`; returning 0 or throwing a clear error would be safer.\n\nA smaller robustness note rather than an outright bug: `applyDiscount` looks up codes with `discounts[code]`, so a code like `\"toString\"` would hit an inherited `Object.prototype` property. Here `pct` would be a function, producing `NaN` — using `Object.hasOwn` or a `Map` would harden it. Also, `formatOrder` does math on floating-point prices, which can produce the usual cent-rounding artifacts; using integer cents is the standard fix if this handles real money.\n\nSince you asked for an assessment, I haven't changed the file — happy to apply the fixes if you want.",
+  "ttft_ms": 2922,
+  "ttft_stream_ms": 2216,
+  "time_to_request_ms": 765,
+  "type": "result",
+  "duration_ms": 12280,
+  "uuid": "1d8fd28f-405b-488b-acee-fd08a1ea76ca"
+}

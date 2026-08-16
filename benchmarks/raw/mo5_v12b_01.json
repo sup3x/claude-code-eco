@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8630,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "f0177eaa-805f-43fc-9ea8-e9162f8835f6",
+  "total_cost_usd": 0.112828,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7538,
+    "cache_read_input_tokens": 52106,
+    "output_tokens": 455,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7538,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 366,
+        "cache_read_input_tokens": 29020,
+        "cache_creation_input_tokens": 1604,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1604
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 455,
+      "cacheReadInputTokens": 52106,
+      "cacheCreationInputTokens": 7538,
+      "webSearchRequests": 0,
+      "costUSD": 0.112828,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order helpers for a shop backend: sum line items, apply a fixed discount-code table, average price, and render a text receipt.\n\nBugs:\n1. `orders.js:5` — off-by-one: `i <= items.length` reads `items[items.length]` (undefined) → TypeError on every call. Use `i < items.length`.\n2. `orders.js:20` — `averageItemPrice([])` returns `NaN` (0/0); no empty guard.\n3. `orders.js:20` — averages per *line* not per *unit*: divides the qty-weighted total by line count, so `2x @10` yields 20, not 10. Divide by summed qty (or rename).\n4. `orders.js:13` — prototype leak: `applyDiscount(t, \"constructor\")` (or `toString`) returns a function, then `total - total*fn/100` → `NaN`. Use `Object.hasOwn(discounts, code)` or a `Map`/null-prototype object.\n5. `orders.js:6` — no validation of `price`/`qty`; missing/non-numeric fields silently produce `NaN` totals rather than an error.",
+  "ttft_ms": 2567,
+  "ttft_stream_ms": 1399,
+  "time_to_request_ms": 149,
+  "type": "result",
+  "duration_ms": 8790,
+  "uuid": "72a0d903-57c5-416d-918a-dccae7037072"
+}

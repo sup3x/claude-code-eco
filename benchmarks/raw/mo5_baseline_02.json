@@ -1,0 +1,80 @@
+{
+  "is_error": false,
+  "duration_api_ms": 14528,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "8ff0d28b-7a02-463d-80f3-6c1444a1ddff",
+  "total_cost_usd": 0.049777,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 56104,
+    "output_tokens": 844,
+    "output_tokens_details": {
+      "thinking_tokens": 268
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 747,
+        "cache_read_input_tokens": 28858,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 535,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.000605,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    },
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 844,
+      "cacheReadInputTokens": 56104,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.04917200000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does** — `test/orders.js` is a small CommonJS module of order helpers for a shop backend: `calcTotal` (sum of price × qty), `applyDiscount` (percent off via a code table), `averageItemPrice`, and `formatOrder` (line-item text plus discounted total).\n\n**Bugs**\n\n1. `orders.js:5` — off-by-one loop bound. `i <= items.length` reads one element past the end, so `items[i]` is `undefined` and `.price` throws `TypeError: Cannot read properties of undefined`. Every call with a non-empty array crashes; empty arrays crash too. Should be `i < items.length`.\n\n2. `orders.js:20` — division by zero. `averageItemPrice([])` returns `NaN` (once bug 1 is fixed). Needs an empty guard returning `0` or `null`.\n\n3. `orders.js:13` — unguarded object lookup hits the prototype chain. `applyDiscount(100, \"toString\")` gives `pct` a function, not `undefined`, so the `=== undefined` check passes and the result is `NaN`. Same for `\"constructor\"`, `\"valueOf\"`, etc. Use `Object.prototype.hasOwnProperty.call(discounts, code)`, or build the table with `Object.create(null)` / a `Map`.\n\nBug 1 is the one that breaks everything; 3 is the subtle one, reachable from any user-supplied discount code.",
+  "ttft_ms": 1910,
+  "ttft_stream_ms": 1149,
+  "time_to_request_ms": 155,
+  "type": "result",
+  "duration_ms": 12176,
+  "uuid": "683fde3b-3ef5-406a-ba2d-1b412ab45b36"
+}

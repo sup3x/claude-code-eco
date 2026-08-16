@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5267,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "aac67ae1-0ca4-4de2-95db-f9042d6c867e",
+  "total_cost_usd": 0.0363318,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1660,
+    "cache_read_input_tokens": 73516,
+    "output_tokens": 287,
+    "output_tokens_details": {
+      "thinking_tokens": 24
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1660,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 175,
+        "cache_read_input_tokens": 36758,
+        "cache_creation_input_tokens": 1660,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1660
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 287,
+      "cacheReadInputTokens": 73516,
+      "cacheCreationInputTokens": 1660,
+      "webSearchRequests": 0,
+      "costUSD": 0.0363318,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utility module: `calcTotal` sums item price×qty, `applyDiscount` applies a % code, `averageItemPrice` averages price, `formatOrder` renders a receipt string.\n\nBugs:\n- `calcTotal` (line 5): `i <= items.length` off-by-one → reads `items[items.length]` (undefined), throws `TypeError` on `.price`. Should be `<`.\n- `averageItemPrice`: divides by `items.length` with no empty-array guard → `NaN` for `[]`.",
+  "ttft_ms": 1544,
+  "ttft_stream_ms": 975,
+  "time_to_request_ms": 198,
+  "type": "result",
+  "duration_ms": 5481,
+  "uuid": "9fa6464c-cb68-4783-bc0c-f52a003f1b6f"
+}

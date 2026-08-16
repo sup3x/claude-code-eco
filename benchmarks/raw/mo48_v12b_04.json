@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8765,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "2b8f6196-029a-4c65-8019-ce5094af0a00",
+  "total_cost_usd": 0.053937,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 1617,
+    "cache_read_input_tokens": 56094,
+    "output_tokens": 388,
+    "output_tokens_details": {
+      "thinking_tokens": 14
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1617,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 286,
+        "cache_read_input_tokens": 28047,
+        "cache_creation_input_tokens": 1617,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1617
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 388,
+      "cacheReadInputTokens": 56094,
+      "cacheCreationInputTokens": 1617,
+      "webSearchRequests": 0,
+      "costUSD": 0.053937,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities for a shop backend — `calcTotal` sums item price×qty, `applyDiscount` applies coupon codes, `averageItemPrice`, and `formatOrder` renders an order with discounted total.\n\n**Bugs:**\n1. `calcTotal:5` — `i <= items.length` overruns by one; last iteration reads `items[length]` (undefined) → `TypeError`. Use `i < items.length`.\n2. `averageItemPrice:20` — divides by `items.length` with no empty-array guard → `NaN` (0/0) on empty input.\n3. `formatOrder:23`/`calcTotal` — no guarding of missing `items`/fields; e.g. an order with no `items` throws. Minor vs. #1 but worth a guard.\n\n#1 is the critical one — every `calcTotal` call currently crashes.",
+  "ttft_ms": 2306,
+  "ttft_stream_ms": 1888,
+  "time_to_request_ms": 183,
+  "type": "result",
+  "duration_ms": 8969,
+  "uuid": "c048abb8-7df7-4e6a-9757-3863254c1fd0"
+}

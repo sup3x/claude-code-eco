@@ -1,0 +1,42 @@
+{
+  "review": {
+    "title": "Flagship review task - explain the module and find the bugs",
+    "task": "Read test/orders.js, explain briefly what the module does, and identify any bugs.",
+    "fixture": "orders",
+    "rubric": "orders-review",
+    "arms": ["baseline", "skill"],
+    "n": 5,
+    "maxTurns": 20,
+    "notes": "Two planted bugs (off-by-one crash at line 5, division by zero at line 20) plus one unplanted prototype-chain issue graded as bonus depth."
+  },
+  "trivial": {
+    "title": "Trivial question - does the mode volunteer an out-of-scope warning?",
+    "task": "what does applyDiscount(100, 'SAVE10') return?",
+    "fixture": "orders",
+    "rubric": "orders-trivial",
+    "arms": ["baseline", "skill"],
+    "n": 5,
+    "maxTurns": 20,
+    "notes": "The question never asks for a review; the crash bug sits in an adjacent function. Measures noticing, not reporting."
+  },
+  "reporting": {
+    "title": "Reporting rate with the bug in view - does the quality floor fire?",
+    "task": "Read all of test/orders.js first, then answer only this: what does applyDiscount(100, 'SAVE10') return?",
+    "fixture": "orders",
+    "rubric": "orders-trivial",
+    "arms": ["baseline", "skill"],
+    "n": 5,
+    "maxTurns": 20,
+    "notes": "Forcing the read removes the targeted-reading confound, so this measures the reporting guarantee itself."
+  },
+  "fix": {
+    "title": "Real editing - fix both bugs in the fixture",
+    "task": "Fix the bugs in test/orders.js. Keep the public API unchanged.",
+    "fixture": "orders",
+    "arms": ["baseline", "skill"],
+    "n": 3,
+    "maxTurns": 20,
+    "permissionMode": "acceptEdits",
+    "notes": "Graded by executing the fixed module with node: calcTotal must sum correctly and averageItemPrice([]) must not return NaN. Run benchmarks/verify-fix.mjs against the kept workspaces."
+  }
+}

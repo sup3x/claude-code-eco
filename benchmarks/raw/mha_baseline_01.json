@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 8210,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "31e6ce45-76f7-4254-974b-5cb86f8cdd68",
+  "total_cost_usd": 0.0171347,
+  "usage": {
+    "input_tokens": 18,
+    "cache_creation_input_tokens": 4491,
+    "cache_read_input_tokens": 49247,
+    "output_tokens": 521,
+    "output_tokens_details": {
+      "thinking_tokens": 221
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4491,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 8,
+        "output_tokens": 405,
+        "cache_read_input_tokens": 26230,
+        "cache_creation_input_tokens": 1278,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1278
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 553,
+      "outputTokens": 535,
+      "cacheReadInputTokens": 49247,
+      "cacheCreationInputTokens": 4491,
+      "webSearchRequests": 0,
+      "costUSD": 0.0171347,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**Module purpose:** Simple order utilities for a shop backend that calculate order totals, apply discount codes, compute average item prices, and format orders for display.\n\n**Bugs identified:**\n\n1. **Off-by-one error in `calcTotal()` (line 5):** The loop condition `i <= items.length` should be `i < items.length`. This causes the loop to access `items[items.length]` (undefined) on the final iteration, making `total` NaN since `undefined * anything = NaN`.\n\n2. **Division by zero in `averageItemPrice()` (line 20):** If `items` is empty, this returns `NaN` since `total / 0` is undefined. Should check for empty arrays or handle gracefully.\n\nThe critical bug is #1—any call to `calcTotal()` will fail with NaN, breaking `applyDiscount()` and `formatOrder()` as well.",
+  "ttft_ms": 1972,
+  "ttft_stream_ms": 1232,
+  "time_to_request_ms": 158,
+  "type": "result",
+  "duration_ms": 7381,
+  "uuid": "73e87f4a-beb0-43f2-9175-35b119aa5030"
+}

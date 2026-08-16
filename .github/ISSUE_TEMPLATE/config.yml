@@ -1,0 +1,14 @@
+# Blank issues are disabled on purpose: the two forms exist because reports that
+# skip the model, the effort level or the raw runs cannot be acted on, and asking
+# for them afterwards costs a round trip that usually never comes back.
+blank_issues_enabled: false
+contact_links:
+  - name: Question, idea, or a result you are not sure about
+    url: https://github.com/sup3x/claude-code-eco/discussions
+    about: Anything that is not a reproducible bug or a measured benchmark result.
+  - name: Security issue
+    url: https://github.com/sup3x/claude-code-eco/security/advisories/new
+    about: Report privately. Do not open a public issue for a vulnerability.
+  - name: How to contribute a change or a study
+    url: https://github.com/sup3x/claude-code-eco/blob/main/CONTRIBUTING.md
+    about: Test commands, the benchmark harness, and the pre-registration rule for skill-rule changes.

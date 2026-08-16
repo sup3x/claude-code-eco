@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 9491,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "16020e55-a8a4-458e-bb06-08df14fec116",
+  "total_cost_usd": 0.110873,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7252,
+    "cache_read_input_tokens": 49816,
+    "output_tokens": 537,
+    "output_tokens_details": {
+      "thinking_tokens": 221
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7252,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 386,
+        "cache_read_input_tokens": 27701,
+        "cache_creation_input_tokens": 1666,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1666
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-opus-4-8": {
+      "inputTokens": 4,
+      "outputTokens": 537,
+      "cacheReadInputTokens": 49816,
+      "cacheCreationInputTokens": 7252,
+      "webSearchRequests": 0,
+      "costUSD": 0.110873,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-opus-4-8",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "**What it does:** Order utilities — `calcTotal` (sum price×qty), `applyDiscount` (percent off by code), `averageItemPrice`, `formatOrder` (line items + discounted total).\n\n**Bugs:**\n- `orders.js:5` — off-by-one: `i <= items.length` reads `items[length]` (undefined) → `Cannot read property 'price' of undefined` on every call. Use `i < items.length`.\n- `orders.js:20` — `averageItemPrice([])` divides by 0 → `NaN` (and `calcTotal` crashes first via the bug above). Guard empty input.\n\n`applyDiscount` and `formatOrder` are correct.",
+  "ttft_ms": 2721,
+  "ttft_stream_ms": 1506,
+  "time_to_request_ms": 156,
+  "type": "result",
+  "duration_ms": 9661,
+  "uuid": "5c69942c-428f-4fb5-b023-49073bebd5c5"
+}

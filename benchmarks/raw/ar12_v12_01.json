@@ -1,0 +1,68 @@
+{
+  "is_error": false,
+  "duration_api_ms": 5930,
+  "num_turns": 2,
+  "stop_reason": "end_turn",
+  "session_id": "c6ed522b-0e73-4ec6-897f-6e39b1c7aa02",
+  "total_cost_usd": 0.07239509999999999,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7742,
+    "cache_read_input_tokens": 68137,
+    "output_tokens": 366,
+    "output_tokens_details": {
+      "thinking_tokens": 61
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7742,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 215,
+        "cache_read_input_tokens": 37091,
+        "cache_creation_input_tokens": 1697,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1697
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 366,
+      "cacheReadInputTokens": 68137,
+      "cacheCreationInputTokens": 7742,
+      "webSearchRequests": 0,
+      "costUSD": 0.07239509999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "canonicalModel": "claude-sonnet-5",
+      "provider": "firstParty"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Order utilities module: computes item totals, applies discount codes, averages item price, and formats an order receipt.\n\nBugs:\n- `calcTotal` (`test/orders.js:5`): loop uses `i <= items.length`, causing an out-of-bounds access (`items[items.length]` is `undefined`) → `TypeError` on every call.\n- `averageItemPrice` (`test/orders.js:20`): divides by `items.length` without checking for empty array → returns `NaN` for `[]`.\n- `applyDiscount`: discount codes are case-sensitive and hardcoded with no validation of `pct` range; minor, not a crash risk.",
+  "ttft_ms": 2134,
+  "ttft_stream_ms": 1003,
+  "time_to_request_ms": 178,
+  "type": "result",
+  "duration_ms": 6125,
+  "uuid": "f658258c-18fc-4b0f-99de-0ea4cfa04154"
+}
