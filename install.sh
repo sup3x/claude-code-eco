@@ -92,7 +92,12 @@ trees_match() {
 }
 
 move_to_backup() {
-  local src="$1" name="$2" target="$BACKUP_ROOT/$name-$STAMP" n=1
+  # Separate `local` statements on purpose: a variable assigned in the same
+  # `local` is not reliably readable by the assignments after it (SC2318).
+  local src="$1"
+  local name="$2"
+  local target="$BACKUP_ROOT/$name-$STAMP"
+  local n=1
   # Two runs inside the same second must not nest one backup inside the other.
   while [ -e "$target" ]; do
     target="$BACKUP_ROOT/$name-$STAMP-$n"
