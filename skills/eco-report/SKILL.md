@@ -2,6 +2,7 @@
 name: eco-report
 description: Show where the tokens actually went - per-session output, thinking, input and cache accounting read from this machine's Claude Code transcripts. Use when the user asks what they spent, which sessions were expensive, how their prompt cache is doing, or whether /eco is helping. Works in any language.
 argument-hint: "[--days <n>] [--limit <n>] [--json]"
+allowed-tools: Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/report.mjs" *), Bash(node *report.mjs *)
 ---
 
 # Eco Report - measured token accounting
@@ -27,7 +28,7 @@ Pass the user's arguments straight through:
 
 ## Present it
 
-- Print the script's output verbatim inside a code block. It is a finished report: do not re-format
+- The script's table is already on screen as the command's output. **Do not reprint it** - it is a finished report, and repeating it burns tokens on something the user is already looking at. Do not re-format
   it, re-order it, re-tally it, or drop lines to save space.
 - Then add at most three lines of your own: the biggest cost driver visible in the table and one
   concrete action (for example a session with a high out/turn, or a cache write/read ratio above

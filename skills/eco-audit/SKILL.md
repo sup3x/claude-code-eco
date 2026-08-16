@@ -14,7 +14,7 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" $ARGUMENTS
 ```
 
 Then:
-- Print the script's findings table and settings diff **verbatim**. Do not re-summarise, re-sort, re-word or trim rows - the numbers and the "est" labels are the product.
+- The script's table and settings diff are already on the user's screen as the command's output. **Do not reprint them** - repeating output the user can already see is exactly the waste this plugin exists to remove. Never re-summarise, re-sort or re-word the rows either: the numbers and the "est" labels are the product, and a paraphrase of them is a worse product.
 - Add at most 3 lines of your own: which finding to fix first, and why.
 - Never apply the diff here. Applying it is `/eco setup`, which shows the diff and waits for the user to confirm. Say so and stop.
 - If `${CLAUDE_PLUGIN_ROOT}` did not expand (the path still contains that literal text), this is a personal or project install rather than a plugin: run `audit.mjs` from **this skill's own directory** - the installer stages it there - and if it is missing, `scripts/audit.mjs` in the claude-code-eco checkout.
