@@ -28,9 +28,9 @@ jobs:
     name: tests and repository hygiene
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '24'
 
@@ -185,7 +185,7 @@ jobs:
     name: PowerShell 5.1 compatibility
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # `shell: powershell` is Windows PowerShell 5.1 on the GitHub runners.
       # pwsh 7 accepts things 5.1 rejects, which is exactly the bug class this
