@@ -2,6 +2,14 @@
 
 > **2026-07-02:** repository renamed `claude-code-fable-eco` → **`claude-code-eco`** — the skills work on every effort-based Claude model and Fable 5 leaves subscription plans on July 7; GitHub redirects all old URLs.
 
+## 1.2.1 — 2026-08-16
+
+Two defects found by running the shipped skills instead of only testing them.
+
+- **`/eco-report` declared no `allowed-tools`**, so its Bash call asked for approval on every invocation and was blocked outright in a non-interactive session. It now carries the same scoped permission `/eco-audit` already had.
+- **Both script-backed skills told Claude to reprint the script's output verbatim.** The user is already looking at that output; repeating it spends tokens duplicating what is on screen — the exact waste this plugin exists to remove. They now say the opposite, explicitly.
+- Version bumped rather than amended: an installed plugin is pinned to its version directory, so `plugin update` treats a same-version change as "already latest" and users never receive it. The version is the update gate, and a fix that does not reach anyone is not a fix.
+
 ## 1.2.0 — 2026-08-16
 
 The release where the rules got a measured update, the plugin grew from two skills into seven components, and every published number became a computation that CI re-derives from the raw runs.

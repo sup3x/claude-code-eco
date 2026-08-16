@@ -1,6 +1,6 @@
 {
   "name": "claude-code-eco",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "Token-frugal skills for Claude Code (/eco, /eco-max) and the benchmark harness that measures them.",
   "license": "MIT",

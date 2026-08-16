@@ -2,7 +2,7 @@
   "name": "claude-eco",
   "displayName": "Claude Eco",
   "description": "Eco mode for Claude Code: minimize token consumption with critical findings intact. Ships /eco and /eco-max (frugality rules, with a low reasoning-effort override), an Eco output style, /eco audit and /eco report, opt-in enforcement hooks, and a benchmark harness. Measured -35% to -57% output tokens on the same task across Opus 5, Sonnet 5, Opus 4.8 and Fable 5 (n=5 per arm), up to -73% on long agentic tasks; 267 raw runs published, negative results included.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Kerim"
   },
